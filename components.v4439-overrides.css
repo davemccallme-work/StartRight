@@ -1,0 +1,1461 @@
+/* ===== components.v4439-overrides.css — Project Navigator V44.39 =========================
+   SPRINT-STYLESHEET LAYER (screen-specific UX refinements). Appended LAST by build.js.
+
+   CSS LAYER PRECEDENCE (later overrides earlier):
+     1. components.css                       -> design-system tokens + base components
+     2. components.visual-grammar.css        -> V44.11 structural grammar
+     3. echo-state-accessibility-overrides   -> accessibility + brand semantic-state colors
+     4. components.v4439-overrides.css (THIS) -> screen-specific UX refinements (Sprint 1+2+3 + 44.39.1/.2)
+   Ownership: tokens -> components.css; a11y/contrast -> echo layer; per-screen polish -> HERE.
+   =================================================================================== */
+
+/* ============================ SPRINT 1 ============================ */
+
+/* ---- Q1: ADU anchor no longer looks pre-selected --------------------------------- */
+.opt.anchor{ background:var(--card); border-color:var(--line); }
+.opt.anchor .ico{ background:#f1f5f9; color:var(--pg); }
+.opt.active{ border-color:var(--pg); background:var(--tint); box-shadow:0 0 0 2px var(--tint-b); }
+.opt.active .ico{ background:var(--pg); color:#fff; }
+@media (forced-colors:active){
+  .opt.anchor{border:1px solid CanvasText}
+  .opt.active{outline:2px solid Highlight}
+}
+
+/* ---- Q3: sticky "On this page" nav no longer covers the destination title --------- */
+:root{ --understanding-nav-clearance:96px; }
+#recommended-action,
+.guidance-card,
+[id^="u-"]{
+  scroll-margin-top:calc(var(--app-sticky-header-height, 64px) + var(--understanding-nav-clearance));
+}
+@media (max-width:760px){
+  :root{ --understanding-nav-clearance:84px; }
+}
+
+/* ---- G1 (phase 1): hover/focus reveal for inline glossary terms (ADDITIVE) -------- */
+@media (hover:hover) and (pointer:fine){
+  .term-button{ cursor:help; }
+  .term-button:hover + .term-definition,
+  .term-button:focus-visible + .term-definition{ display:block; }
+}
+.term-button[aria-expanded="true"] + .term-definition{ display:block; }
+@media (forced-colors:active){
+  .term-button{ text-decoration-color:CanvasText; }
+}
+
+/* ============================ SPRINT 2 ============================ */
+
+/* ---- U2-Phase-A: step-2 "calm" re-skin (adopt the Your-next-action grammar) ------- */
+.secondary-guidance .rstack{ gap:14px; }
+.secondary-guidance .guidance-card,
+.secondary-guidance .question-card{
+  border:1px solid var(--line-strong);
+  border-radius:16px;
+  background:var(--card);
+  color:var(--ink);
+  box-shadow:0 2px 8px rgba(15,23,42,.035);
+  overflow:hidden;
+  padding:0;
+}
+.secondary-guidance .guidance-card::before{ content:none!important; display:none!important; }
+.secondary-guidance .guidance-card__state-header{
+  margin:0;
+  padding:13px 18px;
+  border-bottom:1px solid var(--line-soft);
+  background:var(--surface);
+}
+.secondary-guidance .guidance-card__state-header .subhead{
+  color:var(--ink);
+  font-size:.8rem;
+  letter-spacing:.06em;
+}
+.secondary-guidance .guidance-card__state-icon{
+  width:28px;height:28px;
+  align-items:center;justify-content:center;
+  border-radius:9px;
+  background:var(--card);
+  color:var(--pg-dark);
+  box-shadow:inset 0 0 0 1px var(--line);
+}
+.secondary-guidance .guidance-card__state-icon .pn-icon{ width:18px;height:18px; }
+.secondary-guidance .guidance-card__body{ padding:16px 18px; color:var(--ink); }
+.secondary-guidance .guidance-card__body>:first-child{ margin-top:0; }
+.secondary-guidance .guidance-card__body>:last-child{ margin-bottom:0; }
+.secondary-guidance .state-def{ color:var(--muted); margin:0 0 8px; }
+.secondary-guidance .question-card{ padding:0; }
+.secondary-guidance .question-card>.state-def,
+.secondary-guidance .question-card>ul{ padding:16px 18px; margin:0; }
+.secondary-guidance .question-card>.state-def{ padding-bottom:0; }
+
+.secondary-guidance .guidance-card--known .guidance-card__state-header{ background:#f3faf6; }
+.secondary-guidance .guidance-card--interpretation .guidance-card__state-header{ background:#f4f6fc; }
+.secondary-guidance .guidance-card--confirmation .guidance-card__state-header{ background:#fff9ed; }
+.secondary-guidance .guidance-card--possible .guidance-card__state-header{ background:#f1f8fb; }
+.secondary-guidance .guidance-card--delay .guidance-card__state-header{ background:#fff6ef; }
+
+.secondary-guidance .guidance-card--confirmation,
+.secondary-guidance .guidance-card--delay{ position:relative; }
+.secondary-guidance .guidance-card--confirmation::after,
+.secondary-guidance .guidance-card--delay::after{
+  content:"";position:absolute;left:0;top:13px;width:3px;height:30px;border-radius:0 3px 3px 0;
+}
+.secondary-guidance .guidance-card--confirmation::after{ background:var(--confirm-heading); }
+.secondary-guidance .guidance-card--delay::after{ background:var(--delay-heading); }
+
+@media (max-width:760px){
+  .secondary-guidance .guidance-card__state-header{ padding:12px 14px; }
+  .secondary-guidance .guidance-card__body{ padding:14px; }
+}
+@media (forced-colors:active){
+  .secondary-guidance .guidance-card,
+  .secondary-guidance .question-card{ border:1px solid CanvasText; }
+  .secondary-guidance .guidance-card__state-header{ background:Canvas; border-bottom:1px solid CanvasText; }
+  .secondary-guidance .guidance-card__state-icon{ border:1px solid CanvasText; box-shadow:none; }
+  .secondary-guidance .guidance-card--confirmation::after,
+  .secondary-guidance .guidance-card--delay::after{ background:Highlight; }
+}
+
+/* ---- U2-Phase-B: compact, progressive Needs-confirmation rows --------------------- */
+.confirm-row{
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--card);
+  margin-top:10px;
+  overflow:hidden;
+}
+.confirm-row>.confirm-row__summary{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:6px 14px;
+  min-height:56px;
+  padding:12px 14px;
+  cursor:pointer;
+  list-style:none;
+}
+.confirm-row>.confirm-row__summary::-webkit-details-marker{ display:none; }
+.confirm-row__head{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; min-width:0; }
+.confirm-row__label{ font-weight:800; overflow-wrap:anywhere; }
+.confirm-row__who{ color:var(--muted); font-size:.82rem; white-space:normal; text-align:right; }
+.confirm-row>.confirm-row__summary::after{
+  content:"";width:.5rem;height:.5rem;grid-column:2;justify-self:end;
+  border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+  transform:rotate(45deg);transition:transform .3s ease;
+}
+.confirm-row[open]>.confirm-row__summary::after{ transform:rotate(225deg); }
+.confirm-row__body{ padding:0 14px 14px; border-top:1px solid var(--line-soft); }
+.confirm-row__def{ margin-top:12px; }
+.confirm-more{ margin-top:12px; border:1px dashed var(--line-strong); border-radius:12px; background:rgba(255,255,255,.6); }
+.confirm-more>summary{ min-height:48px; padding:12px 14px; color:var(--pg-dark); font-weight:800; }
+.confirm-more>.confirm-row{ margin:0 12px 12px; }
+@media (max-width:520px){
+  .confirm-row>.confirm-row__summary{ grid-template-columns:minmax(0,1fr); }
+  .confirm-row__who{ grid-column:1; text-align:left; }
+  .confirm-row>.confirm-row__summary::after{ grid-column:1; justify-self:start; }
+}
+@media (prefers-reduced-motion:reduce){
+  .confirm-row>.confirm-row__summary::after{ transition:none; }
+}
+@media (forced-colors:active){
+  .confirm-row,.confirm-more{ border:1px solid CanvasText; }
+}
+
+/* ---- G1-Phase-2: glossary-linked inline terms ------------------------------------ */
+.glossary-linked{ display:inline; }
+.glossary-linked .term-button{ font-weight:600; }
+
+/* ============================ SPRINT 3 ============================ */
+
+/* ---- U1: cost/timing UNCERTAINTY visual (explainer, not estimator) ---------------- */
+.cost-uncertainty h3{ margin:20px 0 8px; font-size:1rem; }
+.cost-uncertainty .note{ margin-top:16px; }
+
+.cost-band{
+  display:flex;
+  width:100%;
+  margin:16px 0 10px;
+  border:1px solid var(--line-strong);
+  border-radius:12px;
+  overflow:hidden;
+  min-height:56px;
+}
+.cost-band__seg{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 12px;
+  min-width:0;
+  text-align:center;
+}
+.cost-band__seg--best{   flex:2 1 0;  background:#eef6f1; color:#0b5a30; }
+.cost-band__seg--common{ flex:3 1 0;  background:#eef2fb; color:#22315a; border-inline:1px solid var(--line); }
+.cost-band__seg--higher{ flex:4 1 0;  background:#fbeee6; color:#843810; }
+.cost-band__tier{ font-size:.82rem; font-weight:800; overflow-wrap:anywhere; }
+.cost-band__legend{
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px;
+  margin:0 0 6px; padding:0; list-style:none;
+}
+.cost-band__legend li{ font-size:.82rem; color:var(--muted); min-width:0; overflow-wrap:anywhere; }
+.cost-band__legend strong{ color:var(--ink); }
+.cost-band__avg{ margin-top:12px; }
+@media (max-width:520px){
+  .cost-band{ flex-direction:column; }
+  .cost-band__seg{ border-inline:0; border-bottom:1px solid var(--line); }
+  .cost-band__seg--higher{ border-bottom:0; }
+  .cost-band__legend{ grid-template-columns:minmax(0,1fr); }
+}
+@media (forced-colors:active){
+  .cost-band,.cost-band__seg{ border:1px solid CanvasText; }
+  .cost-band__seg{ background:Canvas; color:CanvasText; }
+}
+
+.cost-driver-list{
+  display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 0; padding:0; list-style:none;
+}
+.cost-driver-chip{
+  display:inline-flex; align-items:center; gap:7px;
+  padding:7px 12px;
+  border:1px solid var(--tint-b);
+  border-radius:999px;
+  background:var(--tint);
+  color:var(--pg-deep);
+  font-size:.82rem; font-weight:700;
+  min-height:40px;
+}
+.cost-driver-chip__icon{ display:inline-flex; flex:none; color:var(--pg-dark); }
+.cost-driver-chip__icon .pn-icon,
+.cost-driver-chip__icon svg{ width:18px; height:18px; }
+.cost-driver-chip__label{ overflow-wrap:anywhere; }
+@media (forced-colors:active){
+  .cost-driver-chip{ border:1px solid CanvasText; background:Canvas; color:CanvasText; }
+}
+
+.cost-quality{
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 12px;
+  margin:8px 0 0; padding:12px 14px;
+  border:1px solid var(--line-strong); border-left-width:4px; border-radius:12px;
+  background:var(--surface);
+}
+.cost-quality__label{ font-weight:800; }
+.cost-quality__why{ color:var(--muted); font-size:.9rem; min-width:0; overflow-wrap:anywhere; }
+.cost-quality--high{ border-left-color:var(--delay-heading); }
+.cost-quality--some{ border-left-color:var(--confirm-heading); }
+.cost-quality--known{ border-left-color:var(--known-heading); }
+@media (forced-colors:active){
+  .cost-quality{ border:1px solid CanvasText; border-left:4px solid Highlight; }
+}
+
+.cost-unknowns{ margin-top:4px; }
+@media (prefers-reduced-motion:reduce){
+  .cost-uncertainty *{ transition:none!important; animation:none!important; }
+}
+
+/* ============================ V44.39.1 SPACING FIXES ============================ */
+
+/* ---- Fix 1: "Questions to ask" bullet spacing needs more breathing room --------- */
+.secondary-guidance .question-card .disc,
+.secondary-guidance .guidance-card__body .disc{
+  margin-top:10px;
+  padding-bottom:6px;
+}
+.secondary-guidance .question-card .disc li,
+.secondary-guidance .guidance-card__body .disc li{
+  margin-top:10px;
+  line-height:1.6;
+  padding-left:4px;
+}
+.secondary-guidance .question-card .disc li:first-child,
+.secondary-guidance .guidance-card__body .disc li:first-child{
+  margin-top:0;
+}
+
+/* ---- Fix 2: separate the metric value from its label ---------------------------- */
+.readiness-activity{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  align-items:flex-start;
+}
+.readiness-activity strong{ line-height:1.3; }
+.readiness-activity span{
+  display:block;
+  margin-top:2px;
+  color:var(--muted);
+  font-size:.82rem;
+  line-height:1.4;
+}
+@media (max-width:760px){ .readiness-activity{ gap:4px; } }
+
+/* ============================ V44.39.2 GLOSSARY FORMATTING ============================
+   The persistent glossary modal (screen-shared.js glossaryModalHtml) emits:
+     <dl class="glossary-list">
+       <div class="glossary-entry">
+         <dt class="glossary-entry__term"> TERM </dt>
+         <dd class="glossary-entry__def"> DEFINITION </dd>
+   These classes previously had no styling, so terms didn't read as headers.
+   Proper Case via text-transform:capitalize is SAFE here: CSS capitalize only uppercases the
+   first letter of each word and never lowercases existing caps, so acronyms already uppercase in
+   GLOSSARY (JADU, SLD, AHJ, ADU) are preserved. */
+.glossary-list{
+  display:grid;
+  gap:10px;
+  margin:14px 0 0;
+  padding:0;
+}
+.glossary-entry{
+  display:grid;
+  grid-template-columns:minmax(9rem,14rem) minmax(0,1fr);
+  gap:6px 18px;
+  align-items:baseline;
+  padding:12px 0;
+  border-top:1px solid var(--line-soft);
+}
+.glossary-entry:first-child{ border-top:0; }
+.glossary-entry__term{
+  margin:0;
+  font-weight:800;
+  font-size:.95rem;
+  line-height:1.35;
+  color:var(--pg-deep);
+  text-transform:capitalize;        /* Proper Case; preserves existing acronym caps */
+  overflow-wrap:anywhere;
+}
+.glossary-entry__def{
+  margin:0;
+  color:var(--ink);
+  font-size:.9rem;
+  line-height:1.5;
+  overflow-wrap:anywhere;
+}
+/* Alphabetical letter dividers not used; keep list scannable and readable on mobile. */
+@media (max-width:560px){
+  .glossary-entry{
+    grid-template-columns:minmax(0,1fr);
+    gap:2px;
+    padding:10px 0;
+  }
+  .glossary-entry__term{ font-size:1rem; }
+}
+@media (forced-colors:active){
+  .glossary-entry{ border-top:1px solid CanvasText; }
+  .glossary-entry__term{ color:CanvasText; }
+}
+
+/* ============================ V44.40 COST TIERS (panel governed cost context) ============================
+   Styles for panelCostTiersHtml() (screen-cost-tiers.js). Tier 1 (PG&E-specific) is visually distinct
+   from Tier 2 (external benchmarks); the Tier-2 boundary note is emphasized. Calm, non-alarming. */
+.cost-tiers h3{ margin:18px 0 8px; font-size:1rem; }
+.cost-tier{ margin-top:16px; padding:14px 16px; border:1px solid var(--line-strong); border-radius:14px; }
+.cost-tier--one{ background:#f4f8fc; border-left:4px solid var(--pg); }
+.cost-tier--two{ background:var(--surface); border-left:4px solid var(--line-strong); }
+.cost-tier__item{ margin-top:10px; }
+.cost-tier__item h4{ margin:0 0 4px; font-size:.95rem; }
+.cost-tier__benchmark-boundary{ margin:8px 0 12px; }
+/* 2026-10-05: consolidated from three separate patch layers that had accumulated on these same
+   selectors over time (an overflow-safety pass and a later box-sizing/word-break pass, both bolted
+   on after this original block instead of being folded into it) into one definition, tightened for
+   less wasted vertical space per card (confirmed live: ~350px tall for what the reformat below
+   shows is only a handful of short facts) — see costBenchmarkCard() in screens/screen-cost-tiers.js
+   for the matching markup change (Scope promoted out of the <dl>, Source/Quality split back into two
+   rows instead of one concatenated run-on sentence). */
+.cost-tier-list{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); align-items:stretch; gap:10px; margin-top:8px; }
+.cost-tier-card{ border:1px solid var(--line); border-radius:12px; background:var(--card); padding:10px 12px; box-sizing:border-box; min-width:0; max-width:100%; }
+.cost-tier-card *{ box-sizing:border-box; min-width:0; max-width:100%; }
+.cost-tier-card__head{ display:grid; grid-template-columns:minmax(0,1fr); align-content:start; gap:3px; }
+.cost-tier-card__head h4{ margin:0; font-size:.92rem; overflow-wrap:break-word; word-break:normal; }
+.cost-tier__figure{ font-weight:800; color:var(--pg-deep); font-size:.92rem; white-space:normal; word-break:normal; overflow-wrap:break-word; }
+.cost-tier__figure--none{ font-weight:600; color:var(--muted); white-space:normal; }
+.cost-tier-card__scope{ margin:6px 0 0; font-size:.86rem; line-height:1.4; color:var(--ink); }
+.cost-tier-card__meta{ margin:8px 0 0; display:grid; gap:5px; }
+.cost-tier-card__meta>div{ display:grid; grid-template-columns:minmax(6.5rem,auto) minmax(0,1fr); gap:3px 10px; }
+.cost-tier-card__meta dt{ margin:0; font-weight:700; font-size:.7rem; letter-spacing:.04em; text-transform:uppercase; color:var(--muted); white-space:normal; }
+.cost-tier-card__meta dd{ margin:0; font-size:.82rem; line-height:1.4; overflow-wrap:break-word; word-break:normal; }
+@media (max-width:520px){
+  .cost-tier-card__meta>div{ grid-template-columns:minmax(0,1fr); gap:2px; }
+}
+@media (forced-colors:active){
+  .cost-tier,.cost-tier-card{ border:1px solid CanvasText; }
+  .cost-tier--one{ border-left:4px solid Highlight; }
+}
+
+/* ============================ V44.40.1 QUESTION-LIST SPACING ============================
+   Applies to the full "Question to ask" card regardless of its parent screen wrapper. */
+.question-card > .state-def{
+  padding:20px 22px 8px;
+}
+.question-card > ul.disc,
+.question-card .guidance-card__body > ul.disc{
+  margin:0;
+  padding:10px 24px 22px 42px;
+}
+.question-card > ul.disc li,
+.question-card .guidance-card__body > ul.disc li{
+  padding-left:6px;
+  line-height:1.65;
+}
+.question-card > ul.disc li + li,
+.question-card .guidance-card__body > ul.disc li + li{
+  margin-top:12px;
+}
+@media (max-width:520px){
+  .question-card > .state-def{ padding:18px 18px 6px; }
+  .question-card > ul.disc,
+  .question-card .guidance-card__body > ul.disc{
+    padding:8px 18px 20px 36px;
+  }
+}
+
+/* ============================ V44.40.2 HIGH-MAGNIFICATION MOBILE ============================
+   Narrow-layout safeguards for mobile users at high browser zoom. These rules preserve normal
+   document flow, reinforce state distinctions structurally, and reduce avoidable horizontal loss. */
+@media (max-width:760px){
+  /* Dynamic container padding: preserve text width at narrow effective viewport sizes. */
+  .cardbox,
+  .guidance-card__body,
+  .secondary-guidance .guidance-card__body,
+  .living-guide,
+  .cost-tier,
+  .cost-tier-card,
+  .decision-impact,
+  .where-fits__side{
+    padding:12px;
+  }
+
+  .secondary-guidance .guidance-card__state-header,
+  .guidance-card__state-header{
+    padding:12px;
+  }
+
+  /* Structural state anchors supplement soft background tinting. */
+  .secondary-guidance .guidance-card,
+  .secondary-guidance .question-card,
+  .preparation-guide__story .guidance-card,
+  .question-card{
+    border-left-width:4px;
+    border-left-style:solid;
+    border-left-color:var(--pg);
+  }
+  .secondary-guidance .guidance-card--known,
+  .preparation-guide__story .guidance-card--known{ border-left-color:var(--known-heading); }
+  .secondary-guidance .guidance-card--interpretation,
+  .preparation-guide__story .guidance-card--interpretation{ border-left-color:var(--pg); }
+  .secondary-guidance .guidance-card--confirmation,
+  .preparation-guide__story .guidance-card--confirmation{ border-left-color:var(--confirm-heading); }
+  .secondary-guidance .guidance-card--possible,
+  .preparation-guide__story .guidance-card--possible{ border-left-color:var(--tint-b); }
+  .secondary-guidance .guidance-card--delay,
+  .preparation-guide__story .guidance-card--delay{ border-left-color:var(--delay-heading); }
+
+  /* Dense matrices become one-card-at-a-time, touch-scrollable rows. */
+  .cost-tier-list,
+  .doc-example-grid,
+  .document-card-grid,
+  .decision-impact-panel .grid,
+  .where-fits__cols{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    overscroll-behavior-inline:contain;
+    scroll-snap-type:x proximity;
+    scroll-padding-inline:12px;
+    padding:2px 2px 12px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .cost-tier-list > *,
+  .doc-example-grid > *,
+  .document-card-grid > *,
+  .decision-impact-panel .grid > *,
+  .where-fits__cols > *{
+    flex:0 0 min(86vw,22rem);
+    min-width:0;
+    scroll-snap-align:start;
+  }
+
+  /* Sticky or fixed action regions return to normal flow on constrained viewports. */
+  .question-actions,
+  .question-deck__actions,
+  .persistent-actions,
+  .understanding-nav,
+  .cardbtns,
+  .navrow,
+  .rail,
+  .summary-rail{
+    position:static!important;
+    inset:auto!important;
+    max-height:none!important;
+  }
+}
+
+@media (max-width:420px){
+  .cardbox,
+  .guidance-card__body,
+  .secondary-guidance .guidance-card__body,
+  .living-guide,
+  .cost-tier,
+  .cost-tier-card,
+  .decision-impact,
+  .where-fits__side{
+    padding:12px;
+  }
+  .cost-tier-list > *,
+  .doc-example-grid > *,
+  .document-card-grid > *,
+  .decision-impact-panel .grid > *,
+  .where-fits__cols > *{
+    flex-basis:calc(100vw - 48px);
+  }
+}
+
+@media (forced-colors:active) and (max-width:760px){
+  .secondary-guidance .guidance-card,
+  .secondary-guidance .question-card,
+  .preparation-guide__story .guidance-card,
+  .question-card{
+    border-left:4px solid Highlight;
+  }
+}
+
+/* ============================ V44.40.3 UNIFIED NARROW-PAGE CONTRACT ============================ */
+/* All primary and nested cards share the same sizing and wrapping model. */
+.secondary-guidance,
+.secondary-guidance .rstack,
+.secondary-guidance .guidance-card,
+.secondary-guidance .question-card,
+.secondary-guidance .meter-service-explainer,
+.secondary-guidance .scenario-document-guidance,
+.secondary-guidance .progressive-guidance,
+.secondary-guidance .confirm-row,
+.secondary-guidance .confirm-more{
+  box-sizing:border-box;
+  width:100%;
+  max-width:100%;
+  min-width:0;
+}
+.secondary-guidance h2,
+.secondary-guidance h3,
+.secondary-guidance h4,
+.secondary-guidance p,
+.secondary-guidance li,
+.secondary-guidance dt,
+.secondary-guidance dd,
+.confirm-row__label,
+.confirm-row__who{
+  min-width:0;
+  white-space:normal;
+  word-break:normal;
+  overflow-wrap:break-word;
+  hyphens:none;
+}
+
+/* Consistent structural accents. Tint remains supportive, never the only state cue. */
+.secondary-guidance .guidance-card,
+.secondary-guidance .question-card,
+.secondary-guidance .meter-service-explainer{
+  border-left:4px solid var(--pg);
+}
+.secondary-guidance .guidance-card--known{border-left-color:var(--known-heading);}
+.secondary-guidance .guidance-card--interpretation{border-left-color:var(--pg);}
+.secondary-guidance .guidance-card--confirmation{border-left-color:var(--confirm-heading);}
+.secondary-guidance .guidance-card--possible,
+.secondary-guidance .scenario-document-guidance{border-left:4px solid var(--tint-b);}
+.secondary-guidance .guidance-card--delay{border-left-color:var(--delay-heading);}
+.secondary-guidance .question-card{border-left-color:var(--pg);}
+
+/* Dotted glossary terms now look and behave like controls on pointer, keyboard, and touch. */
+.term-disclosure{display:inline;}
+.term-button{
+  display:inline-flex;
+  align-items:baseline;
+  gap:4px;
+  max-width:100%;
+  padding:1px 2px;
+  border:0;
+  border-bottom:1px dotted currentColor;
+  background:transparent;
+  color:var(--pg-dark);
+  font:inherit;
+  font-weight:650;
+  line-height:inherit;
+  text-align:left;
+  white-space:normal;
+  cursor:pointer;
+}
+.term-button__label{min-width:0;overflow-wrap:break-word;word-break:normal;}
+/* 2026-10-05: the ONE definition for the (i) info-badge cue used throughout the app (term-button
+   previews, confirm-row "why it matters", glossary terms, etc.) — standardized to a single size so
+   it's a true circle everywhere instead of varying per context (a since-removed duplicate in
+   components.css set 20px; .context-definitions__terms below used to override just flex-basis to
+   20px while width/height stayed 16px here, rendering a squashed 20x16 ellipse, not a circle).
+   display:grid + place-items:center on an equal width/height box is what actually centers the glyph
+   — robust regardless of font metrics/line-height, unlike relying on line-height alone. */
+.term-button__cue{
+  display:inline-grid;
+  place-items:center;
+  flex:0 0 18px;
+  width:18px;
+  height:18px;
+  border:1px solid currentColor;
+  border-radius:50%;
+  font-size:11px;
+  font-weight:800;
+  line-height:1;
+}
+/* Rounded, centered hover/focus highlight — a box around the control (icon alone for a standalone
+   cue, or label+icon together for an inline glossary term), not just an underline swap.
+   !important on background only: .context-definitions__terms .term-button (further below, same
+   specificity — two classes each) sets its own resting background:var(--surface), and being LATER
+   in this same file it otherwise wins that property fight — confirmed live the hover highlight never
+   appeared in that context without this, silently masked by the resting pill style. border-radius
+   deliberately stays NOT !important: that same pill context already has its own, more-rounded
+   999px/10px radius (a more specific selector), which should keep winning and stay a pill through
+   hover rather than be forced down to this rule's plainer 6px. */
+.term-button:hover,.term-button:focus-visible,.term-button.definition-is-open{
+  border-bottom-style:solid;
+  background:var(--tint)!important;
+  border-radius:6px;
+  outline-offset:3px;
+}
+.term-definition:not([hidden]){
+  display:block;
+  margin:8px 0 4px;
+  padding:10px 12px;
+  border-left:3px solid var(--pg);
+  border-radius:0 8px 8px 0;
+  background:var(--surface);
+  color:var(--ink);
+  font-size:.9rem;
+  line-height:1.5;
+}
+
+@media (max-width:760px){
+  /* One shared card inset and vertical rhythm. */
+  .secondary-guidance .rstack{gap:12px;}
+  .secondary-guidance .guidance-card__state-header,
+  .secondary-guidance .question-card .guidance-card__state-header{padding:12px;}
+  .secondary-guidance .guidance-card__body,
+  .secondary-guidance .question-card>.state-def,
+  .secondary-guidance .meter-service-explainer,
+  .secondary-guidance .scenario-document-guidance{padding:12px;}
+
+  /* Confirmation summaries use a single-column flow. No title may collapse letter-by-letter. */
+  .confirm-row>.confirm-row__summary{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 20px;
+    gap:8px 10px;
+    align-items:start;
+    padding:12px;
+  }
+  .confirm-row__head{
+    grid-column:1;
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:6px 8px;
+    min-width:0;
+  }
+  .confirm-row__label{flex:1 1 10rem;min-width:7rem;}
+  .confirm-row__who{grid-column:1;grid-row:2;text-align:left;}
+  .confirm-row>.confirm-row__summary::after{grid-column:2;grid-row:1 / span 2;align-self:center;justify-self:center;}
+  .confirm-row__body{padding:0 12px 12px;}
+
+  /* Actual document-card collections become horizontal, snap-aligned tracks. */
+  .document-guidance-scroll-hint{display:block;margin:10px 0 6px;}
+  .document-guidance-list{
+    display:flex!important;
+    grid-template-columns:none!important;
+    gap:12px;
+    width:100%;
+    max-width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    overscroll-behavior-inline:contain;
+    scroll-snap-type:x mandatory;
+    scroll-padding-inline:2px;
+    padding:2px 18% 12px 2px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .document-guidance-list>.document-guidance-card{
+    flex:0 0 82%;
+    width:82%;
+    min-width:0;
+    max-width:22rem;
+    scroll-snap-align:start;
+    box-sizing:border-box;
+  }
+  .document-guidance-card__head{align-items:flex-start;min-width:0;}
+  .document-guidance-card__head>div{min-width:0;}
+  .document-guidance-card__details>div{grid-template-columns:minmax(0,1fr);gap:2px;}
+
+  /* Bottom disclosures follow one full-width behavior instead of cramped columns. */
+  .progressive-guidance{display:block;margin:0;}
+  .progressive-guidance>.progressive-guidance__summary{
+    box-sizing:border-box;
+    width:100%;
+    min-height:52px;
+    padding:12px 42px 12px 14px;
+    white-space:normal;
+    overflow-wrap:break-word;
+    word-break:normal;
+  }
+  .progressive-guidance__content{width:100%;min-width:0;}
+}
+
+@media (max-width:420px){
+  .document-guidance-list>.document-guidance-card{flex-basis:86%;width:86%;}
+  .confirm-row__label{flex-basis:100%;min-width:0;}
+}
+
+@media (forced-colors:active){
+  .term-button{border-bottom:1px solid ButtonText;color:ButtonText;}
+  .term-button__cue{border:1px solid ButtonText;}
+  .term-definition:not([hidden]){border-left:4px solid Highlight;}
+}
+
+/* ============================ V44.40.4 DENSITY + PERSISTENT LOCAL NAV ============================ */
+.secondary-guidance .guidance-card--possible .scenario-document-guidance,
+.secondary-guidance .scenario-document-guidance{border-left:0!important;padding-left:0;}
+.responsive-known{box-sizing:border-box;width:100%;min-width:0;margin:0;}
+.responsive-known__summary{display:none;list-style:none;}
+.responsive-known__summary::-webkit-details-marker{display:none;}
+.known-tile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+.known-tile{box-sizing:border-box;min-width:0;padding:10px 12px;border:1px solid var(--line-soft);border-radius:10px;background:var(--surface);}
+.known-tile .ebadge{display:block;width:max-content;max-width:100%;margin-bottom:6px;}
+.known-tile__value{display:block;min-width:0;line-height:1.45;overflow-wrap:break-word;word-break:normal;}
+@media (min-width:1024px){#app>.grid.two{grid-template-columns:minmax(0,2fr) minmax(17rem,1fr);gap:28px;align-items:start;}#app>.grid.two>div{max-width:80ch;}#app>.grid.two>.rail{position:sticky;top:24px;max-width:none;}.big{font-size:clamp(1.75rem,2.2vw,2.5rem);}}
+@media (max-width:760px){
+.understanding-nav{position:sticky!important;top:0!important;inset-inline:auto!important;z-index:18;width:100%;max-width:100%;margin:8px 0 12px;background:var(--card);border:1px solid var(--line-strong);box-shadow:0 4px 12px rgba(15,23,42,.10);}
+.understanding-nav__head{padding:8px 12px 4px;}.understanding-nav__list{display:flex;gap:6px;overflow-x:auto;overscroll-behavior-inline:contain;padding:6px 10px 10px;scrollbar-width:thin;}.understanding-nav__list>li{flex:0 0 auto;}.understanding-nav__button{min-height:44px;white-space:nowrap;}
+.responsive-known{border:1px solid var(--line-strong);border-left:4px solid var(--known-heading);border-radius:16px;background:var(--card);overflow:hidden;}.responsive-known__summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:12px 42px 12px 14px;position:relative;cursor:pointer;font-weight:800;}.responsive-known__summary::after{content:"";position:absolute;right:16px;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);}.responsive-known[open]>.responsive-known__summary::after{transform:rotate(225deg);}.responsive-known__count{font-size:.8rem;font-weight:600;color:var(--muted);}.responsive-known__content>.guidance-card{border:0;border-top:1px solid var(--line-soft);border-radius:0;box-shadow:none;}.known-tile-grid{grid-template-columns:minmax(0,1fr);gap:6px;}.known-tile{padding:9px 10px;}}
+@media (forced-colors:active){.responsive-known{border:1px solid CanvasText;border-left:4px solid Highlight;}.known-tile,.understanding-nav{border:1px solid CanvasText;}.understanding-nav{box-shadow:none;}}
+
+/* ============================ V44.40.5 SINGLE ACCENT + GUIDE BROWSING ============================ */
+/* Eliminate legacy short pseudo-bars. The full-height border-left is the only state accent. */
+.secondary-guidance .guidance-card--confirmation::after,
+.secondary-guidance .guidance-card--delay::after,
+.preparation-guide__story .guidance-card::after{
+  content:none!important;
+  display:none!important;
+}
+.secondary-guidance .guidance-card,
+.secondary-guidance .question-card,
+.preparation-guide__story .guidance-card{
+  border-left-width:4px;
+  border-left-style:solid;
+}
+
+/* Preparation-guide local navigation. */
+.summary-section-nav{
+  position:sticky;
+  top:0;
+  z-index:17;
+  display:grid;
+  grid-template-columns:44px minmax(0,1fr) 44px;
+  align-items:center;
+  gap:6px;
+  margin:10px 0 14px;
+  padding:6px;
+  border:1px solid var(--line-strong);
+  border-radius:14px;
+  background:color-mix(in srgb,var(--card) 94%,transparent);
+  box-shadow:0 4px 14px rgba(15,23,42,.10);
+  backdrop-filter:blur(8px);
+}
+.summary-section-nav__track{display:flex;gap:6px;min-width:0;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin;}
+.summary-section-nav__button,.summary-section-nav__step{min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit;font-weight:700;cursor:pointer;}
+.summary-section-nav__button{flex:0 0 auto;padding:8px 12px;white-space:nowrap;}
+.summary-section-nav__step{display:grid;place-items:center;padding:0;}
+.summary-section-nav__button.is-active,.summary-section-nav__button[aria-current="location"]{border-color:var(--pg);background:var(--tint);color:var(--pg-deep);}
+
+/* Proximity snap supports card-by-card browsing without trapping normal scrolling. */
+.preparation-guide__story,
+body:has(.summary-section-nav) #app>.grid.two>div:first-child{
+  scroll-snap-type:y proximity;
+}
+.preparation-guide__story>.guidance-card,
+.preparation-guide__story>.story-block,
+body:has(.summary-section-nav) #app>.grid.two>div:first-child>.cardbox{
+  scroll-snap-align:start;
+  scroll-margin-top:82px;
+}
+
+@media (max-width:760px){
+  .summary-section-nav{border-radius:12px;margin-inline:0;}
+  .preparation-guide__story>.guidance-card,
+  .preparation-guide__story>.story-block,
+  body:has(.summary-section-nav) #app>.grid.two>div:first-child>.cardbox{
+    min-height:min(72vh,42rem);
+    scroll-snap-stop:normal;
+  }
+}
+@media (prefers-reduced-motion:reduce){.summary-section-nav *{scroll-behavior:auto!important;}}
+@media (forced-colors:active){.summary-section-nav,.summary-section-nav__button,.summary-section-nav__step{border:1px solid CanvasText;box-shadow:none;backdrop-filter:none;}.summary-section-nav__button.is-active{outline:2px solid Highlight;}}
+
+/* ============================ V44.40.6 VIEWPORT CARD BROWSER ============================ */
+/* 2026-10-05: this entire block (min-width/max-width/white-space/word-break/line-height for
+   .cost-tier-card__head and .cost-tier-card__meta dd) is now fully superseded by the consolidated
+   rule set near .cost-tier-list above — folded in rather than left as a second patch layer. */
+
+/* Flatten every legacy secondary pseudo-accent. One full-height left rule per card. */
+.secondary-guidance .guidance-card::after,
+.secondary-guidance .guidance-card::before,
+.secondary-guidance .scenario-document-guidance::before,
+.secondary-guidance .scenario-document-guidance::after,
+.preparation-guide__story .guidance-card::before,
+.preparation-guide__story .guidance-card::after{
+  content:none!important;
+  display:none!important;
+}
+
+/* Fixed local guide browser. Fixed positioning avoids sticky failure caused by overflow ancestors. */
+.summary-section-nav{
+  position:fixed!important;
+  top:8px!important;
+  left:50%!important;
+  transform:translateX(-50%);
+  z-index:120;
+  width:min(94vw,980px);
+  box-sizing:border-box;
+  display:block;
+  padding:7px 9px;
+  border:1px solid var(--line-strong);
+  border-radius:14px;
+  background:var(--card);
+  box-shadow:0 6px 20px rgba(15,23,42,.16);
+}
+.summary-section-nav__label{display:block;margin:0 0 5px 46px;color:var(--muted);font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;}
+.summary-section-nav__controls{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:6px;align-items:center;}
+.summary-section-nav-spacer{height:78px;}
+.summary-section-nav__track{display:flex;gap:6px;min-width:0;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:thin;}
+.summary-section-nav__button{scroll-snap-align:center;}
+
+/* Actual viewport is the vertical carousel. Proximity preserves normal reading and long-card access. */
+html:has(.summary-section-nav){scroll-snap-type:y proximity;scroll-padding-top:92px;}
+body:has(.summary-section-nav) .preparation-guide__story>.guidance-card,
+body:has(.summary-section-nav) .preparation-guide__story>.story-block,
+body:has(.summary-section-nav) #app>.grid.two>div:first-child>.cardbox,
+body:has(.summary-section-nav) #app>.grid.two>div:first-child>.living-guide{
+  scroll-snap-align:start;
+  scroll-margin-top:92px;
+}
+
+@media (min-width:1024px){
+  body:has(.summary-section-nav) .preparation-guide__story>.guidance-card,
+  body:has(.summary-section-nav) .preparation-guide__story>.story-block,
+  body:has(.summary-section-nav) #app>.grid.two>div:first-child>.cardbox,
+  body:has(.summary-section-nav) #app>.grid.two>div:first-child>.living-guide{
+    min-height:min(76vh,48rem);
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+  }
+}
+@media (max-width:760px){
+  .summary-section-nav{top:6px!important;width:calc(100vw - 16px);border-radius:12px;}
+  .summary-section-nav__label{margin-left:2px;}
+  .summary-section-nav-spacer{height:82px;}
+  html:has(.summary-section-nav){scroll-padding-top:96px;}
+  body:has(.summary-section-nav) .preparation-guide__story>.guidance-card,
+  body:has(.summary-section-nav) .preparation-guide__story>.story-block,
+  body:has(.summary-section-nav) #app>.grid.two>div:first-child>.cardbox,
+  body:has(.summary-section-nav) #app>.grid.two>div:first-child>.living-guide{
+    min-height:calc(100svh - 112px);
+    scroll-margin-top:96px;
+  }
+}
+@media (prefers-reduced-motion:reduce){html:has(.summary-section-nav){scroll-snap-type:none;}}
+
+/* ============================ V44.40.7 INBOX MASTER-DETAIL CAROUSEL ============================ */
+/* 2026-10-05: this block (align-items/box-sizing/head grid/white-space/meta column-width, a third
+   patch layer on the same cost-tier-card selectors) is now fully superseded by the consolidated rule
+   set near .cost-tier-list, folded in rather than left as yet another layer. */
+
+/* Needs-confirmation rows: one crisp header grid, then aligned body/action groups. */
+.confirm-row{margin-top:8px;}
+.confirm-row>.confirm-row__summary{grid-template-columns:minmax(0,1fr) minmax(11rem,auto) 20px;gap:8px 14px;padding:12px 14px;}
+.confirm-row__head{display:grid;grid-template-columns:auto minmax(8rem,1fr);gap:6px 8px;align-items:center;}
+.confirm-row__head>.tag{grid-column:1 / -1;width:max-content;max-width:100%;}
+.confirm-row__head>.pill{grid-column:1;white-space:nowrap;}
+.confirm-row__label{grid-column:2;min-width:0!important;overflow-wrap:break-word;word-break:normal;}
+.confirm-row__who{grid-column:2;text-align:left;align-self:center;line-height:1.4;}
+.confirm-row>.confirm-row__summary::after{grid-column:3;grid-row:1;align-self:center;}
+.confirm-row__body{display:grid;gap:10px;padding:12px 14px 14px;}
+.confirm-row__body>.cc,.confirm-row__body>.rowact,.confirm-row__body>.planning-note{margin:0;min-width:0;}
+.planning-controls{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;}
+.planning-control{min-height:40px;flex:0 1 auto;}
+.evidence-key{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;}
+.evidence-key .ek{display:inline-flex;align-items:center;gap:5px;min-width:0;}
+
+/* Email-style layout: index on the left, one open card in a stationary reading pane. */
+body:has(.summary-carousel){overflow:hidden;}
+.summary-section-nav.summary-section-nav--inbox{
+  position:fixed!important;
+  top:72px!important;
+  left:max(12px,calc((100vw - min(96vw,1200px))/2))!important;
+  transform:none!important;
+  width:clamp(15rem,24vw,20rem)!important;
+  height:calc(100svh - 88px);
+  display:flex;
+  flex-direction:column;
+  padding:12px;
+  overflow:hidden;
+}
+.summary-section-nav--inbox .summary-section-nav__label{margin:0 0 10px;font-size:.8rem;}
+.summary-section-nav--inbox .summary-section-nav__controls{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;min-height:0;flex:1;}
+.summary-section-nav--inbox .summary-section-nav__track{display:flex;flex-direction:column;align-self:stretch;overflow-y:auto;overflow-x:hidden;padding:2px;scroll-snap-type:y proximity;}
+.summary-section-nav--inbox .summary-section-nav__button{display:grid;grid-template-columns:28px minmax(0,1fr);gap:8px;text-align:left;white-space:normal;min-height:52px;width:100%;padding:9px;scroll-snap-align:start;}
+.summary-section-nav__number{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--surface);font-size:.78rem;}
+.summary-carousel{position:fixed;top:72px;right:max(12px,calc((100vw - min(96vw,1200px))/2));bottom:16px;left:calc(max(12px,calc((100vw - min(96vw,1200px))/2)) + clamp(15rem,24vw,20rem) + 16px);overflow:hidden;max-width:none!important;}
+.summary-carousel>.eyebrow,.summary-carousel>.summary-section-nav-spacer{display:none;}
+.summary-carousel__card{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;margin:0!important;overflow-y:auto;overscroll-behavior:contain;opacity:0;pointer-events:none;transform:translateX(calc(var(--carousel-direction,1) * 105%));transition:transform .32s cubic-bezier(.22,.61,.36,1),opacity .22s ease;background:var(--card);box-shadow:0 8px 28px rgba(15,23,42,.12);}
+.summary-carousel__card.is-carousel-active{opacity:1;pointer-events:auto;transform:translateX(0);z-index:3;}
+.summary-carousel__card.is-carousel-before{transform:translateX(-105%);}
+.summary-carousel__card.is-carousel-after{transform:translateX(105%);}
+.summary-carousel .preparation-guide{display:contents;}
+.summary-carousel .preparation-guide__story{display:contents;}
+.summary-carousel .preparation-guide__head,.summary-carousel .preparation-guide>.note{display:none;}
+
+@media (max-width:760px){
+  .confirm-row>.confirm-row__summary{grid-template-columns:minmax(0,1fr) 20px;}
+  .confirm-row__head{grid-template-columns:minmax(0,1fr);}
+  .confirm-row__head>.tag,.confirm-row__head>.pill,.confirm-row__label{grid-column:1;}
+  .confirm-row__who{grid-column:1;grid-row:2;}
+  .confirm-row>.confirm-row__summary::after{grid-column:2;grid-row:1 / span 2;}
+  .planning-control{flex:1 1 7rem;}
+  body:has(.summary-carousel){overflow:hidden;}
+  .summary-section-nav.summary-section-nav--inbox{top:8px!important;left:8px!important;right:8px!important;width:auto!important;height:112px;padding:8px;}
+  .summary-section-nav--inbox .summary-section-nav__label{margin-bottom:4px;}
+  .summary-section-nav--inbox .summary-section-nav__controls{grid-template-columns:44px minmax(0,1fr) 44px;}
+  .summary-section-nav--inbox .summary-section-nav__track{flex-direction:row;overflow-x:auto;overflow-y:hidden;}
+  .summary-section-nav--inbox .summary-section-nav__button{flex:0 0 12rem;width:12rem;grid-template-columns:26px minmax(0,1fr);min-height:48px;}
+  .summary-carousel{top:128px;left:8px;right:8px;bottom:8px;}
+  .summary-carousel__card{border-radius:14px;}
+}
+@media (prefers-reduced-motion:reduce){.summary-carousel__card{transition:none;}}
+
+/* ============================ V44.40.8 OUTLOOK PREVIEW PANE ============================ */
+@media (max-width:760px){
+  #glossaryBtn{box-sizing:border-box;width:44px;min-width:44px;height:44px;padding:0!important;display:inline-grid!important;place-items:center;overflow:hidden;color:transparent!important;white-space:nowrap;}
+  #glossaryBtn::before{content:"📖";color:var(--pg-dark);font-size:20px;line-height:1;}
+}
+.summary-section-nav__step{display:none!important;}
+.summary-section-nav--inbox .summary-section-nav__controls{display:block!important;min-height:0;flex:1;overflow:hidden;}
+.summary-section-nav--inbox .summary-section-nav__track{width:100%;height:100%;}
+.summary-section-nav--inbox .summary-section-nav__button{border-radius:6px;border-color:transparent;border-bottom-color:var(--line-soft);background:transparent;box-shadow:none;}
+.summary-section-nav--inbox .summary-section-nav__button:hover,.summary-section-nav--inbox .summary-section-nav__button:focus-visible{background:var(--surface);border-color:var(--line);}
+.summary-section-nav--inbox .summary-section-nav__button.is-active{background:var(--tint);border-color:var(--pg);box-shadow:inset 4px 0 0 var(--pg);}
+.summary-carousel{box-sizing:border-box;background:var(--surface);border:1px solid var(--line-strong);border-radius:14px;box-shadow:0 8px 28px rgba(15,23,42,.10);overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain;}
+.summary-carousel__card,.summary-carousel__card.is-carousel-before,.summary-carousel__card.is-carousel-after{display:none!important;position:static!important;inset:auto!important;width:auto!important;height:auto!important;min-height:100%;max-width:none!important;margin:0!important;opacity:1!important;transform:none!important;transition:none!important;pointer-events:none;overflow:visible;box-shadow:none;border-radius:0;}
+.summary-carousel__card.is-carousel-active{display:block!important;pointer-events:auto;min-height:100%;padding:clamp(16px,2.5vw,30px);background:var(--card);animation:summaryPreviewIn .22s ease-out both;}
+@keyframes summaryPreviewIn{from{opacity:.35;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+body:has(.summary-carousel) #app>.grid.two>.rail{display:none!important;}
+body:has(.summary-carousel) #app>.grid.two{display:block!important;max-width:none!important;}
+@media (min-width:761px) and (max-width:1100px){.confirm-row>.confirm-row__summary{grid-template-columns:minmax(0,1fr) 20px}.confirm-row__who{grid-column:1;grid-row:2;text-align:left}.confirm-row>.confirm-row__summary::after{grid-column:2;grid-row:1 / span 2}}
+@media (max-width:760px){
+  .summary-section-nav.summary-section-nav--inbox{height:104px!important;}
+  .summary-section-nav--inbox .summary-section-nav__controls{height:58px;}
+  .summary-section-nav--inbox .summary-section-nav__track{display:flex;flex-direction:row;overflow-x:auto;overflow-y:hidden;}
+  .summary-section-nav--inbox .summary-section-nav__button{flex:0 0 11rem;width:11rem;min-height:52px;}
+  .summary-carousel{top:120px!important;}
+  .summary-carousel__card.is-carousel-active{padding:14px;}
+}
+@media (prefers-reduced-motion:reduce){.summary-carousel__card.is-carousel-active{animation:none;}}
+@media (forced-colors:active){#glossaryBtn::before{color:ButtonText}.summary-section-nav--inbox .summary-section-nav__button.is-active{outline:2px solid Highlight;box-shadow:none}}
+
+/* ============================ V44.40.9 STABLE PREVIEW + RESPONSIVE CHROME ============================ */
+:root{--summary-chrome-top:132px;}
+.summary-section-nav__label{display:none!important;}
+.summary-section-nav.summary-section-nav--inbox{
+  top:var(--summary-chrome-top)!important;
+  height:calc(100svh - var(--summary-chrome-top) - 12px)!important;
+}
+.summary-carousel{
+  top:var(--summary-chrome-top)!important;
+}
+.summary-section-nav__text{min-width:0;overflow-wrap:break-word;word-break:normal;line-height:1.35;}
+.summary-carousel__card .guidance-card__state-header{grid-template-columns:28px minmax(0,1fr);}
+.summary-carousel__card .guidance-card__state-header .subhead{min-width:0;max-width:100%;white-space:normal!important;overflow-wrap:break-word;word-break:normal;line-height:1.35;}
+
+/* Glossary: use the app's SVG stroke icon, never an emoji glyph. */
+#glossaryBtn::before{content:none!important;display:none!important;}
+#glossaryBtn{color:var(--muted)!important;}
+.glossary-button__icon{display:none;align-items:center;justify-content:center;color:var(--pg-dark);}
+.glossary-button__icon .lucide{display:block;}
+.glossary-button__label{display:inline;}
+
+/* Global chrome reflows instead of clipping at squeezed widths. */
+@media (max-width:760px){
+  /* 2026-10-05: this grid was written for .hrow's two original children (.brand, .actions) and
+     never updated when the mega-menu drawer toggle was added as a new FIRST child earlier this
+     project (index.html — the hamburger button, "first child of .hrow, beside the brand icon").
+     With only 2 explicit columns for 3 grid items, the 3rd (.actions — the save-status dot,
+     Glossary, and Help) had nowhere to go in row 1 and wrapped to an implicit second row, splitting
+     the header across two lines even when there was visible empty space at the end of row 1.
+     auto minmax(0,1fr) auto gives each of the three children its own column: the hamburger and
+     actions stay their natural (auto) width, and only the brand name/subtitle — the one column that
+     should actually shrink under pressure — gets the flexible minmax(0,1fr) track. */
+  header.app .hrow{display:grid!important;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:6px 8px;}
+  header.app .brand{min-width:0;}
+  header.app .brand .bt{white-space:normal;overflow-wrap:normal;}
+  header.app .actions{min-width:0;max-width:60vw;justify-content:flex-end;}
+  #glossaryBtn{display:inline-grid!important;width:40px!important;min-width:40px!important;height:40px!important;padding:0!important;place-items:center;color:var(--pg-dark)!important;}
+  .glossary-button__label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;}
+  .glossary-button__icon{display:inline-flex;}
+  .topicbar .stepper{align-items:stretch;}
+  .topicnav{height:auto!important;min-height:44px;max-width:13rem;align-items:flex-start;}
+  .topicnav .lbl{white-space:normal!important;overflow-wrap:break-word;word-break:normal;line-height:1.25;}
+  .topicnav .cue{margin-top:1px;}
+  .summary-section-nav.summary-section-nav--inbox{top:var(--summary-chrome-top)!important;height:96px!important;}
+  .summary-carousel{top:calc(var(--summary-chrome-top) + 104px)!important;}
+}
+@media (max-width:420px){
+  header.app .actions{max-width:56vw;}
+  .topicnav{max-width:10.5rem;padding-inline:9px;}
+}
+@media (forced-colors:active){.glossary-button__icon{color:ButtonText;}}
+
+
+/* ============================ V44.40.10 CONTENT-AWARE PREVIEW GROUPS ============================ */
+.summary-carousel{display:block!important;scroll-padding-top:0;}
+.summary-carousel__card,.summary-carousel__card.is-carousel-before,.summary-carousel__card.is-carousel-after{min-height:0!important;}
+.summary-carousel__card.is-carousel-active{display:block!important;min-height:0!important;margin:0!important;padding:clamp(16px,2.5vw,30px)!important;border-radius:0!important;}
+.summary-carousel__card.is-carousel-active+.summary-carousel__card.is-carousel-active{border-top:12px solid var(--surface)!important;}
+.summary-carousel__card.is-carousel-active:last-of-type{padding-bottom:clamp(24px,4vw,44px)!important;}
+.summary-carousel .preparation-guide__story{gap:0!important;}
+/* Horizontal overflow controls are only exposed when the mobile row actually overflows. */
+.summary-section-nav__scroll{display:none;place-items:center;width:40px;min-width:40px;height:48px;padding:0;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--pg-deep);box-shadow:0 2px 8px rgba(15,23,42,.08);z-index:2;}
+.summary-section-nav__scroll:disabled{opacity:.28;cursor:default;}
+@media(max-width:760px){
+  .summary-section-nav--inbox .summary-section-nav__controls{display:grid!important;grid-template-columns:40px minmax(0,1fr) 40px;gap:6px;align-items:center;overflow:visible!important;}
+  .summary-section-nav--inbox.has-horizontal-overflow .summary-section-nav__scroll{display:grid;}
+  .summary-section-nav--inbox .summary-section-nav__track{display:flex!important;width:auto!important;min-width:0;max-width:100%;height:58px;overflow-x:scroll!important;overflow-y:hidden!important;overscroll-behavior-x:contain;touch-action:pan-x;scroll-behavior:smooth;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:#6b7280 transparent;-webkit-overflow-scrolling:touch;}
+  .summary-section-nav--inbox .summary-section-nav__track::-webkit-scrollbar{height:6px;}
+  .summary-section-nav--inbox .summary-section-nav__track::-webkit-scrollbar-thumb{background:#6b7280;border-radius:999px;}
+  .summary-section-nav--inbox .summary-section-nav__button{scroll-snap-align:center;}
+  .summary-section-nav--inbox.has-horizontal-overflow:not(.is-at-start) .summary-section-nav__controls::before,.summary-section-nav--inbox.has-horizontal-overflow:not(.is-at-end) .summary-section-nav__controls::after{content:"";position:absolute;top:8px;bottom:8px;width:22px;pointer-events:none;z-index:1;}
+  .summary-section-nav--inbox.has-horizontal-overflow:not(.is-at-start) .summary-section-nav__controls::before{left:48px;background:linear-gradient(90deg,var(--card),transparent);}
+  .summary-section-nav--inbox.has-horizontal-overflow:not(.is-at-end) .summary-section-nav__controls::after{right:48px;background:linear-gradient(270deg,var(--card),transparent);}
+  .summary-carousel__card.is-carousel-active{padding:14px!important;}
+  .summary-carousel__card.is-carousel-active+.summary-carousel__card.is-carousel-active{border-top-width:10px!important;}
+}
+@media(forced-colors:active){.summary-section-nav__scroll{border:1px solid CanvasText}.summary-carousel__card.is-carousel-active+.summary-carousel__card.is-carousel-active{border-top:2px solid CanvasText!important;}}
+@media(prefers-reduced-motion:reduce){.summary-section-nav--inbox .summary-section-nav__track{scroll-behavior:auto;}}
+
+/* V44.40.11 QUESTION EMAIL WORKSPACE */
+.question-workspace{display:grid;grid-template-columns:300px minmax(0,1fr);gap:16px}.question-workspace__eyebrow{grid-column:1/-1}.question-nav--inbox{grid-column:1}.question-reading-pane{grid-column:2;min-width:0;max-height:calc(100vh - 150px);overflow:auto;border:1px solid var(--line);border-radius:14px;padding:12px}.question-email-layout>.rail{display:none}.question-reading-pane .question-deck__stack,.question-reading-pane .question-deck__hint{display:none!important}.question-reading-pane .question-deck__card{transform:none!important;box-shadow:none}@media(max-width:760px){.question-workspace{grid-template-columns:1fr}.question-workspace__eyebrow,.question-nav--inbox,.question-reading-pane{grid-column:1}.question-nav--inbox .question-nav__list{display:flex;overflow-x:auto}.question-nav--inbox .question-nav__item{flex:0 0 11rem}.question-reading-pane{max-height:calc(100vh - 250px)}}
+
+/* V44.44 RECOGNITION REVIEW */
+.recognition-review{display:grid;gap:12px;margin-top:16px;padding:18px;border:1px solid var(--line-strong);border-radius:14px;background:var(--card);}
+.recognition-review h2,.recognition-review p{margin:0;}.recognition-review ul{display:grid;gap:8px;margin:0;padding:0;list-style:none;}.recognition-review li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line);}.recognition-review__actions{display:flex;gap:8px;flex-wrap:wrap;}@media(max-width:760px){.recognition-review li{align-items:flex-start;flex-direction:column;}}
+
+/* ============================ V44.41 SHARED READING WORKSPACE - RECONCILED ============================ */
+.question-workspace{display:grid;grid-template-columns:clamp(16rem,24vw,20rem) minmax(0,1fr);gap:16px;width:100%;max-width:none;align-items:start;}
+.question-workspace__eyebrow{grid-column:1/-1;margin:0;}
+.question-nav--inbox{grid-column:1;position:sticky;top:calc(var(--app-sticky-header-height,64px) + 76px);max-height:calc(100svh - var(--app-sticky-header-height,64px) - 96px);overflow:auto;border:1px solid var(--line-strong);border-radius:14px;background:var(--card);box-shadow:var(--shadow-sm);}
+.question-nav__heading{display:grid;gap:3px;padding:14px;border-bottom:1px solid var(--line);}
+.question-nav__heading span{color:var(--muted);font-size:.82rem;line-height:1.4;}
+.question-nav--inbox .question-nav__list{display:grid;gap:2px;padding:8px;border-top:0;}
+.question-reading-pane{grid-column:2;min-width:0;max-height:none;overflow:visible;border:1px solid var(--line-strong);border-radius:14px;padding:clamp(16px,2.5vw,28px);background:var(--card);box-shadow:var(--shadow-sm);}
+.question-reading-pane .question-deck{padding:0;margin-top:20px;perspective:none;}
+.question-reading-pane .question-deck__track{display:block;}
+.question-reading-pane .question-deck__card{padding:0;border:0;border-radius:0;box-shadow:none;transform:none!important;user-select:auto;}
+.summary-carousel__card,.summary-carousel__card.is-carousel-active,.summary-carousel__card.is-carousel-before,.summary-carousel__card.is-carousel-after,body:has(.summary-section-nav) .preparation-guide__story>.guidance-card,body:has(.summary-section-nav) .preparation-guide__story>.story-block,body:has(.summary-section-nav) #app>.grid.two>div:first-child>.cardbox,body:has(.summary-section-nav) #app>.grid.two>div:first-child>.living-guide{min-height:0!important;height:auto!important;}
+.summary-carousel__card.is-carousel-active{display:block!important;overflow:visible!important;}
+@media (max-width:760px){.question-workspace{grid-template-columns:minmax(0,1fr);gap:12px}.question-workspace__eyebrow,.question-nav--inbox,.question-reading-pane{grid-column:1}.question-nav--inbox{position:static;max-height:none;overflow:visible}.question-nav--inbox .question-nav__list{display:flex;gap:6px;overflow-x:auto}.question-nav--inbox .question-nav__item{flex:0 0 11rem}.question-reading-pane{padding:14px}.question-reading-pane .question-deck__controls{position:static;bottom:auto}}
+/* ============================ V44.43 TIMING OWNER EXPERIENCE - RECONCILED ============================ */
+.timing-owner-experience{display:grid;gap:16px;}
+.timing-owner-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+.timing-owner-grid>article{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--surface);}
+.timing-owner-grid h3{margin:0 0 8px;font-size:1rem;}
+.timing-owner-grid ul{margin:0;padding-left:20px;display:grid;gap:6px;}
+.timing-benchmark-list{display:grid;gap:12px;}
+.timing-benchmark-card{border:1px solid var(--line-strong);border-radius:12px;padding:16px;background:var(--card);overflow:hidden;}
+.timing-benchmark-card__disclosure{margin:14px -16px -16px;padding:12px 16px;border-top:1px solid var(--line);background:var(--surface);font-size:.84rem;line-height:1.45;color:var(--muted);}
+@media (max-width:840px){
+  .timing-owner-grid{
+    grid-template-columns:minmax(0,1fr);
+  }
+}
+
+/* ============================ V44.46.2 KEYBOARD HISTORY + RESPONSIVE POLISH ============================ */
+.question-reading-pane .choice-radio,.question-reading-pane .choice-checkbox,.question-reading-pane .choice{box-sizing:border-box;margin:10px 0;padding:14px 16px;border-radius:16px;background:var(--card)}
+.question-reading-pane .choice-radio:hover,.question-reading-pane .choice-checkbox:hover,.question-reading-pane .choice:hover{background:var(--card);border-color:var(--pg);box-shadow:0 0 0 5px var(--surface)}
+@media (max-width:900px){.meter-service-explainer .meter-service-visual{grid-template-columns:minmax(0,1fr)!important;gap:6px!important}.meter-service-explainer .msv__node{grid-template-columns:32px minmax(0,1fr)!important;justify-items:start!important;min-height:56px!important;padding:10px 12px!important;text-align:left!important}.meter-service-explainer .msv__arrow{justify-content:flex-start!important;margin-left:16px!important;transform:rotate(90deg)!important}.meter-service-explainer .msv__arrow .pn-icon{transform:none!important}}
+.readiness-counts span{line-height:1.35}.planning-continuity{border-left:4px solid var(--pg)}
+@media (max-width:760px){.question-reading-pane .choice-radio,.question-reading-pane .choice-checkbox,.question-reading-pane .choice{padding:14px!important;border-radius:14px}.question-reading-pane .choice-radio:hover,.question-reading-pane .choice-checkbox:hover,.question-reading-pane .choice:hover{box-shadow:0 0 0 4px var(--surface)}}
+@media (forced-colors:active){.question-reading-pane .choice-radio:hover,.question-reading-pane .choice-checkbox:hover,.question-reading-pane .choice:hover{outline:2px solid Highlight;box-shadow:none}}
+
+/* ============================ V44.46.4 FINAL STEP-2 RENDER CORRECTIONS ============================ */
+.question-reading-pane .question-deck{box-sizing:border-box;margin:20px 0 0;padding:12px!important;border-radius:18px;background:var(--surface);overflow:hidden;}
+.question-reading-pane .question-deck__track{box-sizing:border-box;width:100%;padding:0!important;}
+.question-reading-pane .question-deck__card{box-sizing:border-box!important;width:100%!important;max-width:100%!important;margin:0!important;padding:clamp(20px,3vw,32px)!important;border:1px solid var(--line-strong)!important;border-radius:16px!important;background:var(--card)!important;box-shadow:0 2px 10px rgba(15,23,42,.05)!important;overflow:hidden!important;}
+.question-reading-pane .question-deck__position{margin:0 0 14px!important;}
+.question-reading-pane .question-deck__card>.big{margin-top:0!important;}
+/* Actual meter-service markup is .msv / .msvNode / .ma. */
+.meter-service-explainer{overflow:hidden!important;}
+.meter-service-explainer .msv{box-sizing:border-box!important;width:100%!important;max-width:100%!important;overflow:hidden!important;}
+.meter-service-explainer .msvNode{box-sizing:border-box!important;min-width:0!important;max-width:100%!important;}
+.meter-service-explainer .ma{box-sizing:border-box!important;position:static!important;inset:auto!important;overflow:hidden!important;}
+@media (max-width:1100px){
+  .meter-service-explainer .msv{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:8px!important;overflow:hidden!important;}
+  .meter-service-explainer .msvNode{display:grid!important;grid-template-columns:40px minmax(0,1fr)!important;align-items:center!important;justify-items:start!important;width:100%!important;min-height:58px!important;padding:12px 14px!important;text-align:left!important;}
+  .meter-service-explainer .ma{display:grid!important;place-items:center!important;width:100%!important;height:24px!important;min-width:0!important;margin:0!important;padding:0!important;transform:none!important;color:transparent!important;line-height:1!important;overflow:hidden!important;}
+  .meter-service-explainer .ma>*{display:none!important;}
+  .meter-service-explainer .ma::before{content:"↓";display:block;color:var(--muted);font-size:20px;font-weight:700;line-height:20px;}
+}
+.consistency-finding{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:10px!important;padding:16px!important;}
+.consistency-finding__labels{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:8px!important;min-width:0;}
+.consistency-finding__state{display:inline-flex;align-items:center;min-height:28px;padding:4px 10px;border:1px solid var(--confirm-heading);border-radius:999px;color:var(--confirm-heading);font-size:.78rem;font-weight:800;white-space:nowrap;}
+.consistency-finding__title{display:block!important;margin:0!important;min-width:0!important;font-size:1rem!important;line-height:1.45!important;overflow-wrap:break-word!important;word-break:normal!important;}
+@media (max-width:760px){.question-reading-pane .question-deck{padding:8px!important}.question-reading-pane .question-deck__card{padding:18px 16px!important}.consistency-finding__labels{align-items:flex-start!important;flex-direction:column!important}.consistency-finding__state{width:max-content;max-width:100%;white-space:normal}}
+
+/* ============================ V44.46.5 CONSOLIDATED WORKSPACE FIX ============================ */
+.question-email-layout{display:block!important;max-width:none!important;}
+.question-email-layout>.rail{display:none!important;}
+.question-workspace{display:grid!important;grid-template-columns:clamp(16rem,22vw,19rem) minmax(36rem,1fr)!important;gap:18px!important;width:100%!important;max-width:1120px!important;margin:0 auto!important;align-items:start!important;}
+.question-workspace__eyebrow{grid-column:1/-1!important;}
+.question-nav--inbox{grid-column:1!important;}
+.question-reading-pane{grid-column:2!important;min-width:0!important;width:100%!important;max-height:none!important;overflow:visible!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;}
+.question-reading-pane>.panel{margin:0 0 14px!important;padding:16px 18px!important;border-radius:14px!important;}
+.question-reading-pane .question-deck{margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;overflow:visible!important;}
+.question-reading-pane .question-deck__track{display:block!important;width:100%!important;padding:0!important;}
+.question-reading-pane .question-deck__card{width:100%!important;max-width:none!important;min-height:0!important;margin:0!important;padding:clamp(20px,2.5vw,28px)!important;border:1px solid var(--line-strong)!important;border-radius:16px!important;background:var(--card)!important;box-shadow:0 4px 16px rgba(15,23,42,.06)!important;overflow:visible!important;}
+.question-reading-pane .question-deck__controls{position:static!important;bottom:auto!important;margin:18px 0 0!important;}
+/* Real rendered meter graphic classes. Switch before horizontal nodes can squeeze. */
+.meter-service-explainer,.meter-service-explainer .meter-service-visual{box-sizing:border-box!important;width:100%!important;max-width:100%!important;overflow:hidden!important;}
+@media (max-width:1180px){
+  .meter-service-explainer .meter-service-visual{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:6px!important;}
+  .meter-service-explainer .msv__node{display:grid!important;grid-template-columns:36px minmax(0,1fr)!important;align-items:center!important;justify-items:start!important;width:100%!important;min-width:0!important;min-height:56px!important;padding:10px 12px!important;text-align:left!important;}
+  .meter-service-explainer .msv__arrow{display:grid!important;place-items:center!important;width:100%!important;height:22px!important;min-width:0!important;margin:0!important;padding:0!important;transform:none!important;overflow:hidden!important;color:transparent!important;}
+  .meter-service-explainer .msv__arrow>*{display:none!important;}
+  .meter-service-explainer .msv__arrow::before{content:"↓";display:block;color:var(--muted);font-size:19px;font-weight:700;line-height:19px;}
+}
+/* Confirmation summaries: tag/state get a dedicated row, then title, then owner. */
+.confirm-row>.confirm-row__summary{display:grid!important;grid-template-columns:minmax(0,1fr) 20px!important;grid-template-areas:"head arrow" "who arrow"!important;gap:8px 12px!important;align-items:start!important;padding:14px!important;}
+.confirm-row__head{grid-area:head!important;display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:7px!important;align-items:start!important;min-width:0!important;}
+.confirm-row__head>.tag{grid-column:1!important;width:max-content!important;max-width:100%!important;}
+.confirm-row__head>.pill{grid-column:1!important;width:max-content!important;max-width:100%!important;white-space:normal!important;}
+.confirm-row__label{grid-column:1!important;display:block!important;min-width:0!important;line-height:1.4!important;overflow-wrap:break-word!important;word-break:normal!important;}
+.confirm-row__who{grid-area:who!important;display:block!important;min-width:0!important;text-align:left!important;line-height:1.4!important;overflow-wrap:break-word!important;word-break:normal!important;}
+.confirm-row>.confirm-row__summary::after{grid-area:arrow!important;align-self:center!important;justify-self:center!important;}
+@media (max-width:820px){.question-workspace{grid-template-columns:minmax(0,1fr)!important;max-width:46rem!important}.question-workspace__eyebrow,.question-nav--inbox,.question-reading-pane{grid-column:1!important}.question-nav--inbox{position:static!important;max-height:none!important}.question-reading-pane>.panel{margin-top:0!important}}
+@media (max-width:760px){.question-reading-pane .question-deck__card{padding:18px 16px!important}.confirm-row__head>.tag,.confirm-row__head>.pill{white-space:normal!important}}
+
+/* ============================ V44.46.7 INTERPRETATION SPACING ============================ */
+.interpretation-card .section-head,.working-interpretation .section-head{padding:14px 18px!important;}
+.interpretation-card .section-body,.working-interpretation .section-body{display:grid!important;gap:16px!important;padding:18px 22px 22px!important;}
+.interpretation-card .section-body>p,.working-interpretation .section-body>p{margin:0!important;line-height:1.55!important;}
+.interpretation-card .interpretation-line,.working-interpretation .interpretation-line{display:flex!important;align-items:center!important;flex-wrap:wrap!important;gap:8px!important;margin:0!important;padding:4px 0!important;}
+.interpretation-card .tag,.working-interpretation .tag{margin:0!important;}
+.interpretation-card .linkbtn,.working-interpretation .linkbtn{margin-left:0!important;}
+@media (max-width:760px){.interpretation-card .section-body,.working-interpretation .section-body{padding:16px!important;gap:14px!important}.interpretation-card .interpretation-line,.working-interpretation .interpretation-line{align-items:flex-start!important;flex-direction:column!important}}
+
+/* ============================ V44.48 OUTSIDE-IN QUESTION ARCHITECTURE ============================ */
+.question-nav__topic{margin:10px 8px 4px;padding:8px 4px 5px;border-bottom:1px solid var(--line-soft);color:var(--pg-dark);font-size:.72rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase;list-style:none}.question-nav__topic:first-child{margin-top:2px}@media(max-width:820px){.question-nav--inbox .question-nav__topic{flex:0 0 100%;margin:6px 0 2px;padding:6px 4px 4px}.question-nav--inbox .question-nav__list{flex-wrap:wrap}}@media(forced-colors:active){.question-nav__topic{border-bottom:1px solid CanvasText;color:CanvasText}}
+
+/* ============================ V44.49 READABILITY + PROGRESSIVE DISCLOSURE ============================ */
+.progressive-guidance{margin:14px 0 0;border:1px solid var(--line-soft);border-radius:14px;background:var(--card);overflow:hidden;}
+.progressive-guidance__summary{display:grid!important;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;min-height:64px;padding:14px 16px!important;color:var(--ink)!important;list-style:none;}
+.progressive-guidance__summary::-webkit-details-marker{display:none}.progressive-guidance__title{font-weight:850}.progressive-guidance__preview{grid-column:1;color:var(--muted);font-size:.84rem;line-height:1.45}.progressive-guidance__action{grid-column:2;grid-row:1 / span 2;align-self:center;color:var(--pg-dark);font-size:.78rem;font-weight:800}.progressive-guidance[open] .progressive-guidance__action{font-size:0}.progressive-guidance[open] .progressive-guidance__action::after{content:"Hide details";font-size:.78rem}.progressive-guidance__content{border-top:1px solid var(--line-soft)}
+.guidance-five{display:grid;gap:14px}.guidance-five__unknown,.guidance-five__who{margin:0;padding:12px 14px;border-left:3px solid var(--pg);background:var(--surface);border-radius:8px}
+/* 2026-10-06: "Who can help?" and the "Organize this topic and add a note" disclosure sat flush
+   against each other (.guidance-five__who only ever got a margin-top, never a margin-bottom). */
+.secondary-detail{margin-top:14px;border:1px solid var(--line-soft);border-radius:12px;background:var(--card)}.secondary-detail>summary{padding:12px 14px}.secondary-detail__body{padding:0 14px 14px;border-top:1px solid var(--line-soft)}
+@media(max-width:760px){.progressive-guidance__summary{grid-template-columns:minmax(0,1fr);}.progressive-guidance__action{grid-column:1;grid-row:auto}.guidance-five__unknown,.guidance-five__who{padding:11px 12px}}
+@media(forced-colors:active){.progressive-guidance,.secondary-detail,.guidance-five__unknown,.guidance-five__who{border:1px solid CanvasText}.guidance-five__unknown,.guidance-five__who{border-left:4px solid Highlight}}
+@media(prefers-reduced-motion:reduce){.progressive-guidance,.progressive-guidance__content,.secondary-detail{animation:none!important;transition:none!important}}
+
+/* ============================ V44.49.1 SUMMARY PROGRESSIVE DISCLOSURE ============================ */
+.summary-progressive{margin-top:16px;border:1px solid var(--line-soft);border-radius:14px;background:var(--card);overflow:hidden}.summary-progressive>summary{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;min-height:62px;padding:13px 15px;list-style:none;color:var(--ink)}.summary-progressive>summary::-webkit-details-marker{display:none}.summary-progressive__title{font-weight:850}.summary-progressive__preview{grid-column:1;color:var(--muted);font-size:.84rem;line-height:1.45}.summary-progressive__action{grid-column:2;grid-row:1 / span 2;align-self:center;color:var(--pg-dark);font-size:.78rem;font-weight:800}.summary-progressive[open] .summary-progressive__action{font-size:0}.summary-progressive[open] .summary-progressive__action::after{content:"Hide details";font-size:.78rem}.summary-progressive__body{padding:16px;border-top:1px solid var(--line-soft)}.living-guide__priority{margin-top:16px}@media(max-width:760px){.summary-progressive>summary{grid-template-columns:minmax(0,1fr)}.summary-progressive__action{grid-column:1;grid-row:auto}.summary-progressive__body{padding:13px}}@media(forced-colors:active){.summary-progressive{border:1px solid CanvasText}.summary-progressive__body{border-top:1px solid CanvasText}}@media(prefers-reduced-motion:reduce){.summary-progressive,.summary-progressive__body{animation:none!important;transition:none!important}}
+
+/* ============================ V44.49.2 SCREEN AUDIT STABILIZATION ============================ */
+.project-choice-first__continue{display:flex;align-items:center;gap:14px;margin-top:18px}.project-choice-first__continue p{margin:0;color:var(--muted);font-size:.86rem}.project-context-help{margin-top:18px;padding:14px 16px;border:1px solid var(--line-soft);border-radius:12px;background:var(--card)}.project-context-help p,.summary-context-help{margin:6px 0 0}
+.term-button,.term-button__label{text-decoration:none!important;border-bottom:0!important}.term-button:hover .term-button__label,.term-button:focus-visible .term-button__label{background:var(--tint);border-radius:4px}.term-button__cue{text-decoration:none!important}
+.question-reading-pane .choice-radio,.question-reading-pane .choice-checkbox,.question-reading-pane .choice{min-height:48px!important;margin:6px 0!important;padding:10px 14px!important}.question-reading-pane .choices,.question-reading-pane .choice-list{gap:6px!important}.question-reading-pane .question-deck__card{padding-bottom:20px!important}
+.consistency-finding,.confirm-row,.guidance-card--confirmation{background:var(--card)!important;border-color:var(--line-strong)!important;box-shadow:none!important}.consistency-finding{border-left:4px solid #9a6a12!important}.consistency-finding__state,.guidance-card--confirmation .pill{background:#fff8e8!important;color:#704c0d!important;border-color:#d8b35b!important}.consistency-finding__labels .tag{border:0!important;background:transparent!important;padding:0!important;color:var(--muted)!important}
+.summary-email-layout,.summary-workspace{align-items:start!important;overflow:visible!important;max-height:none!important}.summary-reading-pane,.summary-carousel,.summary-carousel__card.is-carousel-active{overflow:visible!important;max-height:none!important;height:auto!important}.summary-section-nav--inbox{position:sticky!important;top:calc(var(--app-sticky-header-height,64px) + 74px)!important;max-height:calc(100svh - 170px)!important;overflow:auto!important}.summary-document-footer{position:relative!important;z-index:2;padding-bottom:120px!important}.summary-toolbar,.summary-actions,.output-actions{position:relative!important;z-index:3!important}.pn-launch{z-index:20!important}
+.guidance-card__body,.summary-carousel__card.is-carousel-active{display:grid;gap:18px}.guidance-card__body>.rowact,.guidance-card__body>.leaddl{margin-top:4px!important}
+@media(max-width:820px){.project-choice-first__continue{align-items:flex-start;flex-direction:column}.summary-section-nav--inbox{position:static!important;max-height:none!important;overflow:visible!important}.summary-document-footer{padding-bottom:132px!important}}
+
+/* ============================ V44.49.3 SUMMARY ACCESS + SCALABLE DEFINITIONS ============================ */
+.context-definitions{margin-top:18px;border:1px solid var(--line-soft);border-radius:14px;background:var(--card);overflow:hidden}.context-definitions>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:12px 15px;color:var(--ink);list-style:none}.context-definitions>summary::-webkit-details-marker{display:none}.context-definitions>summary small{color:var(--muted);font-weight:650}.context-definitions__terms{display:flex;flex-wrap:wrap;gap:8px;padding:14px 15px;border-top:1px solid var(--line-soft)}.context-definitions__terms .term-disclosure{display:inline-flex;max-width:100%}.context-definitions__terms .term-button{min-height:40px;padding:7px 10px!important;border:1px solid var(--line)!important;border-radius:999px;background:var(--surface)}.context-definitions__terms .term-definition:not([hidden]){flex-basis:100%;width:100%;margin:3px 0 8px}.context-definitions__all{margin:0 15px 14px}.context-definitions--summary{margin:12px 0 20px}
+body:has(.summary-carousel){overflow:auto!important}.summary-section-nav.summary-section-nav--inbox{position:sticky!important;top:calc(var(--summary-chrome-top,132px) + 8px)!important;left:auto!important;width:auto!important;height:auto!important;max-height:calc(100svh - var(--summary-chrome-top,132px) - 24px)!important;align-self:start!important}.summary-carousel{position:static!important;inset:auto!important;overflow:visible!important;min-height:0!important;border-radius:16px!important}.summary-carousel__card,.summary-carousel__card.is-carousel-active{position:static!important;height:auto!important;min-height:0!important;overflow:visible!important}.summary-carousel__card.is-carousel-active{padding:clamp(24px,3vw,40px)!important}.summary-carousel__card.is-carousel-active>*+*{margin-top:20px}.summary-carousel .preparation-guide{display:block!important}.summary-carousel .preparation-guide__story{display:contents!important}.summary-carousel .preparation-guide__head.summary-persistent-actions{display:flex!important;position:sticky!important;top:var(--summary-chrome-top,132px)!important;z-index:15;margin:-1px -1px 20px;padding:14px 18px!important;border:1px solid var(--line-strong);border-radius:14px;background:rgba(255,255,255,.97);box-shadow:0 6px 18px rgba(15,23,42,.10);backdrop-filter:blur(10px)}.summary-persistent-actions .cardbtns{display:flex!important;gap:8px}.summary-document-footer{display:block!important;padding:24px 0 132px!important}.summary-document-footer .navrow{margin-top:20px!important}.pn-launch{bottom:24px!important}
+@media(min-width:761px){body:has(.summary-carousel) #app>.grid.two{display:grid!important;grid-template-columns:clamp(16rem,24vw,20rem) minmax(0,1fr)!important;gap:16px!important;max-width:1200px!important;margin:0 auto!important}.summary-section-nav--inbox .summary-section-nav__track{max-height:calc(100svh - var(--summary-chrome-top,132px) - 48px)}}
+@media(max-width:760px){.context-definitions__terms{display:grid;grid-template-columns:minmax(0,1fr)}.summary-section-nav.summary-section-nav--inbox{position:static!important;max-height:none!important}.summary-carousel .preparation-guide__head.summary-persistent-actions{position:static!important;align-items:stretch;flex-direction:column}.summary-persistent-actions .cardbtns{display:grid!important;grid-template-columns:minmax(0,1fr)}.summary-persistent-actions .btn{width:100%}.summary-document-footer{padding-bottom:150px!important}}
+@media(forced-colors:active){.context-definitions,.context-definitions__terms .term-button,.summary-carousel .preparation-guide__head.summary-persistent-actions{border:1px solid CanvasText}}
+
+/* ============================ V44.49.5 GUIDANCE PANE OWNERSHIP ============================ */
+body:has(.summary-carousel){overflow:auto!important;}
+body:has(.summary-carousel) #app>.grid.two{display:block!important;width:100%!important;max-width:none!important;margin:0!important;}
+body:has(.summary-carousel) #app>.grid.two>div:first-child{display:grid!important;grid-template-columns:clamp(17rem,23vw,20rem) minmax(0,1fr)!important;gap:18px!important;align-items:start!important;width:min(1220px,calc(100vw - 32px))!important;max-width:none!important;margin:0 auto!important;}
+body:has(.summary-carousel) .summary-section-nav.summary-section-nav--inbox{grid-column:1!important;position:sticky!important;top:calc(var(--summary-chrome-top,132px) + 8px)!important;left:auto!important;right:auto!important;transform:none!important;width:100%!important;height:auto!important;max-height:calc(100svh - var(--summary-chrome-top,132px) - 24px)!important;margin:0!important;overflow:auto!important;}
+body:has(.summary-carousel) .preparation-guide.summary-carousel{grid-column:2!important;display:block!important;position:static!important;inset:auto!important;width:100%!important;min-width:0!important;max-width:none!important;height:auto!important;min-height:0!important;margin:0!important;overflow:visible!important;}
+body:has(.summary-carousel) .preparation-guide.summary-carousel .preparation-guide__head.summary-persistent-actions{display:flex!important;position:sticky!important;top:calc(var(--summary-chrome-top,132px) + 8px)!important;z-index:12!important;}
+body:has(.summary-carousel) .summary-carousel__card.is-carousel-active{display:block!important;position:static!important;inset:auto!important;width:100%!important;height:auto!important;min-height:0!important;padding:clamp(26px,3vw,42px)!important;overflow:visible!important;}
+body:has(.summary-carousel) .summary-carousel__card:not(.is-carousel-active){display:none!important;}
+body:has(.summary-carousel) .summary-document-footer{padding-bottom:150px!important;}
+/* Context definition disclosure: aligned rows with room for long-term growth. */
+.context-definitions>summary{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:8px 14px!important;padding:13px 16px!important;}
+.context-definitions__terms{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr))!important;align-items:start!important;gap:10px!important;padding:16px!important;}
+.context-definitions__terms .term-disclosure{display:block!important;min-width:0!important;}
+.context-definitions__terms .term-button{display:flex!important;align-items:center!important;justify-content:flex-start!important;width:100%!important;min-height:44px!important;padding:9px 12px!important;border-radius:10px!important;text-align:left!important;}
+.context-definitions__terms .term-button__label{flex:1 1 auto!important;}
+/* 2026-10-05: this used to override only flex-basis to 20px while the base .term-button__cue rule's
+   width/height stayed 16px — a 20x16 ellipse, not a circle, since border-radius:50% on a non-square
+   box doesn't draw a round ring. Matches the standardized 18px cue everywhere now instead of
+   diverging in this one context. */
+.context-definitions__terms .term-button__cue{flex:0 0 18px!important;width:18px!important;height:18px!important;align-self:center!important;}
+.context-definitions__terms .term-definition:not([hidden]){display:block!important;width:auto!important;margin:6px 0 0!important;padding:11px 12px!important;}
+.context-definitions__all{display:inline-flex!important;margin:0 16px 16px!important;}
+@media(max-width:820px){body:has(.summary-carousel) #app>.grid.two>div:first-child{grid-template-columns:minmax(0,1fr)!important;width:min(100%,calc(100vw - 20px))!important;}body:has(.summary-carousel) .summary-section-nav.summary-section-nav--inbox,body:has(.summary-carousel) .preparation-guide.summary-carousel{grid-column:1!important;position:static!important;max-height:none!important;}body:has(.summary-carousel) .preparation-guide.summary-carousel .preparation-guide__head.summary-persistent-actions{position:static!important;}.context-definitions__terms{grid-template-columns:minmax(0,1fr)!important;}}
+@media(forced-colors:active){body:has(.summary-carousel) .preparation-guide.summary-carousel{border:1px solid CanvasText!important;}}
+
+/* ============================ V44.49.6 NEXT-USEFUL DEFINITIONS + CONTENT PAGERS ============================ */
+.summary-carousel__card[hidden]{display:none!important}.summary-carousel__card.is-carousel-active[hidden]{display:none!important}
+.term-disclosure--next .term-definition:not([hidden]){display:grid!important;gap:6px!important}.term-disclosure--next .term-definition strong{color:var(--pg-dark);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase}.term-disclosure--next .term-definition span{display:block;line-height:1.5}
+.summary-section-nav__controls,.summary-carousel__controls{display:none!important}.summary-content-pager{display:grid;grid-template-columns:auto minmax(4rem,1fr) auto;align-items:center;gap:12px;margin:26px 0 0;padding:16px 0 0;border-top:1px solid var(--line-soft)}.summary-content-pager>span{text-align:center;color:var(--muted);font-size:.84rem;font-weight:750}.summary-content-pager .btn{min-height:44px}
+@media(max-width:600px){.summary-content-pager{grid-template-columns:1fr 1fr}.summary-content-pager>span{grid-column:1/-1;grid-row:1}.summary-content-pager .btn{width:100%}}
+@media(forced-colors:active){.summary-content-pager{border-top:1px solid CanvasText}}
+
+/* ============================ V44.49.7 CANONICAL DEFINITIONS + STABLE GUIDE ============================ */
+.context-definitions__terms{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))!important;gap:12px!important;align-items:start!important}.helpful-definition{display:grid!important;grid-template-columns:minmax(0,1fr) 44px!important;grid-template-areas:"standing info" "reveal reveal"!important;gap:8px 10px!important;align-items:start!important;padding:14px!important;border:1px solid var(--line)!important;border-radius:12px!important;background:var(--surface)!important}.helpful-definition__standing{grid-area:standing;min-width:0}.helpful-definition__standing h3{margin:0 0 5px!important;color:var(--pg-dark)!important;font-size:1rem!important}.helpful-definition__standing p{margin:0!important;color:var(--ink)!important;font-size:.88rem!important;line-height:1.5!important}.helpful-definition__info{grid-area:info!important;display:grid!important;place-items:center!important;width:44px!important;height:44px!important;min-height:44px!important;padding:0!important;border:1px solid var(--line-strong)!important;border-radius:10px!important;background:var(--card)!important}.helpful-definition__reveal:not([hidden]){grid-area:reveal!important;display:block!important;margin:2px 0 0!important;padding:11px 12px!important;border-left:3px solid var(--pg)!important;border-radius:0 8px 8px 0!important;background:var(--card)!important;font-size:.88rem!important;line-height:1.5!important}.term-disclosure--next{display:none!important}
+body:has(.preparation-guide.summary-carousel){overflow-y:auto!important;overflow-x:hidden!important}.preparation-guide.summary-carousel{grid-column:2!important;display:block!important;position:relative!important;inset:auto!important;width:100%!important;height:auto!important;min-height:28rem!important;overflow:visible!important}.preparation-guide.summary-carousel .preparation-guide__story{display:block!important}.preparation-guide.summary-carousel .summary-carousel__card{display:none!important;position:static!important;width:100%!important;height:auto!important;min-height:0!important;margin:0!important;opacity:1!important;transform:none!important;pointer-events:none!important;overflow:visible!important}.preparation-guide.summary-carousel .summary-carousel__card.is-carousel-active:not([hidden]){display:block!important;pointer-events:auto!important;padding:clamp(24px,3vw,40px)!important}.preparation-guide.summary-carousel .summary-carousel__card[hidden]{display:none!important}.summary-content-pager{position:static!important;width:100%!important;margin:18px 0 0!important;padding:16px clamp(24px,3vw,40px) 22px!important;background:var(--card)!important}.summary-document-footer{display:block!important;position:static!important;padding:24px clamp(24px,3vw,40px) 150px!important}.summary-section-nav--inbox .summary-section-nav__track{display:flex!important;flex-direction:column!important;overflow-y:auto!important;overflow-x:hidden!important}
+@media(max-width:820px){.context-definitions__terms{grid-template-columns:minmax(0,1fr)!important}.preparation-guide.summary-carousel{grid-column:1!important}.summary-content-pager,.summary-document-footer{padding-inline:16px!important}}
+
+/* ============================ V44.49.8 EMAIL READING PANE + PINNED ACTION ============================ */
+.guide-subject{min-width:0}.guide-subject>.eyebrow{margin-bottom:5px}.guide-subject h1{margin:0!important}.guide-subject__project{margin:6px 0 2px;color:var(--ink);font-size:.94rem;font-weight:800}.preparation-guide__head.summary-persistent-actions{align-items:flex-start!important;gap:18px!important}.preparation-guide__head .cardbtns{flex:0 0 auto!important;align-self:flex-start!important}
+.pinned-recommendation{position:relative;margin:0 0 22px;padding:18px;border:1px solid var(--tint-b);border-left:5px solid var(--pg);border-radius:16px;background:var(--card);box-shadow:0 7px 20px rgba(15,23,42,.08)}.pinned-recommendation__label{display:block;margin:0 0 10px;color:var(--pg-dark);font-size:.75rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase}.pinned-recommendation>.guidance-card{margin:0!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important}.pinned-recommendation .guidance-card__state-header{display:none!important}.pinned-recommendation .lede{font-size:clamp(1.08rem,2vw,1.28rem)!important;line-height:1.45!important}.recommendation-details{margin-top:16px;border-top:1px solid var(--line-soft)}.recommendation-details>summary{display:inline-flex;min-height:44px;align-items:center;padding:10px 0;color:var(--pg-dark);font-weight:850}.recommendation-details>div{padding:0 0 4px}
+.summary-section-nav--inbox::before{content:"Your planning guide";display:block;padding:14px 14px 8px;color:var(--muted);font-size:.74rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.summary-section-nav__button{align-items:flex-start!important;text-align:left!important}.summary-section-nav__text{line-height:1.35!important}.summary-content-pager{border-radius:0 0 14px 14px!important}
+@media(max-width:820px){.preparation-guide__head.summary-persistent-actions{align-items:stretch!important}.preparation-guide__head .cardbtns{align-self:stretch!important}.pinned-recommendation{padding:16px}.summary-section-nav--inbox::before{display:none}}
+@media(forced-colors:active){.pinned-recommendation{border:1px solid CanvasText;border-left:5px solid Highlight}.recommendation-details{border-top:1px solid CanvasText}}
+
+/* ============================ V44.49.9 IMMEDIATE CONTINUE + STABLE GUIDE TABS ============================ */
+.guidance-five__meaning{padding:16px 16px 18px!important;margin:0 0 14px!important;border-radius:12px!important;background:var(--surface)!important}.guidance-five__meaning>strong{display:block!important;line-height:1.55!important}.readiness-detail-grid{gap:14px!important;margin-top:14px!important}.readiness-detail-grid>p{padding:16px!important;line-height:1.55!important}.guidance-five__unknown,.guidance-five__who{margin-top:10px!important;padding:14px 16px!important;line-height:1.5!important}
+/* 2026-10-06: "What this means" (an eyebrow-styled span), "Why it might matter"/"What should I do
+   next?" (a plain <strong>, inheriting the surrounding paragraph's larger .86rem body size, not
+   uppercase, default bold weight), and "Who can help?" (a bare inline <strong> with no block/size
+   treatment at all, so its value ran on the same line right after it) were three different label
+   styles on the same card. Standardized all four to the one eyebrow treatment "What this means"
+   already had. "Who can help?" is now block-level too, so its value sits on its own line beneath
+   the label like every other field here instead of running inline after it. */
+.guidance-five__meaning>span,.readiness-detail-grid strong,.guidance-five__who>strong{display:block!important;margin-bottom:8px!important;color:var(--muted)!important;font-size:.75rem!important;font-weight:800!important;text-transform:uppercase!important;letter-spacing:.02em!important}
+body:has(.preparation-guide.summary-carousel) #app{overflow:visible!important}body:has(.preparation-guide.summary-carousel) #app>.grid.two{display:block!important;overflow:visible!important}body:has(.preparation-guide.summary-carousel) #app>.grid.two>div:first-child{display:grid!important;grid-template-columns:minmax(15rem,19rem) minmax(0,1fr)!important;gap:18px!important;align-items:start!important;width:min(1240px,calc(100vw - 32px))!important;margin:0 auto!important;overflow:visible!important}.summary-section-nav--inbox{grid-column:1!important;position:sticky!important;top:140px!important;max-height:calc(100svh - 160px)!important;overflow:auto!important}.preparation-guide.summary-carousel{grid-column:2!important;min-width:0!important;width:100%!important;overflow:visible!important}.preparation-guide.summary-carousel .summary-carousel__card{display:none!important}.preparation-guide.summary-carousel .summary-carousel__card.is-carousel-active:not([hidden]){display:block!important}.preparation-guide.summary-carousel .summary-carousel__card[hidden]{display:none!important}.preparation-guide.summary-carousel .summary-content-pager{display:grid!important}.preparation-guide.summary-carousel .summary-document-footer{display:block!important}.preparation-guide.summary-carousel .preparation-guide__head{display:flex!important}
+@media(max-width:820px){body:has(.preparation-guide.summary-carousel) #app>.grid.two>div:first-child{grid-template-columns:minmax(0,1fr)!important;width:min(100%,calc(100vw - 20px))!important}.summary-section-nav--inbox,.preparation-guide.summary-carousel{grid-column:1!important;position:static!important;max-height:none!important}}
+
+/* ============================ V44.49.10 EXPLICIT PAGE INITIALIZATION ============================ */
+.preparation-guide.summary-carousel .preparation-guide__head.summary-persistent-actions{position:static!important;top:auto!important;margin:0 0 18px!important}.summary-section-nav--inbox{top:140px!important}.summary-content-pager{display:grid!important;visibility:visible!important}.summary-carousel__card[aria-hidden="true"]{display:none!important}.summary-carousel__card[aria-hidden="false"].is-carousel-active{display:block!important}
+
+/* ============================ V44.49.12 PAGE 5 REGION RENDERER ============================ */
+.preparation-guide.guidance-region-mode .preparation-guide__story{display:none!important}.guidance-reading-region{display:block;min-width:0;width:100%;padding:0;scroll-margin-top:150px}.guidance-reading-region>section,.guidance-reading-region>.guidance-card,.guidance-reading-region>.story-block{display:block!important;position:static!important;width:100%!important;height:auto!important;min-height:0!important;margin:0 0 18px!important;padding:clamp(22px,3vw,36px)!important;opacity:1!important;transform:none!important;pointer-events:auto!important;overflow:visible!important}.guidance-reading-region .summary-content-pager{display:grid!important;position:static!important;width:100%!important;margin:8px 0 0!important;padding:18px 0 8px!important}.preparation-guide.guidance-region-mode{display:block!important;position:static!important;height:auto!important;overflow:visible!important}.preparation-guide.guidance-region-mode .preparation-guide__head{position:static!important}.summary-section-nav--inbox{display:block!important;visibility:visible!important}.summary-section-nav--inbox .summary-section-nav__track{display:flex!important;flex-direction:column!important}.summary-section-nav--inbox .summary-section-nav__button{display:grid!important}.summary-document-footer{display:block!important;position:static!important}
+@media(max-width:820px){.guidance-reading-region{scroll-margin-top:90px}.guidance-reading-region>section,.guidance-reading-region>.guidance-card,.guidance-reading-region>.story-block{padding:18px 16px!important}}
+@media(forced-colors:active){.guidance-reading-region>section,.guidance-reading-region>.guidance-card,.guidance-reading-region>.story-block{border:1px solid CanvasText!important}}
+
+/* V44.49.28 DISCLOSURE ACTION ALIGNMENT */
+.progressive-guidance__summary{padding-right:16px!important}.progressive-guidance__action{line-height:1!important}.progressive-guidance__summary::after{top:auto!important;right:auto!important}
+
+/* V44.49.38 DISCLOSURE ARROW RESET */
+.question-help__detail>summary::before{content:none!important;display:none!important}.question-help__detail>summary::-webkit-details-marker{display:none!important}
+
+/* V44.49.39 SIMPLE DISCLOSURE CHEVRON */
+.question-help__detail>summary::before{content:none!important;display:none!important;border:0!important;box-shadow:none!important}.question-help__detail>summary::after{border:0!important;border-left:0!important;border-bottom:0!important;box-shadow:none!important;background:none!important;clip-path:none!important}
+
+/* V44.49.52 ALIGNMENT SYSTEM */
+:root{--pn-page-inset:24px;--pn-page-inset-mobile:16px;--pn-card-radius:18px;--pn-row-radius:14px;--pn-control-radius:12px;--pn-nav-hover:#f3f6fb;--pn-nav-selected:#eef3ff;--pn-nav-border:#405696}
+main#main>.wrap{width:min(calc(100% - (var(--pn-page-inset)*2)),1560px);max-width:1560px}.question-workspace,.understanding-workspace-frame{width:100%;max-width:none}.question-reading-pane,.understanding-reading-pane{min-width:0}
+.question-nav--inbox .question-nav__list{gap:4px;padding:10px}.question-nav__button{position:relative;grid-template-columns:34px minmax(0,1fr) auto;align-items:start;gap:10px;min-height:52px;padding:10px 12px;border:1px solid transparent;border-radius:var(--pn-row-radius);background:transparent;box-shadow:none;transition:background-color .16s ease,border-color .16s ease}.question-nav__button:hover{background:var(--pn-nav-hover);border-color:transparent;transform:none}.question-nav__button[aria-current="step"]{background:var(--pn-nav-selected);border-color:var(--pn-nav-border);box-shadow:inset 4px 0 0 var(--pn-nav-border)}.question-nav__button:focus-visible,.understanding-nav__button:focus-visible{outline:3px solid var(--pg-dark);outline-offset:2px}.question-nav__number,.understanding-nav__number{align-self:start;margin-top:1px}.question-nav__label{overflow-wrap:normal;word-break:normal;line-height:1.3}.question-nav__status{align-self:start;margin-top:4px;text-align:right}
+.understanding-nav__button{position:relative;border-radius:var(--pn-row-radius)!important}.understanding-nav__button:hover{background:var(--pn-nav-hover)!important;border-color:transparent!important;transform:none}.understanding-nav__button[aria-current]{background:var(--pn-nav-selected)!important;border-color:var(--pn-nav-border)!important;box-shadow:inset 4px 0 0 var(--pn-nav-border)!important;color:var(--ink)!important}
+.secondary-guidance .guidance-card,.secondary-guidance .question-card,.preparation-guide__story .guidance-card,.summary-document-section--involvement,.qflag,.guidance-five__unknown,.guidance-five__who{position:relative;border-left-width:1px!important;overflow:hidden}.secondary-guidance .guidance-card::before,.secondary-guidance .question-card::before,.preparation-guide__story .guidance-card::before,.summary-document-section--involvement::before,.qflag::before,.guidance-five__unknown::before,.guidance-five__who::before{content:"";position:absolute;inset-block:10px;inset-inline-start:0;width:5px;border-radius:0 6px 6px 0;background:var(--pg);opacity:.72;pointer-events:none}.guidance-card--known::before{background:var(--known-heading)!important}.guidance-card--confirmation::before{background:var(--confirm-heading)!important}.guidance-card--possible::before{background:var(--possible-heading)!important}.guidance-card--delay::before{background:var(--delay-heading)!important}
+.progressive-guidance__summary,.summary-progressive>summary,.summary-density-disclosure>summary{grid-template-columns:minmax(0,1fr) auto 24px!important;column-gap:10px!important;align-items:center!important}.progressive-guidance__action,.summary-progressive__action,.summary-density-disclosure__action{grid-column:2!important;grid-row:1/span 2!important;justify-self:end!important;margin:0!important;text-align:right!important;white-space:nowrap!important}.progressive-guidance__summary::after,.summary-progressive>summary::after,.summary-density-disclosure>summary::after{display:grid!important;place-items:center!important;grid-column:3!important;grid-row:1/span 2!important;position:static!important;width:24px!important;height:24px!important;margin:0!important}.progressive-guidance__content>.question-card{border:0!important;border-radius:0!important;box-shadow:none!important}
+@media(max-width:820px){:root{--pn-page-inset:var(--pn-page-inset-mobile)}main#main>.wrap{width:calc(100% - (var(--pn-page-inset-mobile)*2))}.question-nav__button{grid-template-columns:30px minmax(0,1fr)}.question-nav__status{grid-column:2;text-align:left;margin-top:0}}@media(forced-colors:active){.question-nav__button:hover,.understanding-nav__button:hover{outline:1px solid CanvasText}.question-nav__button[aria-current="step"],.understanding-nav__button[aria-current]{outline:2px solid Highlight;box-shadow:none!important}}@media(prefers-reduced-motion:reduce){.question-nav__button,.understanding-nav__button{transition:none!important}}
+
+/* V44.49.54 VISUAL TRIM HARDENING
+   Flush semantic accents and compact disclosure chevrons. */
+.guidance-card,
+.question-card,
+.summary-document-section--involvement,
+.qflag,
+.guidance-five__unknown,
+.guidance-five__who{
+  overflow:hidden!important;
+  background-clip:padding-box;
+}
+.secondary-guidance .guidance-card,
+.secondary-guidance .question-card,
+.preparation-guide__story .guidance-card,
+.guidance-reading-region>[data-guidance-mounted="true"] .guidance-card,
+.summary-document-section--involvement,
+.qflag,
+.guidance-five__unknown,
+.guidance-five__who{
+  border-left-width:1px!important;
+  border-left-color:var(--line-soft)!important;
+}
+.secondary-guidance .guidance-card::before,
+.secondary-guidance .question-card::before,
+.preparation-guide__story .guidance-card::before,
+.guidance-reading-region>[data-guidance-mounted="true"] .guidance-card::before,
+.summary-document-section--involvement::before,
+.qflag::before,
+.guidance-five__unknown::before,
+.guidance-five__who::before{
+  inset-block:0!important;
+  inset-inline-start:0!important;
+  width:5px!important;
+  height:auto!important;
+  border-radius:0!important;
+  transform:none!important;
+  box-shadow:none!important;
+}
+
+/* Replace oversized/generated drawer arrows with one compact CSS chevron. */
+.progressive-guidance__summary::after,
+.summary-progressive>summary::after,
+.summary-density-disclosure>summary::after{
+  content:""!important;
+  display:block!important;
+  box-sizing:border-box!important;
+  width:9px!important;
+  height:9px!important;
+  min-width:9px!important;
+  min-height:9px!important;
+  margin:0 5px 4px 0!important;
+  padding:0!important;
+  border:0!important;
+  border-right:2px solid currentColor!important;
+  border-bottom:2px solid currentColor!important;
+  border-radius:0!important;
+  background:none!important;
+  font-size:0!important;
+  line-height:0!important;
+  transform:rotate(45deg)!important;
+  transform-origin:center!important;
+}
+.progressive-guidance[open]>.progressive-guidance__summary::after,
+.summary-progressive[open]>summary::after,
+.summary-density-disclosure[open]>summary::after{
+  transform:rotate(-135deg)!important;
+  margin-block:4px 0!important;
+}
+@media(forced-colors:active){
+  .progressive-guidance__summary::after,
+  .summary-progressive>summary::after,
+  .summary-density-disclosure>summary::after{border-color:ButtonText!important}
+}
+
+/* V44.49.55 UNIVERSAL ACCENT CLIP
+   Override the base .guidance-card::before rule for every semantic card. */
+.guidance-card{
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate;
+}
+.guidance-card::before{
+  content:""!important;
+  position:absolute!important;
+  inset-block:1px!important;
+  inset-inline-start:1px!important;
+  inset-inline-end:auto!important;
+  width:4px!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:currentColor!important;
+  box-shadow:none!important;
+  opacity:.55!important;
+  transform:none!important;
+  clip-path:inset(0)!important;
+  pointer-events:none!important;
+  z-index:0!important;
+}
+.guidance-card>*{position:relative;z-index:1}
+.guidance-card--known::before{background:var(--known-heading)!important}
+.guidance-card--confirmation::before{background:var(--confirm-heading)!important}
+.guidance-card--possible::before{background:var(--possible-heading)!important}
+.guidance-card--delay::before{background:var(--delay-heading)!important}
+
+/* V44.49.56 INSET ACCENT GEOMETRY
+   Match the good selected-navigation treatment: the accent is painted inside the
+   card, follows the card radius, and cannot protrude beyond the outer border. */
+.guidance-card::before,
+.secondary-guidance .guidance-card::before,
+.preparation-guide__story .guidance-card::before,
+.guidance-reading-region>[data-guidance-mounted="true"] .guidance-card::before{
+  content:none!important;
+  display:none!important;
+}
+.guidance-card{
+  --guidance-accent:var(--pg);
+  overflow:hidden!important;
+  background-clip:padding-box!important;
+  box-shadow:inset 5px 0 0 var(--guidance-accent)!important;
+}
+.guidance-card--known{--guidance-accent:var(--known-heading)}
+.guidance-card--confirmation{--guidance-accent:var(--confirm-heading)}
+.guidance-card--possible{--guidance-accent:var(--possible-heading)}
+.guidance-card--delay{--guidance-accent:var(--delay-heading)}
+
+/* Keep the accent visually separate from the content without adding another edge. */
+.guidance-card__state-header,
+.guidance-card__body{padding-inline-start:max(var(--pn-card-pad,24px),24px)!important}
+
+@media(forced-colors:active){
+  .guidance-card{box-shadow:inset 5px 0 0 Highlight!important}
+}
+
+/* V44.49.57 BORDER-OWNED ACCENT
+   The semantic accent is the card's left border, not an inset shadow or a
+   separate pseudo-element. This places the curve on the outline itself. */
+.guidance-card,
+.guidance-card--known,
+.guidance-card--confirmation,
+.guidance-card--possible,
+.guidance-card--delay{
+  box-shadow:none!important;
+  border-left-style:solid!important;
+  border-left-width:6px!important;
+  border-left-color:var(--guidance-accent,var(--pg))!important;
+  overflow:hidden!important;
+  background-clip:padding-box!important;
+}
+.guidance-card--known{--guidance-accent:var(--known-heading)}
+.guidance-card--confirmation{--guidance-accent:var(--confirm-heading)}
+.guidance-card--possible{--guidance-accent:var(--possible-heading)}
+.guidance-card--delay{--guidance-accent:var(--delay-heading)}
+
+/* Remove every legacy accent painter and wrapper bar that can continue below
+   the semantic card. */
+.guidance-card::before,
+.guidance-card::after,
+.guidance-card--known::before,
+.guidance-card--confirmation::before,
+.guidance-card--possible::before,
+.guidance-card--delay::before,
+.secondary-guidance .guidance-card::before,
+.preparation-guide__story .guidance-card::before,
+.guidance-reading-region>[data-guidance-mounted="true"] .guidance-card::before,
+.summary-document-section--involvement::before,
+.summary-document-section--involvement::after,
+.qflag::before,
+.qflag::after,
+.guidance-five__unknown::before,
+.guidance-five__unknown::after,
+.guidance-five__who::before,
+.guidance-five__who::after{
+  content:none!important;
+  display:none!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.summary-document-section--involvement,
+.qflag,
+.guidance-five__unknown,
+.guidance-five__who{
+  border-left-width:1px!important;
+  border-left-color:var(--line-soft)!important;
+  box-shadow:none!important;
+}
+
+@media(forced-colors:active){
+  .guidance-card{border-left-color:Highlight!important;box-shadow:none!important}
+}

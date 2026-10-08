@@ -1,0 +1,346 @@
+/* V45.7.3: Scenario Guide dialog (initial release) */
+.ff-recommended[data-v457-primary-action="true"]{order:-1}
+.scenario-guide-dialog{border:0;border-radius:18px;padding:0;max-width:640px;width:92vw}
+.scenario-guide-dialog:focus-visible{outline:3px solid var(--focus,#fdb81e)}
+@media(max-width:640px){.scenario-guide-dialog{width:100vw;height:100dvh;max-height:100dvh;border-radius:0}}
+@media(forced-colors:active){.scenario-guide-dialog{border:2px solid CanvasText}}
+
+/* V45.7.4.1: complete guide two-pane layout */
+.scenario-guide-workspace{display:grid;grid-template-columns:minmax(230px,300px) minmax(0,1fr);gap:0}
+.scenario-guide-workspace>.ff-nav{border-right:1px solid var(--line,#d7dfe4)}
+@media(max-width:900px){.scenario-guide-workspace{grid-template-columns:1fr}}
+
+/* V45.7.4.2: layout hotfix for Scenario Guide shell */
+.scenario-guide-shell{display:grid;grid-template-columns:minmax(250px,300px) minmax(0,1fr)}
+.scenario-guide-shell__nav{overflow-y:auto;word-break:normal;hyphens:none}
+.scenario-guide-shell__nav-button{word-break:normal;hyphens:none}
+.guidance-workspace-frame--primary-only>.summary-section-nav{display:none}
+@media(max-width:900px){.scenario-guide-shell{grid-template-columns:1fr}}
+
+/* V45.7.4.3: Final Guidance modal (current dialog variant) */
+.scenario-guide-dialog--final{border:0;border-radius:20px;padding:0;max-width:960px;width:92vw;max-height:88vh}
+.scenario-guide-dialog--final::backdrop{background:rgba(18,34,43,.6)}
+.scenario-guide-shell--final{display:grid;grid-template-columns:280px minmax(0,1fr);height:100%}
+.scenario-guide-shell--final>.scenario-guide-shell__nav{overflow-y:auto}
+.scenario-guide-shell--final>.scenario-guide-shell__reading{overflow-y:auto}
+
+/* V45.7.4.4 preserve Final Guidance navigation rail */
+.guidance-workspace-frame--primary-only>.summary-section-nav{display:block!important}
+.guidance-workspace-frame>.summary-section-nav.summary-section-nav--workspace{
+  grid-template-columns:minmax(260px,300px) minmax(0,1fr)!important;
+  overflow-y:auto!important;
+  scrollbar-gutter:stable!important;
+}
+.summary-section-nav--workspace .summary-section-nav__button{
+  word-break:normal!important;overflow-wrap:normal!important;hyphens:none!important;
+}
+
+/* V45.7.4.5 full-rail wheel target */
+.summary-section-nav--workspace,.summary-section-nav--workspace *{pointer-events:auto!important;touch-action:pan-y!important}
+.summary-section-nav__button{display:grid;grid-template-columns:minmax(0,1fr) auto}
+.summary-section-nav__button>span{min-width:0}
+
+/* V45.7.4.6 remove reserved number column */
+.summary-section-nav__button{display:block!important;grid-template-columns:none!important}
+.summary-section-nav__number{display:none!important}
+.summary-section-nav__button span:not(.summary-section-nav__number){width:100%!important;max-width:none!important;word-break:normal!important;overflow-wrap:normal!important;hyphens:none!important}
+.summary-section-nav__row{grid-template-columns:minmax(0,1fr) 40px!important}
+
+/* V45.7.5.1 mobile two-axis guide rail */
+@media(max-width:900px){
+  .summary-section-nav--workspace .summary-section-nav__track{
+    display:grid;grid-template-rows:repeat(2,minmax(58px,auto));grid-auto-columns:minmax(210px,72vw);grid-auto-flow:column;
+    overflow-x:auto!important;overflow-y:auto!important;scroll-snap-type:both proximity;
+  }
+  .summary-section-nav--workspace .summary-section-nav__button{
+    text-wrap:balance!important;word-break:normal!important;overflow-wrap:normal!important;hyphens:none!important;
+  }
+}
+
+/* V45.7.5.2 ADU path comparison table + advisor contrast */
+@media(max-width:760px){
+  .path-comparison td{display:grid;grid-template-columns:74px minmax(0,1fr)}
+  .path-comparison td::before{content:attr(data-label);font-weight:700}
+}
+.pn-body,.pn-compose{background:var(--card,#fff)}
+.pn-msg.user .pn-bubble{background:var(--pg,#008bc2);color:#fff!important}
+.pn-msg.user .pn-bubble .ink-muted{color:#fff!important}
+
+/* V45.7.5.3 visual guidance comparison table
+   2026-10-05: this whole block was the PRE-carousel design — a scrollable spreadsheet-style panel
+   with sticky header row + sticky label column (V45.7.5.3.2), degrading on mobile to stacked rows
+   with a data-label::before prefix (V45.7.5.3's own mobile block, a THIRD, unrelated pattern from
+   either of those), with its scroll-snap-based column paging (V45.7.5.5/.6) hidden entirely behind
+   a controls row that was display:none!important below 760px — no visible way to page through
+   columns on a phone at all, only an undiscoverable native swipe. This table (and the matching
+   document gallery below) have since moved to a single consistent pattern everywhere they render —
+   table-layout:fixed with a sticky LABEL column (not a sticky header row), JS-driven one-column-at-
+   a-time paging (components/visual-guidance-card.js's bindCarousel()), and hover-reveal arrow
+   buttons that core/v45.7.5.9.4-scenario-guide-runtime.js now styles GLOBALLY (not just inside the
+   Scenario Guide dialog it was first built for) — see that file for the actual rules. Everything in
+   this block either fought that pattern (the mobile stacking/table-layout:auto resets, the sticky
+   header, the scroll-snap padding tuned for a stale 220px label width, the mobile display:none on
+   the controls) or is superseded by it, so it's removed here rather than coexisting with it. The
+   .visual-guidance-comparison{min-width:1760px!important;width:max-content!important;table-layout:
+   fixed} declaration stays — it's still what makes the table wider than its viewport so there's
+   something for the carousel to page between. */
+.visual-guidance-comparison-wrap{overflow:auto}
+.visual-guidance-comparison{min-width:1760px!important;width:max-content!important;table-layout:fixed;border-collapse:collapse}
+.visual-guidance-comparison th[scope="col"],.visual-guidance-comparison td{width:385px!important;min-width:385px!important}
+.visual-guidance-comparison img{height:320px!important;object-fit:contain!important}
+body.advisor-open .visual-guidance-set--comparison{max-width:100%!important}
+
+/* V45.7.5.7 selected-column reveal correction */
+.fast-facts-doc-gallery__viewport{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory}
+.fast-facts-doc-gallery__viewport>*{flex:0 0 clamp(300px,80vw,420px);scroll-snap-stop:always;scroll-snap-align:start}
+
+/* V45.8.0 (P1.4, 10.1.26 feedback): stronger color/contrast separation between the Recommended
+   Next Action card and the secondary Scenario Guide entry point, so the guide reads clearly as
+   supporting context rather than competing with the primary action. */
+.scenario-guide-launcher{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent!important;border:1px solid var(--line,#d7dfe4)!important;color:var(--muted,#5f6b73)!important;
+  font-weight:600;
+}
+.scenario-guide-launcher:hover{background:var(--card,#fff)!important;border-color:var(--pg,#008bc2)!important;color:var(--pg-dark,#006b8f)!important}
+.scenario-guide-launcher svg{opacity:.8}
+@media(forced-colors:active){.scenario-guide-launcher{border:1px solid CanvasText!important}}
+
+/* V45.7.5.9.2 Fast Facts quick-guidance disclosure */
+#ff-section-scenario-guide .quick-guidance-disclosure{margin-top:16px;border:1px solid var(--line,#ccd4da);border-radius:16px;background:var(--card,#fff);overflow:hidden}
+#ff-section-scenario-guide .quick-guidance-disclosure__summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;padding:16px 20px;cursor:pointer;color:var(--pg-dark,#006b8f);font-weight:800;list-style:none}
+#ff-section-scenario-guide .quick-guidance-disclosure__summary::-webkit-details-marker{display:none}
+#ff-section-scenario-guide .quick-guidance-disclosure__summary::after{content:'+';display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#e8f6fb;font-size:20px;line-height:1}
+#ff-section-scenario-guide .quick-guidance-disclosure[open] .quick-guidance-disclosure__summary::after{content:'−'}
+#ff-section-scenario-guide .quick-guidance-disclosure__summary small{margin-left:auto;color:var(--muted,#5f6b73);font-size:.85rem;font-weight:600}
+#ff-section-scenario-guide .quick-guidance-disclosure__content{padding:0 20px 20px;border-top:1px solid var(--line,#ccd4da)}
+#ff-section-scenario-guide .quick-guidance-disclosure__summary:focus-visible{outline:3px solid var(--focus,#fdb81e);outline-offset:-3px}
+@media(max-width:640px){#ff-section-scenario-guide .quick-guidance-disclosure__summary{align-items:flex-start;flex-wrap:wrap}#ff-section-scenario-guide .quick-guidance-disclosure__summary small{order:3;width:100%;margin:0}}
+
+/* V45.7.5.9.6: consistent recommended-action presentation and readable guidance rail. */
+@media (min-width: 821px) {
+  .guidance-workspace-frame,
+  .understanding-workspace-frame { min-width: 0; }
+  .guidance-workspace-frame > .summary-section-nav.summary-section-nav--workspace {
+    min-width: 224px !important;
+    width: var(--guide-rail) !important;
+    box-sizing: border-box;
+  }
+  .guidance-workspace-frame .summary-section-nav--workspace .summary-section-nav__button {
+    grid-template-columns: minmax(0, 1fr) !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    hyphens: none !important;
+    min-width: 0;
+    text-align: left;
+  }
+  .guidance-workspace-frame .summary-section-nav--workspace .summary-section-nav__row,
+  .guidance-workspace-frame .summary-section-nav--workspace .summary-section-nav__item,
+  .guidance-workspace-frame .summary-section-nav--workspace .summary-section-nav__track {
+    min-width: 0;
+    width: 100%;
+  }
+}
+/* Keep the action the visual anchor, not an extra wrapper around another card. */
+.pinned-recommendation {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 0 18px !important;
+  min-width: 0;
+}
+.pinned-recommendation__label { display: none !important; }
+.pinned-recommendation .guidance-card--next-action,
+.guidance-reading-region .guidance-card--next-action,
+.understanding-reading-pane > #recommended-action {
+  border: 1px solid var(--pg, #008bc2) !important;
+  border-left: 5px solid var(--pg, #008bc2) !important;
+  border-radius: 16px !important;
+  background: var(--tint, #eaf6fb) !important;
+  box-shadow: 0 10px 26px rgba(34,49,90,.10) !important;
+  overflow: visible;
+}
+.pinned-recommendation .guidance-card--next-action .guidance-card__state-header,
+.guidance-reading-region .guidance-card--next-action .guidance-card__state-header {
+  background: transparent !important;
+  border-bottom: 0 !important;
+}
+.pinned-recommendation .guidance-card--next-action .lede,
+.guidance-reading-region .guidance-card--next-action .lede {
+  color: var(--ink) !important;
+  font-size: clamp(1.18rem, 1.65vw, 1.55rem) !important;
+  font-weight: 750 !important;
+  line-height: 1.3 !important;
+  max-width: 44ch;
+  margin: 4px 0 18px !important;
+}
+.pinned-recommendation .guidance-card--next-action .leaddl,
+.guidance-reading-region .guidance-card--next-action .leaddl {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  align-items: start !important;
+  gap: 18px !important; /* 2026-10-06: was 12px, read as cramped between the three bordered boxes */
+  min-width: 0;
+}
+/* 2026-10-05: without align-items:start, grid's default stretch forces every item in a row to the
+   row's tallest sibling's height — "Who takes this step" (often a short phrase) was rendering as a
+   mostly-empty box just to match "Why it matters" (usually a full explanatory sentence) sitting
+   beside it. And with exactly 3 items ("Who takes this step" / "Why it matters" / "After you do
+   this") in a 2-column grid, the 3rd always lands alone in column 1 of its own row, leaving column 2
+   beside it empty — :last-child:nth-child(odd) matches only when the final item is also an odd
+   position (3 items, 1 item — never 2 or 4), so it reliably spans the full row exactly when it would
+   otherwise be an orphan, without needing to special-case an exact item count. */
+.pinned-recommendation .guidance-card--next-action .leaddl > div:last-child:nth-child(odd),
+.guidance-reading-region .guidance-card--next-action .leaddl > div:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+/* 2026-10-05: components.page5-region.css's .pinned-recommendation .leaddl>div{padding:0!important}
+   (a generic, unconditional rule, lower specificity than this one but also !important — same-
+   importance ties go to specificity, and this selector's extra .guidance-card--next-action class
+   wins) was flattening these boxes' padding to 0 at every viewport, leaving "Who takes this step" /
+   "Why it matters" / "After you do this" text flush against the box edges. Restating padding here
+   with !important, at higher specificity, is what actually makes it apply. */
+.pinned-recommendation .guidance-card--next-action .leaddl > div,
+.guidance-reading-region .guidance-card--next-action .leaddl > div {
+  min-width: 0;
+  border: 1px solid var(--line, #d7dfe4);
+  border-radius: 10px;
+  background: #fff;
+  padding: 14px 16px !important;
+}
+.pinned-recommendation .guidance-card--next-action .leaddl dt,
+.guidance-reading-region .guidance-card--next-action .leaddl dt { font-weight: 750; margin-bottom: 5px; }
+.pinned-recommendation .guidance-card--next-action .leaddl dd,
+.guidance-reading-region .guidance-card--next-action .leaddl dd { margin: 0; overflow-wrap: break-word; }
+.understanding-reading-pane > #recommended-action h2 {
+  font-size: clamp(1.45rem, 2.1vw, 2rem) !important;
+  line-height: 1.2 !important;
+  max-width: 44ch !important;
+}
+.understanding-reading-pane > #recommended-action .leadmeta { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+@media (max-width: 760px) {
+  .pinned-recommendation .guidance-card--next-action .leaddl,
+  .guidance-reading-region .guidance-card--next-action .leaddl,
+  .understanding-reading-pane > #recommended-action .leadmeta { grid-template-columns: 1fr !important; }
+  .pinned-recommendation .guidance-card--next-action .lede,
+  .guidance-reading-region .guidance-card--next-action .lede { max-width: none; }
+}
+@media (forced-colors: active) {
+  .pinned-recommendation .guidance-card--next-action,
+  .guidance-reading-region .guidance-card--next-action,
+  .understanding-reading-pane > #recommended-action { border-color: CanvasText !important; background: Canvas !important; box-shadow: none !important; }
+  .pinned-recommendation .guidance-card--next-action .leaddl > div,
+  .guidance-reading-region .guidance-card--next-action .leaddl > div { background: Canvas; border-color: CanvasText; }
+}
+
+/* V45.8.3: mobile #questionNavigator compact chip stepper.
+   components.v4439-overrides.css already tried to make this a single-row horizontal scroller at
+   narrow widths (its own @media(max-width:760px) rule sets display:flex;overflow-x:auto on
+   .question-nav--inbox .question-nav__list) but a LATER rule in that same file
+   (.question-nav--inbox .question-nav__list{flex-wrap:wrap} inside @media(max-width:820px)) wraps
+   it back into a multi-row block of full-width, fully-labeled rows — on a typical phone that block
+   alone runs ~800px tall, pushing the actual question below the fold. This file loads after
+   components.v4439-overrides.css (see build.js's CSS order), so !important here reliably wins.
+   Each chip shows its existing short nav label (screens/screen-shared.js's QUESTION_NAV_LABELS —
+   "ADU type", "Service method", "Project stage", already 1-3 words) as a pill, auto-width to the
+   text rather than a fixed size, so a reader can tell what a step IS, not just where it falls in
+   the count. The ordinal number and "Answered"/"Current"/"Skipped" status text stay in the DOM
+   (unchanged markup, unchanged screen-reader experience, same jump-question contract) but are
+   visually hidden — color/fill state (below) already carries status, and the chip's left-to-right
+   position already carries order. core/v45.8.3-question-nav-scroll.js keeps the current chip
+   scrolled into view after every render. */
+@media (max-width: 820px) {
+  .question-nav--inbox .question-nav__heading { padding: 10px 14px; }
+  .question-nav--inbox .question-nav__list {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 10px !important;
+    align-items: center;
+    padding: 10px 14px !important;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 14px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .question-nav--inbox .question-nav__topic { display: none !important; }
+  .question-nav--inbox .question-nav__item {
+    display: flex !important;
+    align-items: center;
+    flex: 0 0 auto !important;
+    scroll-snap-align: center;
+  }
+  .question-nav--inbox .question-nav__item:not(:last-child)::after {
+    content: "";
+    flex: 0 0 auto;
+    width: 10px;
+    height: 2px;
+    margin: 0 1px;
+    background: var(--line-strong);
+    border-radius: 1px;
+  }
+  .question-nav--inbox .question-nav__item--answered:not(:last-child)::after { background: var(--pg); }
+  .question-nav--inbox .question-nav__button {
+    width: auto !important;
+    min-width: 0 !important;
+    min-height: 40px !important;
+    height: 40px;
+    padding: 0 16px !important;
+    display: inline-flex !important;
+    grid-template-columns: none !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--card);
+  }
+  .question-nav--inbox .question-nav__button[aria-current="step"] {
+    border-color: var(--pg);
+    background: var(--tint);
+    box-shadow: none;
+  }
+  .question-nav--inbox .question-nav__button[aria-current="step"] .question-nav__label { color: var(--pg-dark, var(--ink)); }
+  .question-nav--inbox .question-nav__item--answered .question-nav__button:not([aria-current="step"]) {
+    border-color: var(--pg);
+    background: var(--pg);
+  }
+  .question-nav--inbox .question-nav__item--answered .question-nav__button:not([aria-current="step"]) .question-nav__label {
+    color: #fff;
+  }
+  /* A question can be marked answered (its field has a value) while still being unreached — editing
+     an earlier answer can leave a later field populated from a prior pass. is-disabled must always
+     read as "not here yet" regardless of that, so it is restated last with no :not() qualifier to
+     win over the answered-fill rule above for this one case. */
+  .question-nav--inbox .question-nav__button.is-disabled {
+    background: var(--card) !important;
+    border-color: var(--line-strong) !important;
+  }
+  .question-nav--inbox .question-nav__button.is-disabled .question-nav__label {
+    color: var(--muted) !important;
+  }
+  .question-nav--inbox .question-nav__label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--ink);
+  }
+  /* Visually hidden, not removed: screen readers and the existing jump-question markup/tests keep
+     working against the unchanged number/status text; sighted mobile users get the short label
+     (position in the row already conveys order, color/fill already conveys status). */
+  .question-nav--inbox .question-nav__number,
+  .question-nav--inbox .question-nav__status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+@media (max-width: 820px) and (prefers-reduced-motion: reduce) {
+  .question-nav--inbox .question-nav__list { scroll-behavior: auto; }
+}

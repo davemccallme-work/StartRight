@@ -1,0 +1,480 @@
+
+.fast-facts{max-width:760px}.fast-facts__intro{margin:10px 0 18px;color:var(--muted)}.fast-facts__card{background:var(--card);border:1px solid var(--line-strong);border-radius:18px;padding:clamp(18px,4vw,30px)}.fast-facts__controls{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:26px}.fast-facts__controls .btn{min-width:160px}.visual-example{margin:16px 0;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}.visual-example img{display:block;width:100%;height:auto;max-height:360px;object-fit:contain;border-radius:8px}.visual-example figcaption{margin-top:10px}.visual-example__boundary{color:var(--muted);font-size:.85rem}@media(max-width:600px){.fast-facts__controls .btn{width:100%}}
+
+/* V45.1: unavailable property types are static content, never selectable controls. */
+.fast-facts__unavailable{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:#f1f3f6;color:#4b5563;cursor:default;pointer-events:none;transition:none!important;animation:none!important;transform:none!important}
+.fast-facts__unavailable *, .fast-facts__unavailable:hover,.fast-facts__unavailable:active{cursor:default!important;transition:none!important;animation:none!important;transform:none!important}
+.fast-facts__badge{font-size:.8rem;font-weight:700;white-space:nowrap}.fast-facts__scope{padding:12px;border-left:4px solid var(--pg);background:var(--surface)}
+.fast-facts--results .fast-facts__card{margin-top:18px}.fast-facts--results h2{font-size:1.12rem;margin:22px 0 6px}.fast-facts--results h2:first-child{margin-top:0}.fast-facts--results ul{padding-left:22px}.fast-facts--results li{margin:8px 0}
+@media(max-width:600px){.fast-facts__unavailable{flex-wrap:wrap}.fast-facts__controls{flex-direction:column}}
+@media(forced-colors:active){.fast-facts__unavailable,.fast-facts--results .fast-facts__card{border:1px solid CanvasText}}
+
+/* V45.2: visual examples used inside document guidance cards. */
+.document-guidance-card .visual-example{margin:14px 0 0;padding:10px}.document-guidance-card .visual-example img{max-height:260px}.document-guidance-card .visual-example figcaption{font-size:.85rem}
+@media(max-width:600px){.visual-example{padding:12px}.visual-example img{max-height:300px}}
+
+.visual-example__guidance{display:grid;gap:8px;margin-top:12px}.visual-example__guidance>div{border-top:1px solid var(--line);padding-top:8px}.visual-example__guidance dt{font-weight:700}.visual-example__guidance dd{margin:3px 0 0}.photo-example-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}@media(max-width:680px){.photo-example-pair{grid-template-columns:1fr}}
+
+/* V45.5.1: preserve readable list spacing in the first-question results card. */
+.fast-insights__list{margin:8px 0 18px;padding-left:1.35rem;line-height:1.5}.fast-insights__list li+li{margin-top:7px}
+
+/* V45.6 distinct first-question education pages */
+.fast-facts--results{width:100%;max-width:1120px;margin-inline:auto}.insight-page{display:grid;gap:22px}.insight-hero,.insight-section{padding:clamp(18px,3vw,32px);border:1px solid var(--line-strong);border-radius:20px;background:var(--card)}.insight-lead{max-width:66ch;font-size:clamp(1.1rem,2vw,1.45rem);line-height:1.45}.insight-answer{padding:12px 14px;border-radius:12px;background:var(--surface)}.insight-jump{display:inline-flex;margin-top:8px;font-weight:800}.insight-section h2{margin:0 0 12px}.insight-section p,.insight-section li{line-height:1.58}.insight-path-grid,.insight-compare{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.insight-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.insight-path,.insight-tile{min-width:0;padding:18px;border:1px solid var(--line-strong);border-radius:15px;background:var(--surface)}.insight-path{border-top-width:5px}.insight-path--use,.insight-path--replace{border-top-color:#428567}.insight-path--modify,.insight-path--increase{border-top-color:#c4932e}.insight-path--add,.insight-path--relocate{border-top-color:#d07843}.insight-path__code{font-size:.8rem;font-weight:800;letter-spacing:.07em}.insight-path h3,.insight-tile h3{margin:6px 0 8px}.insight-number{margin:10px 0;font-size:clamp(1.85rem,4vw,2.8rem);font-weight:800;line-height:1.1}.insight-tile--benchmark{background:#fff}.insight-benchmark__caveat{padding:9px;border:1px solid var(--line-strong);border-radius:9px}.insight-benchmark__source{color:var(--muted);font-size:.84rem}.insight-section ul{padding-left:1.35rem}.insight-section li+li{margin-top:7px}@media(max-width:720px){.insight-path-grid,.insight-compare,.insight-detail-grid{grid-template-columns:1fr}.fast-facts--results{max-width:100%}}@media(forced-colors:active){.insight-hero,.insight-section,.insight-path,.insight-tile,.insight-benchmark__caveat{border:1px solid CanvasText}}
+
+/* V45.6.1 preparation rhythm */
+.insight-path-grid--four{grid-template-columns:repeat(4,minmax(0,1fr))}.insight-path__visual{display:grid;place-items:center;min-height:82px;margin-bottom:12px;padding:12px;border-radius:10px;background:var(--tint);font-weight:750;text-align:center}.insight-tile img{display:block;width:100%;height:155px;object-fit:contain;background:white;border-radius:8px}.insight-known-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.insight-known-grid>div{padding:16px;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface)}.insight-disclosure{margin-top:16px;padding:0 16px;border:1px solid var(--line-strong);border-radius:14px}.insight-disclosure>summary{min-height:50px}.insight-disclosure__body{padding:0 0 18px}.insight-next__question{font-size:1.2rem;font-weight:800}.insight-loading{min-height:340px;padding:42px;border:1px solid var(--line-strong);border-radius:20px;background:#fff;text-align:center}.insight-loading__mark{display:block;width:42px;height:42px;margin:0 auto 20px;border:4px solid var(--tint-b);border-top-color:var(--pg);border-radius:50%;animation:insightSpin .8s linear infinite}@keyframes insightSpin{to{transform:rotate(360deg)}}@media(max-width:900px){.insight-path-grid--four{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:720px){.insight-path-grid--four,.insight-known-grid{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){.insight-loading__mark{animation:none}}
+
+/* V45.6.4 progressive visual examples */
+.progressive-examples{margin:1.25rem 0;padding:1rem;border:1px solid #d8e2e8;border-radius:16px;background:#f8fbfc}.progressive-examples h2{font-size:1.15rem;margin:0 0 .7rem}.progressive-examples__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1rem}.progressive-card{margin:0;background:#fff;border:1px solid #dce5ea;border-radius:12px;overflow:hidden}.progressive-card img{display:block;width:100%;max-height:230px;object-fit:contain;background:#fff}.progressive-card figcaption{padding:.85rem}.progressive-card p{margin:.45rem 0;line-height:1.45}.progressive-card .visual-example__boundary{font-size:.78rem;color:#455968}
+
+/* V45.6.7: compact answer-derived visual education; palette remains unchanged. */
+.progressive-examples--insights{margin:1.1rem 0}.progressive-examples--insights>p{margin:.1rem 0 1rem;line-height:1.5}.progressive-examples--insights .progressive-examples__grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr))}.progressive-card--insight img{max-height:210px}.progressive-card--insight figcaption p{margin:.5rem 0;line-height:1.5}.progressive-card--insight .visual-example__boundary{margin-top:.75rem}
+.progressive-examples__takeaway{margin:.2rem 0 .85rem;line-height:1.55;max-width:68ch}
+/* 2026-10-05: data/progressive-insights.js's forQuestion() output only — a <details> version of
+   the card above, kept to a separate modifier (not a change to the base .progressive-examples/
+   --insights rules) since forSummary() still renders the same classes as a plain, always-expanded
+   <section> on the summary page and must be unaffected. Padding moves from the outer element onto
+   the summary/content so the whole header row stays clickable edge-to-edge. */
+.progressive-examples--collapsible{padding:0}
+.progressive-examples--collapsible>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0;padding:1rem;cursor:pointer;list-style:none}
+.progressive-examples--collapsible>summary::-webkit-details-marker{display:none}
+/* components.css's global .acc>summary::after,details>summary::after rule (no class scoping) draws
+   its own small chevron on every <details><summary> — a second one here, next to the explicit SVG
+   .progressive-examples__chevron span above, the same double-chevron bug found and fixed on
+   .summary-accordion__header. Suppressed the same way: the real chevron is the one source of truth
+   for open/closed state here too. */
+.progressive-examples--collapsible>summary::after{content:none}
+.progressive-examples--collapsible>summary h2{margin:0}
+.progressive-examples__chevron{flex:none;display:inline-flex;color:var(--muted);transition:transform .22s ease}
+.progressive-examples--collapsible[open]>summary .progressive-examples__chevron{transform:rotate(180deg)}
+.progressive-examples--collapsible>.progressive-examples__content{padding:0 1rem 1rem}
+.progressive-examples--collapsible .progressive-examples__content>p{margin:.1rem 0 1rem;line-height:1.5}
+@media(prefers-reduced-motion:reduce){.progressive-examples__chevron{transition:none}}
+
+/* V45.6.9 explainable conditional insights */
+.explainable-insights{margin-top:18px}.explainable-insights__grid{display:grid;gap:14px}.explainable-insight{border:1px solid var(--line-strong);border-left:5px solid var(--pg);border-radius:18px;background:var(--card);padding:18px}.explainable-insight--clarification{border-left-color:var(--confirm-heading);background:var(--confirm-bg)}.explainable-insight h3{margin:5px 0 0}.explainable-insight dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0}.explainable-insight dl div{border-top:1px solid var(--line);padding-top:9px}.explainable-insight dt{font-size:.78rem;font-weight:800;color:var(--muted)}.explainable-insight dd{margin:3px 0 0}.explainable-insight__boundary{padding:11px;border-radius:10px;background:var(--surface);font-size:.88rem}.explainable-insight__feedback{margin-top:12px}.explainable-insight__feedback div{display:flex;gap:8px;flex-wrap:wrap}@media(max-width:639px){.explainable-insight dl{grid-template-columns:1fr}.explainable-insight{padding:15px}}@media(forced-colors:active){.explainable-insight{border:1px solid CanvasText;border-left-width:5px}}
+
+/* V45.6.9.2 programmatically assembled dynamic insight layouts */
+.dynamic-insight-page{display:grid;gap:18px;margin-top:20px}.insight-region{display:grid;gap:10px}.insight-region__heading{display:flex;align-items:center;gap:10px}.insight-region__heading h2{margin:0;font-size:.82rem;line-height:1.2;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}.insight-region__items{display:grid;gap:14px}.dynamic-insight{overflow:hidden;border:1px solid var(--line-strong);border-radius:20px;background:var(--card);box-shadow:0 8px 24px rgba(25,45,70,.07)}.dynamic-insight>header,.dynamic-insight>footer,.dynamic-insight>.insight-lede,.dynamic-insight>.insight-facts,.dynamic-insight>.insight-next,.dynamic-insight>.insight-prep,.dynamic-insight>.insight-media-layout,.dynamic-insight>.insight-boundary{margin-left:20px;margin-right:20px}.dynamic-insight>header{padding-top:20px}.dynamic-insight h3{margin:5px 0 0;font-size:1.22rem;line-height:1.25}.insight-kicker{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--pg)}.insight-lede{font-size:1rem;line-height:1.55;color:var(--ink);margin-top:14px}.insight-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}.insight-facts>div{padding:12px;border-radius:12px;background:var(--surface)}.insight-facts span,.insight-next span{display:block;font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}.insight-facts p,.insight-next p{margin:5px 0 0}.insight-next{margin-top:14px;padding:14px;border-radius:14px;background:color-mix(in srgb,var(--pg) 8%,var(--card))}.insight-next small{display:block;margin-top:7px;color:var(--muted)}.dynamic-insight--clarification{border-left:6px solid var(--confirm-heading);background:linear-gradient(135deg,var(--confirm-bg),var(--card) 55%)}.dynamic-insight--clarification .insight-kicker{color:var(--confirm-heading)}.insight-media-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,.65fr);gap:18px;align-items:start;margin-top:14px}.insight-visual .visual-example{margin:0}.insight-visual .visual-example__guidance{display:none}.insight-prep{list-style:none;padding:0;display:grid;gap:10px;margin-top:14px}.insight-prep li{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start}.insight-prep li>span{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--pg);color:#fff;font-weight:800}.insight-prep strong{display:block}.insight-prep p{margin:3px 0 0;color:var(--muted)}.insight-boundary{padding-top:14px;color:var(--muted);font-size:.82rem;line-height:1.45}.dynamic-insight>footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0 20px}.insight-action{display:flex;align-items:center;justify-content:space-between;gap:14px;min-width:180px;padding:10px 14px;border:1px solid var(--pg);border-radius:999px;background:transparent;color:var(--pg);font:inherit;font-weight:750;cursor:pointer}.insight-action:hover{background:color-mix(in srgb,var(--pg) 8%,transparent)}.insight-feedback{font-size:.86rem}.insight-feedback>summary,.insight-feedback__reasons>summary{cursor:pointer;color:var(--muted)}.insight-feedback>div{display:flex;gap:6px;margin-top:8px}.insight-feedback__reasons{margin-top:8px}.dynamic-insight-page--summary-dashboard .insight-region__items{grid-template-columns:repeat(auto-fit,minmax(480px,1fr))}.dynamic-insight-page--summary-dashboard .dynamic-insight{height:100%}.dynamic-insight-page--summary-dashboard .insight-media-layout{grid-template-columns:1fr}.dynamic-insight-page--summary-dashboard .insight-facts{grid-template-columns:1fr}.dynamic-insight--summary .insight-visual{max-height:260px;overflow:hidden}.dynamic-insight--summary .visual-example img{max-height:220px;object-fit:cover}
+@media(max-width:800px){.insight-media-layout,.dynamic-insight-page--summary-dashboard .insight-region__items{grid-template-columns:1fr}.dynamic-insight>footer{align-items:flex-start;flex-direction:column}.insight-feedback{width:100%}}
+@media(max-width:520px){.dynamic-insight{border-radius:16px}.dynamic-insight>header,.dynamic-insight>footer,.dynamic-insight>.insight-lede,.dynamic-insight>.insight-facts,.dynamic-insight>.insight-next,.dynamic-insight>.insight-prep,.dynamic-insight>.insight-media-layout,.dynamic-insight>.insight-boundary{margin-left:14px;margin-right:14px}.insight-facts{grid-template-columns:1fr}.insight-action{width:100%}}
+@media(prefers-reduced-motion:reduce){.dynamic-insight,.insight-action{scroll-behavior:auto;transition:none}}
+@media(forced-colors:active){.dynamic-insight{border:2px solid CanvasText;box-shadow:none}.dynamic-insight--clarification{border-left-width:6px}.insight-action{border:1px solid ButtonText}.insight-prep li>span{border:1px solid CanvasText}}
+
+/* V45.6.9.5 */.answer-context{margin:14px 0;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+/* 2026-10-05: this bare <summary> (no .inline-response__summary class — only components/contextual-
+   question-response.js's fallback renderer uses plain .answer-context without the "inline-response"
+   modifier, see that file) never got the same chevron-placement fix .inline-response__summary did.
+   flex+justify-content:space-between with 3 flex items (the text span, the <small> subtitle, and the
+   ::after chevron) spreads all three across the row instead of stacking the two text lines together
+   on the left — and the @media(max-width:720px) override made it worse by switching to display:grid
+   with NO explicit placement, so the implicit single-column auto-flow stacked span/small/chevron as
+   three separate rows, landing the chevron centered below both lines of text. Same root cause, same
+   proven fix as .inline-response__summary: an explicit 2-column grid with the chevron spanning both
+   text rows on the right, at every width, no separate mobile override needed. */
+.answer-context>summary{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:12px;padding:14px;cursor:pointer;font-weight:800;list-style:none}
+.answer-context>summary::-webkit-details-marker{display:none}
+.answer-context>summary>span{grid-column:1;grid-row:1;min-width:0;overflow-wrap:anywhere}
+.answer-context>summary small{grid-column:1;grid-row:2;color:var(--muted)}
+.answer-context>summary::after{grid-column:2;grid-row:1/span 2;justify-self:end;align-self:center;position:static;margin:0}
+.answer-context__body{display:grid;gap:12px;padding:0 14px 14px}.answer-context .visual-example img{object-fit:contain}.fast-facts-doc-gallery__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.question-deck__card{scroll-margin-top:104px}@media(max-width:720px){.fast-facts-doc-gallery__grid{grid-template-columns:1fr}}
+
+/* ============================ V45.6.9.8 FAST FACTS REFERENCE WORKSPACE ============================
+   Presentation only. Navigation states: default, hover, keyboard focus, current section.
+   No progress, completion, readiness, eligibility, or numbering treatment is permitted here. */
+.fast-facts--workspace{width:100%;max-width:1240px;margin-inline:auto;display:grid;gap:20px}
+.fast-facts--workspace .insight-hero{margin:0}
+.ff-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0 0}
+.ff-facts__item{min-width:0;margin:0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.ff-facts__item dt{margin:0 0 6px;font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ff-facts__item dd{margin:0;display:grid;gap:4px;line-height:1.5}
+.ff-facts__item--customer{border-left:4px solid var(--known-heading,#0b5a30)}
+.ff-facts__item--interpretation{border-left:4px solid var(--pg)}
+.ff-facts__row{display:block;overflow-wrap:break-word}
+.ff-workspace{display:grid;grid-template-columns:minmax(13rem,16rem) minmax(0,1fr);gap:28px;align-items:start}
+.ff-workspace--single{grid-template-columns:minmax(0,1fr)}
+.ff-reading-pane{display:grid;gap:22px;min-width:0}
+.ff-nav{position:sticky;top:calc(var(--app-sticky-header-height,64px) + 16px);align-self:start;max-height:calc(100vh - var(--app-sticky-header-height,64px) - 32px);overflow:auto;padding:12px;border:1px solid var(--line-strong);border-radius:14px;background:var(--card)}
+.ff-nav__heading{margin:2px 6px 10px;font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ff-nav__toggle{display:none}
+.ff-nav__list{display:grid;gap:4px;margin:0;padding:0;list-style:none}
+.ff-nav__link{display:block;min-height:44px;padding:11px 12px;border:1px solid transparent;border-radius:10px;color:var(--ink);font-weight:700;line-height:1.3;text-decoration:none;overflow-wrap:break-word}
+.ff-nav__link:hover{background:var(--surface);border-color:var(--line)}
+.ff-nav__link:focus-visible{outline:3px solid var(--orient,var(--pg-dark));outline-offset:2px}
+.ff-nav__link.is-current,.ff-nav__link[aria-current="location"]{background:var(--tint);border-color:var(--pg);box-shadow:inset 4px 0 0 var(--pg);color:var(--pg-deep)}
+.ff-recommended{padding:clamp(18px,3vw,28px);border:1px solid var(--next-border,var(--pg));border-left:6px solid var(--pg);border-radius:18px;background:var(--card);box-shadow:0 8px 24px rgba(15,23,42,.08)}
+.ff-recommended__label{font-size:.78rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:var(--pg-dark)}
+.ff-recommended__title{margin:6px 0 8px;font-size:1.35rem}
+.ff-recommended .insight-next__question{margin:0 0 10px}
+.ff-recommended__action{margin:0 0 12px;line-height:1.55}
+.ff-recommended__meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 12px}
+.ff-recommended__meta>div{min-width:0;padding:12px;border-radius:12px;background:var(--surface)}
+.ff-recommended__meta dt{font-size:.78rem;font-weight:800;color:var(--muted)}
+.ff-recommended__meta dd{margin:4px 0 0;line-height:1.5}
+.ff-section{display:grid;gap:14px;min-width:0;padding-top:6px;scroll-margin-top:calc(var(--app-sticky-header-height,64px) + 16px)}
+.ff-section__head{padding-bottom:10px;border-bottom:1px solid var(--line-strong)}
+.ff-section__title{margin:0;font-size:1.3rem;line-height:1.25}
+.ff-section__title:focus{outline:none}
+.ff-section__title:focus-visible{outline:3px solid var(--orient,var(--pg-dark));outline-offset:4px}
+.ff-section__intro{margin:6px 0 0;color:var(--muted);max-width:70ch}
+.ff-section__body{display:grid;gap:18px;min-width:0}
+.ff-section__empty{margin:0;padding:14px;border:1px dashed var(--line-strong);border-radius:12px;color:var(--muted)}
+.ff-scenario-group{display:grid;gap:14px;padding-top:6px}
+.ff-scenario-group+.ff-scenario-group{border-top:1px solid var(--line);padding-top:16px}
+.ff-scenario-group__label{margin:0;font-weight:800;color:var(--pg-deep)}
+.ff-scenario-group__label span{color:var(--muted);font-weight:700}
+.insight-section>.insight-section__title,.insight-section .insight-section__title{margin:0 0 12px;font-size:1.12rem}
+.insight-path h4,.insight-tile h4{margin:6px 0 8px;font-size:1rem}
+.insight-known-grid h4{margin:0 0 8px}
+.insight-subhead{margin:16px 0 8px}
+.ff-next{padding:clamp(16px,2.5vw,24px);border:1px solid var(--line-strong);border-radius:16px;background:var(--card)}
+.ff-open-items{display:grid;gap:8px;margin:0 0 16px;padding:0;list-style:none}
+.ff-open-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;align-items:center;padding:10px 12px;border:1px solid var(--confirm-border,#f3d38a);border-left:4px solid var(--confirm-heading,#7a531a);border-radius:10px;background:var(--card)}
+.ff-open-item__label{font-weight:700;min-width:0;overflow-wrap:break-word}
+.ff-open-item__status{font-size:.86rem;color:var(--confirm-heading,#7a531a);font-weight:700}
+.ff-back-to-action{margin-top:4px}
+/* Specificity guard: earlier .fast-facts--results h2/ul/li rules must not restyle workspace chrome. */
+.fast-facts--workspace .ff-nav__heading{margin:2px 6px 10px;font-size:.78rem;line-height:1.3}
+.fast-facts--workspace .ff-section__title{margin:0;font-size:1.3rem;line-height:1.25}
+.fast-facts--workspace .ff-recommended__title{margin:6px 0 10px;font-size:1.45rem;line-height:1.25}
+.fast-facts--workspace .ff-recommended .insight-next__question{font-size:1.2rem}
+.fast-facts--workspace .ff-nav__list,.fast-facts--workspace .ff-open-items{padding-left:0}
+.fast-facts--workspace .ff-nav__list>li,.fast-facts--workspace .ff-open-items>li{margin:0}
+.fast-facts--workspace .ff-reading-pane>.insight-section,.fast-facts--workspace .ff-section__body>.insight-section{margin:0}
+@media(max-width:900px){
+  .ff-workspace{grid-template-columns:minmax(0,1fr);gap:16px}
+  .ff-nav{position:static;max-height:none;overflow:visible;padding:0;border-radius:12px}
+  .ff-nav__heading{display:none}
+  .ff-nav.is-collapsible .ff-nav__toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:52px;padding:12px 14px;border:0;border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-weight:800;text-align:left;cursor:pointer}
+  .ff-nav__toggle::after{content:"";width:.55rem;height:.55rem;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);flex:none}
+  .ff-nav.is-open .ff-nav__toggle::after{transform:rotate(225deg)}
+  .ff-nav__toggle-hint{margin-left:auto;color:var(--muted);font-size:.84rem;font-weight:600}
+  .ff-nav__toggle:focus-visible{outline:3px solid var(--orient,var(--pg-dark));outline-offset:2px}
+  .ff-nav__list{padding:8px}
+  .ff-nav.is-collapsible:not(.is-open) .ff-nav__list{display:none}
+  .ff-nav.is-collapsible .ff-nav__list{border-top:1px solid var(--line)}
+  .ff-facts,.ff-recommended__meta{grid-template-columns:minmax(0,1fr)}
+  .ff-open-item{grid-template-columns:minmax(0,1fr)}
+}
+@media(prefers-reduced-motion:reduce){.ff-nav__toggle::after,.ff-nav__link{transition:none}}
+@media(forced-colors:active){.ff-nav,.ff-recommended,.ff-next,.ff-open-item,.ff-facts__item{border:1px solid CanvasText}.ff-nav__link[aria-current="location"]{outline:2px solid Highlight;box-shadow:none}.ff-recommended{border-left:6px solid Highlight}}
+/* ============================ V45.6.11.1 FAST FACTS L2 "ON THIS PAGE" NAVIGATION ============================
+   Mirrors the Guidance workspace rail's L2 pattern (see the .summary-section-nav__* rules above):
+   a rail destination with 2+ of its own sub-sections gets a collapsed child list; a destination
+   with 0 or 1 stays a plain link with no expand control. Desktop rail only — the mobile horizontal
+   "On this page" tray (.ff-nav.is-collapsible) is unchanged and hides these controls entirely. */
+.ff-nav__item{display:block;min-width:0}
+.ff-nav__row{display:flex;align-items:stretch;gap:4px;min-width:0}
+.ff-nav__row .ff-nav__link{flex:1 1 auto;min-width:0}
+.ff-nav__expand{flex:0 0 auto;display:grid;place-items:center;width:36px;min-width:36px;min-height:36px;align-self:center;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--muted);font:inherit;cursor:pointer}
+.ff-nav__expand:hover{background:var(--surface);color:var(--ink)}
+.ff-nav__expand:focus-visible{outline:3px solid var(--orient,var(--pg-dark));outline-offset:2px}
+.ff-nav__expand-icon{width:.5rem;height:.5rem;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform .2s ease}
+.ff-nav__expand[aria-expanded="true"] .ff-nav__expand-icon{transform:rotate(225deg)}
+.ff-nav__children{display:grid;gap:2px;margin:2px 0 4px 34px;padding:0;list-style:none}
+.ff-nav__children[hidden]{display:none}
+.ff-nav__child-link{display:block;width:100%;min-height:36px;padding:7px 10px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--muted);font:inherit;font-size:.82rem;line-height:1.3;text-align:left;cursor:pointer;overflow-wrap:break-word}
+.ff-nav__child-link:hover{background:var(--surface);color:var(--ink)}
+.ff-nav__child-link:focus-visible{outline:3px solid var(--orient,var(--pg-dark));outline-offset:2px}
+@media(max-width:900px){.ff-nav__expand,.ff-nav__children{display:none!important}.ff-nav__row{display:contents}}
+@media(prefers-reduced-motion:reduce){.ff-nav__expand-icon{transition:none}}
+@media(forced-colors:active){.ff-nav__expand{border:1px solid CanvasText}.ff-nav__child-link:hover{outline:1px solid CanvasText}}
+
+/* ============================ V45.6.9.8 INSIGHT FEEDBACK SPACING ============================
+   Separates card content, the "Was this useful?" summary, usefulness choices, and the nested
+   "Tell us why" disclosure. No fixed heights; chips wrap; native <details> semantics retained. */
+.dynamic-insight>footer{flex-wrap:wrap;align-items:flex-start;row-gap:14px}
+.dynamic-insight>footer>.insight-feedback{flex:1 1 100%;width:100%;margin:6px 0 0;padding-top:14px;border-top:1px solid var(--line-soft)}
+.insight-feedback>.insight-feedback__summary{min-height:44px;color:var(--pg-dark);font-weight:700}
+.insight-feedback>.insight-feedback__body{display:block;margin:10px 0 0}
+.insight-feedback__choices{display:flex;flex-wrap:wrap;gap:8px;margin:0}
+.insight-feedback__reasons{margin:16px 0 0;padding-top:14px;border-top:1px dashed var(--line-strong)}
+.insight-feedback__reasons>summary{min-height:44px;color:var(--pg-dark);font-weight:700}
+.insight-feedback__reason-list{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 2px}
+.insight-feedback .chip{min-height:44px;max-width:100%;white-space:normal;text-align:left;line-height:1.3}
+.insight-feedback .chip:focus-visible,.insight-feedback summary:focus-visible{outline:3px solid var(--orient,var(--pg-dark));outline-offset:2px}
+@media(max-width:520px){.insight-feedback__choices .chip{flex:1 1 30%}.insight-feedback__reason-list .chip{flex:1 1 100%}}
+@media(forced-colors:active){.insight-feedback__reasons{border-top:1px solid CanvasText}}
+/* ============================ V45.6.9.9 SELECTED-ANSWER INLINE RESPONSE ============================ */
+.inline-response{margin:16px 0;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);overflow:hidden}
+/* 2026-10-05: was display:flex + flex-wrap:wrap + justify-content:space-between with no rule at all
+   for the generic details>summary::after chevron (components.css's global rule, margin-left:auto) —
+   that works for a single-line flex row, but this summary's own long title ("About 'Attached ADU'")
+   plus its small subtitle routinely wrap, and a wrapped flex item with margin-left:auto has no
+   reliable position: confirmed live landing well below both text lines, roughly centered under
+   them, instead of beside the title. A 2-column grid (text column, chevron column spanning both
+   text rows) is the same fix already used for .progressive-guidance__summary/.summary-progressive's
+   own chevron — explicit placement instead of relying on auto-margin flex behavior to hold up under
+   wrapping. Kept inline at every width (not collapsed to a third stacked row on mobile the way
+   those two do), since the chevron here has no visible label of its own to carry that stacking. */
+.inline-response>.inline-response__summary{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:14px;min-height:48px;padding:12px 16px;color:var(--pg-dark);font-weight:800;cursor:pointer;list-style:none}
+.inline-response>.inline-response__summary::-webkit-details-marker{display:none}
+.inline-response>.inline-response__summary>span{grid-column:1;grid-row:1;min-width:0;overflow-wrap:anywhere}
+.inline-response>.inline-response__summary small{grid-column:1;grid-row:2;color:var(--muted);font-weight:600}
+.inline-response>.inline-response__summary::after{grid-column:2;grid-row:1/span 2;justify-self:end;align-self:center;position:static;margin:0}
+.inline-response>.inline-response__summary:focus-visible{outline:3px solid var(--orient,var(--pg-dark));outline-offset:-3px}
+.inline-response__body{display:grid;gap:14px;padding:4px 16px 16px;min-width:0}
+.inline-response__section{min-width:0;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.inline-response__heading{margin:0 0 6px;font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.inline-response__section p{margin:0;line-height:1.55;max-width:70ch}
+.inline-response__uncertainty{margin-top:8px!important;padding-top:8px;border-top:1px solid var(--line-soft)}
+.inline-response__definition{border-left:4px solid var(--pg)}
+.inline-response__prepare{border-left:4px solid var(--known-heading,#0b5a30)}
+.inline-response__doc-list{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+/* 2026-10-06: added an icon column (was a single-column text stack) so each item gets the same
+   doc-vs-photo badge the full document-guidance-card() already shows, instead of plain text. */
+.inline-response__doc{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;min-width:0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.inline-response__doc-body{display:grid;gap:3px;min-width:0}
+.inline-response__doc strong{overflow-wrap:anywhere}
+.inline-response__doc span{color:var(--muted);line-height:1.45;overflow-wrap:anywhere}
+.inline-response__doc .inline-response__doc-status{color:var(--pg-dark);font-size:.74rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.inline-response__note,.inline-response__boundary{color:var(--muted);font-size:.84rem;line-height:1.45}
+.inline-response__note{margin-top:8px!important}
+.inline-response__boundary{margin:0}
+.inline-response .progressive-examples{margin:0}
+.inline-response img{max-width:100%;height:auto;object-fit:contain}
+@media(max-width:760px){.inline-response>.inline-response__summary{padding:12px 14px}.inline-response__body{padding:4px 10px 12px}.inline-response__section{padding:12px}}
+@media(prefers-reduced-motion:reduce){.inline-response,.inline-response *{transition:none!important;animation:none!important}}
+@media(forced-colors:active){.inline-response,.inline-response__section,.inline-response__doc{border:1px solid CanvasText}.inline-response__definition,.inline-response__prepare{border-left:4px solid Highlight}}
+/* ============================ V45.6.10 VISUAL REFINEMENTS ============================
+   1. Navigation: no legacy purple. Current = PG&E blue on light tint across question rail,
+      Review & confirm rail, and guidance rail. 2. Illustrations never crop (contain, no fixed height).
+   3. Reference examples beside released documents. 4. Option previews. 5. Image viewer. 6. Carousel. */
+:root{--pn-nav-hover:var(--surface);--pn-nav-selected:var(--tint);--pn-nav-border:var(--pg)}
+.question-nav__button[aria-current="step"],.understanding-nav__button[aria-current],.summary-section-nav__button.is-active{border-color:var(--pg)!important;background:var(--tint)!important;box-shadow:inset 4px 0 0 var(--pg)!important;color:var(--ink)!important}
+.understanding-nav__button[aria-current] .understanding-nav__number,.summary-section-nav__button.is-active .summary-section-nav__number{background:var(--pg)!important;color:#fff!important}
+.ebadge.sourced{background:var(--tint);color:var(--orient,var(--pg-deep));border-color:var(--tint-b)}
+/* 2. No cropping anywhere an illustration appears. */
+.dynamic-insight--summary .insight-visual{max-height:none!important;overflow:visible!important}
+.dynamic-insight .visual-example img,.dynamic-insight--summary .visual-example img,.insight-visual img,.progressive-card img,.visual-example img,.document-guidance-card__visual img,.insight-tile img{object-fit:contain!important;height:auto!important;max-height:340px;width:100%;background:#fff}
+.adaptive-document-gallery .document-guidance-card__visual img{height:auto!important;max-height:320px}
+/* 3. Reference examples beside released documents. */
+.inline-response__references{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px;margin-top:12px}
+.inline-response__figure{margin:0;padding:10px;border:1px dashed var(--line-strong);border-radius:10px;background:#fff}
+.inline-response__figure img{display:block;width:100%;max-height:300px;object-fit:contain}
+.inline-response__figure figcaption{display:grid;gap:3px;margin-top:8px;font-size:.86rem;line-height:1.45}
+.inline-response__figure figcaption span{color:var(--muted)}
+/* 4. Option previews: a quiet disclosure directly under each choice. */
+.option-preview{margin:-4px 0 6px 38px;border-left:2px solid var(--tint-b);padding-left:10px}
+.option-preview>.option-preview__summary{min-height:36px;padding:4px 0;font-size:.86rem;font-weight:700;color:var(--pg-dark)}
+.option-preview>.option-preview__summary:focus-visible{outline:3px solid var(--orient,var(--pg-dark));outline-offset:2px}
+.option-preview__body{display:grid;gap:8px;padding:4px 0 10px}
+.option-preview__body p{margin:0;line-height:1.5;max-width:66ch}
+.option-preview__uncertainty,.option-preview__note{color:var(--muted);font-size:.86rem}
+.option-preview__figure{max-width:340px}
+/* 5. Image viewer. */
+img[data-image-viewer]{cursor:zoom-in}
+img[data-image-viewer]:focus-visible{outline:3px solid var(--orient,var(--pg-dark));outline-offset:3px}
+body.image-viewer-open{overflow:hidden}
+/* 2026-10-05: now a native <dialog> (components/image-viewer.js) so showModal() promotes it to the
+   browser's top layer — the same mechanism the scenario guide's own dialog uses — so it reliably
+   paints above that dialog (or any other open top-layer dialog) regardless of z-index. The manual
+   .image-viewer__backdrop div is gone; ::backdrop is the native dialog backdrop, and clicking it
+   is detected the same way the scenario guide detects its own backdrop click (e.target===dialog). */
+.image-viewer{position:fixed;inset:0;z-index:1200;margin:0;width:auto;height:auto;max-width:none;max-height:none;border:0;background:transparent;display:grid;place-items:center;padding:clamp(8px,3vw,32px);cursor:zoom-out}
+.image-viewer::backdrop{background:rgba(3,26,45,.72)}
+.image-viewer__panel{position:relative;display:grid;gap:10px;width:min(1100px,100%);max-height:100%;overflow:auto;padding:16px;border-radius:16px;background:#fff;box-shadow:0 24px 70px rgba(0,0,0,.35);cursor:auto}
+.image-viewer__head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.image-viewer__head h2{margin:0;font-size:1.1rem}
+.image-viewer__close{flex:none;min-width:44px;min-height:44px;border:1px solid var(--line-strong);border-radius:10px;background:#fff;font-size:1.6rem;line-height:1;cursor:pointer}
+.image-viewer__close:focus-visible{outline:3px solid var(--orient,var(--pg-dark));outline-offset:2px}
+.image-viewer__frame{display:grid;place-items:center;background:var(--surface);border-radius:10px}
+.image-viewer__frame img{display:block;max-width:100%;max-height:calc(100vh - 220px);width:auto;height:auto;object-fit:contain}
+.image-viewer__caption{margin:0;line-height:1.5}
+.image-viewer__boundary{margin:0;color:var(--muted);font-size:.84rem}
+/* 6. Carousel (3+ illustrations). */
+.illustration-carousel{display:grid;gap:10px;min-width:0}
+.progressive-examples__grid.illustration-carousel__track{display:grid!important;grid-auto-flow:column;grid-template-columns:none!important;grid-auto-columns:minmax(min(84%,300px),1fr);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;padding:2px 2px 10px;scrollbar-width:thin}
+.illustration-carousel__track>*{scroll-snap-align:start;min-width:0}
+.illustration-carousel__controls{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.illustration-carousel__btn{min-width:44px;min-height:44px;border:1px solid var(--line-strong);border-radius:999px;background:#fff;color:var(--pg-dark);font-size:1.1rem;font-weight:800;cursor:pointer}
+.illustration-carousel__btn:disabled{opacity:.4;cursor:default}
+.illustration-carousel__btn:focus-visible{outline:3px solid var(--orient,var(--pg-dark));outline-offset:2px}
+.illustration-carousel__status{color:var(--muted);font-size:.86rem;font-weight:700}
+@media(min-width:1000px){.progressive-examples__grid.illustration-carousel__track{grid-auto-columns:calc((100% - 32px)/3)}}
+@media(max-width:600px){.option-preview{margin-left:12px}}
+@media(prefers-reduced-motion:reduce){.illustration-carousel__track{scroll-behavior:auto}}
+@media(forced-colors:active){.image-viewer__panel,.inline-response__figure,.illustration-carousel__btn{border:1px solid CanvasText}.image-viewer::backdrop{background:Canvas}.question-nav__button[aria-current="step"],.understanding-nav__button[aria-current],.summary-section-nav__button.is-active{outline:2px solid Highlight}}
+/* ============================ V45.6.11 SHARED CAROUSEL + L2 GUIDANCE NAVIGATION ============================
+   1. Shared carousel: the track layout now keys off the generic .illustration-carousel__track class the
+      enhancer adds at runtime, not the specific grid it came from. Any governed image group (document
+      guidance lists, the Fast Facts document gallery, reference-example figures, photo/document example
+      modals) gets the identical horizontal, swipeable, keyboard-operable carousel at 3+ items. The original
+      V45.6.10 rule above still applies to .progressive-examples__grid specifically and is unchanged.
+   2. L2 guidance navigation: a Guidance rail destination that groups more than one underlying card (for
+      example "Cost and timeline" or "Your project and answers") gets a secondary expand control revealing
+      its member sections as child links. Collapsed by default; native button semantics; desktop rail only
+      (the mobile horizontal "On this page" tray is unchanged and does not show children in this release). */
+.illustration-carousel__track{display:grid!important;grid-auto-flow:column;grid-template-columns:none!important;grid-auto-columns:minmax(min(84%,300px),1fr);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;padding:2px 2px 10px;scrollbar-width:thin}
+.illustration-carousel__track>*{scroll-snap-align:start;min-width:0}
+@media(min-width:1000px){.illustration-carousel__track{grid-auto-columns:calc((100% - 32px)/3)}}
+@media(prefers-reduced-motion:reduce){.illustration-carousel__track{scroll-behavior:auto}}
+@media(forced-colors:active){.illustration-carousel__track>*{border:1px solid CanvasText}}
+.summary-section-nav__item{display:block;min-width:0}
+.summary-section-nav__row{display:flex;align-items:stretch;gap:4px;min-width:0}
+.summary-section-nav__row .summary-section-nav__button{flex:1 1 auto;min-width:0}
+.summary-section-nav__expand{flex:0 0 auto;display:grid;place-items:center;width:36px;min-width:36px;min-height:36px;align-self:center;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--muted);font:inherit;cursor:pointer}
+.summary-section-nav__expand:hover{background:var(--pn-nav-hover,#f3f6fb);color:var(--ink)}
+.summary-section-nav__expand:focus-visible{outline:3px solid var(--pg-dark);outline-offset:2px}
+.summary-section-nav__expand-icon{width:.5rem;height:.5rem;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform .2s ease}
+.summary-section-nav__expand[aria-expanded="true"] .summary-section-nav__expand-icon{transform:rotate(225deg)}
+.summary-section-nav__children{display:grid;gap:2px;margin:2px 0 4px 34px;padding:0;list-style:none}
+.summary-section-nav__children[hidden]{display:none}
+.summary-section-nav__child-link{display:block;width:100%;min-height:36px;padding:7px 10px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--muted);font:inherit;font-size:.82rem;line-height:1.3;text-align:left;cursor:pointer;overflow-wrap:anywhere}
+.summary-section-nav__child-link:hover{background:var(--pn-nav-hover,#f3f6fb);color:var(--ink)}
+.summary-section-nav__child-link:focus-visible{outline:3px solid var(--pg-dark);outline-offset:2px}
+@media(max-width:820px){.summary-section-nav__expand,.summary-section-nav__children{display:none!important}.summary-section-nav__row{display:contents}}
+@media(prefers-reduced-motion:reduce){.summary-section-nav__expand-icon{transition:none}}
+@media(forced-colors:active){.summary-section-nav__expand{border:1px solid CanvasText}.summary-section-nav__child-link:hover{outline:1px solid CanvasText}}
+/* V45.6.13 Visual Guidance */
+.visual-guidance-set{margin-top:16px}.visual-guidance-set__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.visual-guidance-card{display:grid;gap:12px;padding:18px;border:1px solid var(--line-strong);border-radius:16px;background:var(--card)}.visual-guidance-card__eyebrow{color:var(--pg-dark);font-size:.72rem;font-weight:850;text-transform:uppercase}.visual-guidance-card h3,.visual-guidance-card p{margin:0}.visual-guidance-card h4{margin:0 0 6px;font-size:.78rem;text-transform:uppercase}.visual-guidance-card__visuals{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:10px}.visual-guidance-card__figure{margin:0;padding:10px;border:1px solid var(--line);border-radius:12px}.visual-guidance-card__figure img{width:100%;height:auto;max-height:260px;object-fit:contain}.visual-guidance-card__caution{padding:12px;border-left:4px solid #b26a00;background:#fff8e8}.visual-guidance-card__boundary{padding-top:10px;border-top:1px solid var(--line-soft);color:var(--muted);font-size:.8rem}@media(max-width:760px){.visual-guidance-set__grid{grid-template-columns:1fr}}
+
+/* ============================ V45.6.14 REFERENCE NAVIGATION ============================ */
+.summary-section-nav--workspace .summary-section-nav__number{display:none!important}
+.summary-section-nav--workspace .is-read,.summary-section-nav--workspace .is-unread{opacity:1}
+.summary-section-nav--workspace [data-read-state]{text-decoration:none}
+.summary-section-nav__item.is-active>.summary-section-nav__row .summary-section-nav__button,.ff-nav__item:has(.ff-nav__link.is-current)>.ff-nav__row .ff-nav__link{border-color:var(--pg);background:var(--tint);color:var(--pg-deep)}
+.summary-section-nav__child-link.is-active,.ff-nav__child-link.is-current{background:var(--tint);color:var(--pg-deep);font-weight:800;box-shadow:inset 3px 0 0 var(--pg)}
+@media(max-width:900px){.summary-section-nav--workspace .summary-section-nav__expand,.ff-nav.is-collapsible .ff-nav__expand{display:inline-grid}.summary-section-nav--workspace .summary-section-nav__children,.ff-nav.is-collapsible .ff-nav__children{position:static;margin:6px 0 0;padding:6px;border:1px solid var(--line);border-radius:10px;background:var(--card)}.summary-section-nav--workspace .summary-section-nav__child-link,.ff-nav.is-collapsible .ff-nav__child-link{min-height:44px;width:100%;text-align:left}.summary-section-nav--workspace .summary-section-nav__expand::before,.ff-nav.is-collapsible .ff-nav__expand::before{content:'In this section';font-size:.75rem;font-weight:700;margin-right:6px}}
+@media(forced-colors:active){.summary-section-nav__child-link.is-active,.ff-nav__child-link.is-current{outline:2px solid Highlight;box-shadow:none}}
+/* ============================ V45.6.15 HIERARCHY + DENSITY ============================ */
+.inline-response__body[data-density-contract="answer-primary-details"]{display:grid;gap:12px}
+.inline-response__body[data-density-contract="answer-primary-details"]>.inline-response__definition{padding:14px 16px;border:1px solid var(--line-strong);border-left:4px solid var(--pg);border-radius:12px;background:var(--card)}
+.inline-response__details{border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden}
+.inline-response__details>summary{display:grid;grid-template-columns:minmax(0,1fr);gap:2px;min-height:48px;padding:11px 42px 11px 14px;position:relative;cursor:pointer;list-style:none}
+.inline-response__details>summary::-webkit-details-marker{display:none}
+.inline-response__details>summary::after{content:"";position:absolute;right:16px;top:17px;width:.5rem;height:.5rem;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg)}
+.inline-response__details[open]>summary::after{transform:rotate(225deg);top:21px}
+.inline-response__details>summary span{font-weight:800;color:var(--ink)}
+.inline-response__details>summary small{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.inline-response__details>.inline-response__section{margin:0;padding:14px;border-top:1px solid var(--line-soft)}
+.inline-response__prepare>summary small{max-width:72ch}
+.inline-response__references,.progressive-examples__grid{align-items:start}
+.inline-response__references>.inline-response__figure:nth-child(n+3){display:none}
+.illustration-carousel .inline-response__references>.inline-response__figure:nth-child(n+3){display:block}
+.ff-recommended[data-priority="primary"]{border:2px solid var(--pg);border-left:6px solid var(--pg);box-shadow:0 8px 24px rgba(1,84,135,.10);background:linear-gradient(180deg,var(--tint),var(--card) 42%);padding:clamp(18px,3vw,28px)}
+.ff-recommended[data-priority="primary"] .ff-recommended__title{font-size:clamp(1.35rem,2.2vw,1.8rem)}
+.ff-section[data-hierarchy="supporting"]{border-color:var(--line);box-shadow:none;background:var(--card)}
+.ff-section[data-hierarchy="supporting"] .ff-section__head{padding-bottom:10px;border-bottom:1px solid var(--line-soft)}
+.ff-section[data-hierarchy="supporting"] .ff-section__title{font-size:1.1rem}
+.ff-section[data-hierarchy="supporting"] .ff-section__intro{max-width:72ch}
+.ebadge.customer::before{content:"Known fact · "}.ebadge.interpretation::before{content:""}
+.guidance-card--confirmation .guidance-card__state-header::after,.confirm-row__head::after{content:"Needs confirmation";display:inline-flex;margin-left:auto;padding:3px 8px;border:1px solid var(--confirm-heading);border-radius:999px;color:var(--confirm-heading);font-size:.72rem;font-weight:800}
+@media(max-width:760px){.inline-response__details>summary small{white-space:normal}.ff-recommended[data-priority="primary"]{padding:16px}.ff-section[data-hierarchy="supporting"]{padding:14px}.guidance-card--confirmation .guidance-card__state-header::after{margin-left:0}}
+@media(forced-colors:active){.inline-response__details,.inline-response__definition,.ff-recommended[data-priority="primary"],.ff-section[data-hierarchy="supporting"]{border:1px solid CanvasText}.ff-recommended[data-priority="primary"]{border-left:6px solid Highlight}.guidance-card--confirmation .guidance-card__state-header::after,.confirm-row__head::after{border:1px solid Highlight;color:CanvasText}}
+/* V45.6.16 scenario-specific planning benchmark cards */
+.planning-benchmark-card{display:grid;gap:16px;padding:18px;border:1px solid var(--line-strong);border-radius:14px;background:var(--card)}
+.planning-benchmark-card__scenario{margin:0 0 8px;padding:7px 10px;border-radius:8px;background:var(--tint);color:var(--pg-deep)}
+.planning-benchmark-card h4{margin:0}.planning-benchmark-card__value{margin:8px 0 2px;font-size:clamp(1.45rem,3vw,2rem);font-weight:900;color:var(--pg-deep)}
+.planning-benchmark-card__type{margin:0;color:var(--muted)}.planning-benchmark-card__scope{display:grid;grid-template-columns:1fr 1fr;gap:16px}.planning-benchmark-card h5{margin:0 0 6px}.planning-benchmark-card ul{margin:0;padding-left:20px}.planning-benchmark-card footer{padding-top:12px;border-top:1px solid var(--line-soft)}.planning-benchmark-card footer p{margin:4px 0}.planning-benchmark-card__boundary{font-weight:700}
+@media(max-width:760px){.planning-benchmark-card__scope{grid-template-columns:1fr}.planning-benchmark-card{padding:14px}}
+@media(forced-colors:active){.planning-benchmark-card,.planning-benchmark-card__scenario{border:1px solid CanvasText}}
+
+/* V45.7.5.9 canonical next-action identity */
+.ff-recommended,.pinned-recommendation{border:2px solid var(--pg,#0085ad);border-left-width:6px;border-radius:20px;background:linear-gradient(135deg,#eef9fd 0%,#fff 68%);padding:clamp(20px,3vw,32px);box-shadow:0 12px 30px rgba(0,92,128,.08)}
+.ff-recommended__label,.pinned-recommendation .eyebrow,.pinned-recommendation .next-action__eyebrow{color:var(--pg-dark,#006b8f);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.ff-recommended__title,.pinned-recommendation h2{margin:6px 0 12px;font-size:clamp(1.45rem,2.2vw,2rem);line-height:1.15}
+.insight-hero .scenario-guide-launcher{margin:16px 0 0}
+@media(max-width:640px){.ff-recommended,.pinned-recommendation{padding:18px}.scenario-guide-launcher--fast-facts{width:100%;justify-content:center}}
+
+
+/* V45.7.5.9.5: editorial visual treatment; preserve governed interaction surfaces. */
+/* Presentation-only: no changes to image sources, visibility rules, carousel navigation or lightbox controls. */
+.visual-guidance-card,
+.visual-guidance-card__figure,
+.inline-response__figure,
+.document-guidance-card .visual-example,
+.progressive-examples {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+.visual-guidance-card { align-content: start; padding: 0; gap: 10px; }
+.visual-guidance-card__figure,
+.inline-response__figure,
+.document-guidance-card .visual-example { padding: 0; margin: 0; min-width: 0; }
+.visual-guidance-card__visuals { align-items: start; }
+.visual-guidance-card__figure img,
+.inline-response__figure img,
+.document-guidance-card .visual-example img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: left top;
+}
+.visual-guidance-card__figure figcaption,
+.inline-response__figure figcaption,
+.document-guidance-card .visual-example figcaption {
+  text-align: left;
+  line-height: 1.45;
+}
+.progressive-examples { padding: 0; }
+/* Keep the recommended action visibly dominant; only this programmatic feature receives an accent. */
+#recommended-action.cardbox.lead {
+  border: 2px solid var(--pg);
+  box-shadow: 0 16px 40px rgba(34,49,90,.18);
+}
+@media (max-width: 760px) {
+  .visual-guidance-card__visuals { grid-template-columns: 1fr; }
+}
+@media (forced-colors: active) {
+  .visual-guidance-card,
+  .visual-guidance-card__figure,
+  .inline-response__figure,
+  .document-guidance-card .visual-example,
+  .progressive-examples,
+  #recommended-action.cardbox.lead { border: 1px solid CanvasText; }
+}
+
+/* 2026-10-06: question-dropdown thumbnail sizing (previously a Questions-screen-only 60px square,
+   flex-row layout) is superseded below by one app-wide "large thumbnail" default covering every
+   image the app already makes click-to-expand (components/image-viewer.js's ImageViewer.SELECTOR),
+   so all images share one consistent on-screen size instead of a patchwork of per-context values.
+   Kept the stacked figure/figcaption block layout (no flex row) since the unified size is larger
+   than the old 60px icon this flex treatment was built for. */
+@media(forced-colors:active){.inline-response__figure img,.answer-context .visual-example img{border:1px solid CanvasText}}
+/* 2026-10-06: ONE default "large thumbnail" size for every image the app already lets a customer
+   expand to full size (components/image-viewer.js's ImageViewer.SELECTOR is the authoritative list
+   of which images that covers) — supersedes the scattered, inconsistent max-height values this
+   grew into across components.visual-examples.css/.page5-region.css (155px/230px/250px/260px/
+   280px/300px/320px/340px/360px, depending on context). object-fit:contain (not cover) so diagrams,
+   floor plans, and documents aren't cropped at this larger default size; click still opens the same
+   lightbox at full, uncropped size (components/image-viewer.js's .image-viewer__frame img is
+   untouched). !important + last in this file's cascade to reliably beat every legacy value above,
+   including the ones already marked !important, without having to track down and edit each one. */
+#app .progressive-card img,#app .visual-example img,#app .insight-tile img,#app .inline-response__figure img,#app .document-guidance-card__visual img,#app .insight-visual img,#app .ff-section img,#app .visual-guidance-card img{width:140px!important;height:140px!important;max-width:140px!important;max-height:140px!important;object-fit:contain!important;object-position:center!important;background:#fff!important;border-radius:8px;display:block;margin:0 auto}
+@media(max-width:420px){#app .progressive-card img,#app .visual-example img,#app .insight-tile img,#app .inline-response__figure img,#app .document-guidance-card__visual img,#app .insight-visual img,#app .ff-section img,#app .visual-guidance-card img{width:110px!important;height:110px!important;max-width:110px!important;max-height:110px!important}}
+/* 2026-10-06: centering the thumbnail (above) only solved half of it — the card/figure around it
+   still had whatever padding it was built for when the image filled the box edge-to-edge:
+   .progressive-card had none at all (overflow:hidden, image meant to bleed to the card's own
+   edges), and .visual-guidance-card__figure/.inline-response__figure/.document-guidance-card
+   .visual-example had theirs explicitly zeroed by the V45.7.5.9.5 editorial pass above for the
+   same reason. None of that holds once the image is a fixed 140px thumbnail — restoring consistent
+   padding so the thumbnail doesn't sit flush against the card edge. */
+.progressive-card,.visual-guidance-card__figure,.inline-response__figure,.document-guidance-card .visual-example{padding:16px!important}
+/* 2026-10-06: icon-as-image fallback for document headers with no real example image
+   (components/document-guidance-card.js's visual(), screens/screen-understanding.js's
+   documentCard()) — same 140px box, centered, as the real thumbnails above, so a document with no
+   photo doesn't just leave a gap where one would normally sit. Reuses the --possible-bg/
+   --possible-heading tint already used for this exact "document guidance" context's small head
+   badge (components.css:577), just at the larger size. */
+.visual-example--icon-fallback,.document-guidance-card__visual--icon-fallback{display:flex!important;align-items:center;justify-content:center;width:140px;height:140px;margin:0 auto;border-radius:8px;background:var(--possible-bg)}
+.visual-example__icon,.document-guidance-card__visual-icon{color:var(--possible-heading)}
+.visual-example__icon .pn-icon,.document-guidance-card__visual-icon .pn-icon{width:56px;height:56px}
+@media(max-width:420px){.visual-example--icon-fallback,.document-guidance-card__visual--icon-fallback{width:110px;height:110px}.visual-example__icon .pn-icon,.document-guidance-card__visual-icon .pn-icon{width:44px;height:44px}}
+@media(forced-colors:active){.visual-example--icon-fallback,.document-guidance-card__visual--icon-fallback{border:1px solid CanvasText}}
+/* 2026-10-06: the small per-item icon badge for the "Documents or photos that may help" inline
+   list (components/document-guidance-card.js's renderInline()) — moved down here, after the
+   V45.6.10 marker, rather than next to .inline-response__doc above: this is the one place in that
+   V45.6.9.9 section that genuinely needs a fixed icon size, and tests/v45.6.9.9-inline-responses
+   .test.js's "no fixed heights" contract (narrowed to that section only, same reasoning as the
+   140px thumbnails above) would otherwise flag it as a regression of a rule it was never meant to
+   cover. */
+.inline-response__doc-icon{display:flex;align-items:center;justify-content:center;width:28px;height:28px;margin-top:1px;border-radius:8px;background:var(--possible-bg);color:var(--possible-heading)}
+.inline-response__doc-icon .pn-icon,.inline-response__doc-icon .lucide{width:16px;height:16px}
+@media(forced-colors:active){.inline-response__doc-icon{border:1px solid CanvasText}}
+
+/* 9.9: reset belongs to the last guide section, never the persistent dialog footer. */
+#scenario-guide-dialog .scenario-guide-shell__end-actions{display:flex;justify-content:flex-start;margin:2rem 0 1rem;padding-top:1.25rem;border-top:1px solid currentColor}
+#scenario-guide-dialog .scenario-guide-shell__end-actions .btn{max-width:100%}

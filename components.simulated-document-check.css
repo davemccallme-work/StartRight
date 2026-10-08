@@ -1,0 +1,55 @@
+/* 2026-10-05: "Try a simulated document check" (components/simulated-document-check.js). Built
+   against this app's own design tokens (var(--card)/var(--line-soft)/var(--tint)/var(--pg)) and the
+   18px icon-circle standard established this session for the (i) info badge, rather than porting the
+   reference mockup's own bespoke palette/shadows/icon sizing. Loaded last in build.js's CSS array so
+   it can act as the final word if any token-level conflict ever arises, same as the other
+   feature-specific stylesheets already loaded at the end of that array. */
+.simdoc-intro{margin:0 0 14px;font-size:.92rem;line-height:1.5}
+.simdoc-boundary{margin:16px 0 0}
+.simdoc-picker{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.simdoc-picker__option{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);font:inherit;font-weight:700;cursor:pointer}
+.simdoc-picker__option:hover:not(:disabled){border-color:var(--pg);background:var(--tint)}
+.simdoc-picker__option:focus-visible{outline:3px solid var(--ring);outline-offset:2px}
+.simdoc-picker__option.is-selected{border-color:var(--pg);background:var(--tint);color:var(--pg-dark)}
+.simdoc-picker__option:disabled{opacity:.5;cursor:not-allowed}
+.simdoc-picker__icon{display:inline-flex;flex:0 0 auto}
+.simdoc-picker__icon svg{width:18px;height:18px}
+.simdoc-card{border:1px solid var(--line-soft);border-radius:16px;background:var(--card);padding:18px;margin-top:4px}
+.simdoc-card__head{display:flex;gap:10px;align-items:flex-start}
+.simdoc-card__icon{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;border-radius:10px;background:var(--tint);color:var(--pg-dark)}
+.simdoc-card__icon svg{width:20px;height:20px}
+.simdoc-card__eyebrow{margin:0 0 2px;font-size:.72rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--pg-dark)}
+.simdoc-card__head h4{margin:0;font-size:1.02rem}
+.simdoc-preview{margin:14px 0;border:1px solid var(--line-soft);border-radius:12px;overflow:hidden;background:#fff;display:grid;place-items:center;max-height:220px}
+.simdoc-preview img{display:block;width:100%;height:220px;object-fit:contain;transition:filter .3s ease}
+.simdoc-card--adding .simdoc-preview img,.simdoc-card--processing .simdoc-preview img{filter:blur(1px) brightness(1.05)}
+/* One shared, standardized circle size — matches the (i) info-badge cue standardized this session
+   (components.v4439-overrides.css's .term-button__cue) rather than inventing a second icon size. */
+.simdoc-flow{display:flex;gap:4px;margin:14px 0;padding:0;list-style:none;overflow-x:auto}
+.simdoc-flow__step{flex:1 0 76px;display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;color:var(--muted);font-size:.72rem;font-weight:700}
+.simdoc-flow__marker{display:inline-grid;place-items:center;flex:0 0 18px;width:18px;height:18px;border:1px solid currentColor;border-radius:50%;font-size:10px;font-weight:800;line-height:1}
+.simdoc-flow__marker svg{width:12px;height:12px}
+.simdoc-flow__step.is-complete{color:var(--pg-dark)}
+.simdoc-flow__step.is-complete .simdoc-flow__marker{background:var(--pg-dark);border-color:var(--pg-dark);color:#fff}
+.simdoc-flow__step.is-current{color:var(--pg)}
+.simdoc-flow__step.is-current .simdoc-flow__marker{border-color:var(--pg);box-shadow:0 0 0 3px var(--tint)}
+.simdoc-flow__step.is-processing .simdoc-flow__marker{animation:simdoc-pulse 1s ease-in-out infinite}
+.simdoc-card__actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:4px}
+.simdoc-status{margin:0;font-weight:700;color:var(--pg-dark)}
+.simdoc-result{margin-top:16px;padding:16px;border:1px solid var(--line-soft);border-radius:12px;background:#f1faf5}
+.simdoc-result.needs{background:#fffaf0;border-color:#e3c991}
+.simdoc-result__header{display:flex;gap:10px;align-items:flex-start}
+.simdoc-result__icon{display:flex;flex:0 0 22px}
+.simdoc-result__icon svg{width:22px;height:22px}
+.simdoc-result__eyebrow{margin:0 0 2px;font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--pg-dark)}
+.simdoc-result.needs .simdoc-result__eyebrow{color:#8a6a1f}
+.simdoc-result__header h4{margin:0;font-size:1rem}
+.simdoc-result__body{margin-top:12px;display:grid;gap:12px}
+.simdoc-result__body h5{margin:0 0 4px;font-size:.85rem}
+.simdoc-result__body p,.simdoc-result__body ul{margin:0;line-height:1.45}
+.simdoc-result__body ul{padding-left:20px}
+.simdoc-result__boundary{margin:12px 0 0;padding-top:11px;border-top:1px solid #bed3c9;font-size:.8rem;color:#445d68}
+.simdoc-result.needs .simdoc-result__boundary{border-color:#e4d5ad}
+@keyframes simdoc-pulse{50%{opacity:.4}}
+@media(max-width:600px){.simdoc-preview,.simdoc-preview img{max-height:160px;height:160px}}
+@media(prefers-reduced-motion:reduce){.simdoc-flow__step.is-processing .simdoc-flow__marker{animation:none}.simdoc-preview img{transition:none}}

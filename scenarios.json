@@ -1,0 +1,457 @@
+{
+  "meta": {
+    "name": "StartRight / Project Navigator \u2014 Pre-Application Scenario Model",
+    "version": "3.0.0",
+    "status": "ground-truth",
+    "source": "AIM OneNote (EXC + LSP Electric Intake), Journey Map, EXC & New Project journeys, SB 1210; reconciled to _THRESHOLDS.md",
+    "scope": "pre-application readiness only",
+    "generated": "2026-09-02",
+    "study": {
+      "direction": "ADU-first preparedness study",
+      "anchor_scenario": "S13",
+      "cohort_b_scenario": "S1",
+      "note": "ADU is the single scripted anchor journey. Panel Upgrade (S1) is a separate research cohort; panel content is conditional within the ADU path."
+    },
+    "universal": {
+      "not_an_upgrade_rule": "Going from <100A to a new 100A is like-for-like (S2), not an upgrade."
+    },
+    "reconciliation": {
+      "scoring_model": "Readiness percentage / badges / RAG scoring removed. Replaced by the 6-state model in content/PREPARATION_STATE_MODEL.md.",
+      "universal_deadline": "The universal 19-day loads deadline is removed. The journey-level EXC document window is retained under journeys.express_connect as source-scoped, not universal.",
+      "s1_clearance": "The 36-inch gas clearance is not stated on the LSP panel-upgrade page; removed from S1. S2 underground note retained as sourced."
+    }
+  },
+  "documents": {
+    "D.PHOTOS": {
+      "label": "Service photos (meter up-close, panel 10' back, main breaker, rating sticker)",
+      "self_obtain": "yes",
+      "coaching_ref": "S12"
+    },
+    "D.LOAD_SHEET": {
+      "label": "Residential/Non-Residential Load Sheet",
+      "self_obtain": "contractor",
+      "coaching_ref": "S12"
+    },
+    "D.SITE_PLAN": {
+      "label": "Site plan / aerial view (meter location marked, north arrow, street names)",
+      "self_obtain": "contractor",
+      "coaching_ref": "S12",
+      "high_miss_rate": true
+    },
+    "D.ELEVATION_PLAN": {
+      "label": "Scaled exterior elevation plan (meter location marked)",
+      "self_obtain": "contractor",
+      "coaching_ref": "S12"
+    },
+    "D.SLD": {
+      "label": "Single Line Diagram (SLD)",
+      "self_obtain": "contractor",
+      "coaching_ref": "S12"
+    },
+    "D.PANEL_CUT_SHEET": {
+      "label": "Panel cut sheet",
+      "self_obtain": "yes",
+      "coaching_ref": "S12"
+    },
+    "D.FLOOR_PLAN": {
+      "label": "Building floor plan",
+      "self_obtain": "contractor",
+      "coaching_ref": "S12",
+      "source": "FAQ: required for residential second-meter requests (ADUs/JADUs) and internal metering rooms"
+    },
+    "D.AHJ_ADDRESS": {
+      "label": "Official AHJ letter/permit showing unique street address",
+      "self_obtain": "contractor"
+    },
+    "D.PERMIT": {
+      "label": "Approved building permit",
+      "self_obtain": "contractor",
+      "source": "FAQ: required for second service requests, solar projects, new services, gas meter upgrades"
+    }
+  },
+  "risks": {
+    "R.MISSING_DOCS": {
+      "label": "Missing/incomplete documents",
+      "impact": "Stall or forced re-submission",
+      "mitigation": "Assemble documents before applying."
+    },
+    "R.MISLABEL": {
+      "label": "Wrong scenario self-diagnosis",
+      "impact": "Wrong path / rework",
+      "mitigation": "Ask branching clarifying questions early"
+    },
+    "R.CLEARANCE": {
+      "label": "Gas/clearance non-compliance",
+      "impact": "Rework / site changes",
+      "mitigation": "Verify Greenbook clearances before finalizing location"
+    }
+  },
+  "rules": [
+    {
+      "id": "R.NOT_UPGRADE",
+      "when": {
+        "from_amps": "<100",
+        "to_amps": "100"
+      },
+      "then": {
+        "route_scenario": "S2"
+      }
+    },
+    {
+      "id": "R.ELEVATION_PLAN",
+      "when": {
+        "from_amps": "100",
+        "to_amps": ">=200"
+      },
+      "then": {
+        "require_doc": "D.ELEVATION_PLAN"
+      }
+    },
+    {
+      "id": "R.CUT_SHEET",
+      "when": {
+        "amps": ">=320",
+        "or": "multi_meter"
+      },
+      "then": {
+        "require_doc": "D.PANEL_CUT_SHEET"
+      },
+      "source": "LSP _THRESHOLDS: 320A+ or applicable multi-meter (self-contained exception <=400A)"
+    },
+    {
+      "id": "R.SLD",
+      "when": {
+        "amps": ">=400",
+        "or": "multi_meter"
+      },
+      "then": {
+        "require_doc": "D.SLD"
+      },
+      "source": "LSP _THRESHOLDS: 400A+ or applicable multi-meter (self-contained exception <=400A)"
+    },
+    {
+      "id": "R.FLOOR_PLAN",
+      "when": {
+        "scenario": "S13",
+        "internal_metering_room": true
+      },
+      "then": {
+        "require_doc": "D.FLOOR_PLAN"
+      },
+      "source": "LSP S6/S7: building floor plan if an internal metering room is proposed"
+    },
+    {
+      "id": "R.UNIQUE_ADDR_PERMIT",
+      "when": {
+        "scenario": "S13",
+        "second_meter": true
+      },
+      "then": {
+        "require_doc": "D.AHJ_ADDRESS"
+      },
+      "source": "LSP S6/S7: applicable permit or AHJ letter stating approved unique address (baseline)"
+    },
+    {
+      "id": "R.ADU_DETACHED",
+      "when": {
+        "scenario": "S13",
+        "adu": "detached",
+        "rule1_pass": true,
+        "unique_address": true
+      },
+      "then": {
+        "allow": [
+          "second_meter",
+          "second_service"
+        ]
+      }
+    },
+    {
+      "id": "R.ADU_ATTACHED",
+      "when": {
+        "scenario": "S13",
+        "adu": "attached"
+      },
+      "then": {
+        "allow": [
+          "second_meter"
+        ],
+        "second_service_if": "ahj_requires"
+      }
+    },
+    {
+      "id": "R.JADU_INELIGIBLE",
+      "when": {
+        "scenario": "S13",
+        "jadu": true,
+        "rule1_pass": false
+      },
+      "then": {
+        "deny": "second_meter"
+      }
+    },
+    {
+      "id": "R.JADU_QUALIFIES",
+      "when": {
+        "scenario": "S13",
+        "jadu": true,
+        "rule1_pass": true
+      },
+      "then": {
+        "treat_as": "attached_adu",
+        "allow": [
+          "second_meter"
+        ],
+        "second_service_if": "ahj_requires_special_facilities"
+      },
+      "source": "LSP _THRESHOLDS: qualifying JADU treated as attached ADU; second service lateral conditional (supersedes earlier Journey-Map read)"
+    }
+  ],
+  "preparation_states": [
+    "You told us",
+    "Needs confirmation",
+    "May be needed",
+    "Could delay you",
+    "Question to ask",
+    "Recommended next action"
+  ],
+  "scenarios": [
+    {
+      "id": "S13",
+      "name": "Accessory Dwelling Unit (ADU) \u2014 anchor journey",
+      "role": "anchor",
+      "aliases": [
+        "ADU",
+        "granny unit",
+        "in-law unit",
+        "backyard cottage",
+        "second unit",
+        "JADU"
+      ],
+      "route_triggers": [
+        "build an ADU",
+        "granny unit",
+        "backyard cottage",
+        "in-law unit",
+        "second unit",
+        "add a separate living space"
+      ],
+      "documents": [
+        {
+          "doc": "D.LOAD_SHEET",
+          "trigger": "always"
+        },
+        {
+          "doc": "D.SITE_PLAN",
+          "trigger": "always (meter marked, north arrow, street names)"
+        },
+        {
+          "doc": "D.ELEVATION_PLAN",
+          "trigger": "always (meter marked)"
+        },
+        {
+          "doc": "D.FLOOR_PLAN",
+          "trigger": "internal metering room proposed (LSP)"
+        },
+        {
+          "doc": "D.AHJ_ADDRESS",
+          "trigger": "second meter/service \u2014 permit or AHJ letter showing approved unique address (baseline)"
+        }
+      ],
+      "decision_points": [
+        {
+          "id": "DP.ADU_TYPE",
+          "label": "Detached vs. attached; ADU vs. JADU",
+          "outcomes": [
+            "detached ADU (dwelling-unit test + single legal parcel + unique AHJ address): 2nd meter + 2nd service permissible",
+            "attached ADU: 2nd meter permissible; 2nd service lateral only if AHJ requires under special-facilities requirements",
+            "JADU failing dwelling-unit test: ineligible for 2nd meter",
+            "JADU passing dwelling-unit test: treat as attached ADU (2nd service conditional, not prohibited)"
+          ]
+        },
+        {
+          "id": "DP.UNIQUE_ADDRESS",
+          "label": "Unique AHJ address confirmed?",
+          "outcomes": [
+            "gates second-meter / premise guidance"
+          ]
+        },
+        {
+          "id": "DP.CAPACITY_BRANCH",
+          "label": "Capacity increase / larger panel / multiple meters?",
+          "outcomes": [
+            "branch into conditional panel-upgrade guidance (S1)",
+            "otherwise keep panel content hidden"
+          ]
+        }
+      ],
+      "eligibility": {
+        "rule1_test": "complete family living facilities where occupants normally cook, eat, sleep, and conduct household operations",
+        "detached_adu": {
+          "second_meter": true,
+          "second_service": true,
+          "requires": "unique AHJ address; single legal parcel/premise; Title 24; no Rule 18 master-metering violation"
+        },
+        "attached_adu": {
+          "second_meter": true,
+          "second_service": "only if AHJ requires under special-facilities requirements",
+          "requires": "unique AHJ address; single legal parcel/premise"
+        },
+        "jadu": {
+          "second_meter": "only if meets dwelling-unit test",
+          "second_service": "conditional \u2014 qualifying JADU is treated as an attached ADU, so second service is AHJ/special-facilities conditional (LSP)"
+        },
+        "meter_is_not_service": true
+      },
+      "preparation_states": [
+        "You told us",
+        "Needs confirmation",
+        "May be needed",
+        "Could delay you",
+        "Question to ask",
+        "Recommended next action"
+      ],
+      "risks": [
+        "R.MISLABEL",
+        "R.MISSING_DOCS"
+      ],
+      "conditional_panel_branch": "S1",
+      "source_scenario": "S6-S7",
+      "source_note": "S13 is the V44 ADU anchor JOURNEY (study framing). Its eligibility truth is sourced from ground-truth scenarios/S6-S7_second-multiple-meters.md (LSP Electric Intake). No invented ADU logic; S13 = customer-facing anchor over S6-S7 canon.",
+      "file": "scenarios/S6-S7_second-multiple-meters.md"
+    },
+    {
+      "id": "S1",
+      "name": "Replace Electric Panel \u2014 Upgrade",
+      "role": "cohort_b",
+      "aliases": [
+        "panel upgrade",
+        "service upgrade",
+        "200-amp upgrade",
+        "bigger panel",
+        "main panel replacement",
+        "more power",
+        "increase panel capacity"
+      ],
+      "route_triggers": [
+        "bigger panel",
+        "higher amperage",
+        "more capacity",
+        "electrification support",
+        "solar ready",
+        "ev ready",
+        "upgrade an electric panel"
+      ],
+      "first_decision": {
+        "label": "Upgrade vs. like-for-like replacement",
+        "options": [
+          "more capacity",
+          "same capacity",
+          "not sure"
+        ],
+        "note": "Same-capacity may be L4L (S2); <100A->100A is not an upgrade; confirm interpretation."
+      },
+      "documents": [
+        {
+          "doc": "D.LOAD_SHEET",
+          "trigger": "always"
+        },
+        {
+          "doc": "D.PHOTOS",
+          "trigger": "always"
+        },
+        {
+          "doc": "D.ELEVATION_PLAN",
+          "trigger": "existing 100A upgrading to 200A or greater"
+        },
+        {
+          "doc": "D.SLD",
+          "trigger": "400A and greater; multi-meter"
+        },
+        {
+          "doc": "D.PANEL_CUT_SHEET",
+          "trigger": "320A and greater; multi-meter"
+        },
+        {
+          "doc": "D.PERMIT",
+          "trigger": "solar involved"
+        }
+      ],
+      "reroutes": [
+        {
+          "to": "S2",
+          "when": "<100A -> 100A (not an upgrade)"
+        },
+        {
+          "to": "S13",
+          "when": "dual meter / added ADU"
+        }
+      ],
+      "risks": [
+        "R.MISSING_DOCS",
+        "R.MISLABEL",
+        "R.CLEARANCE"
+      ],
+      "file": "scenarios/S1_panel-upgrade.md"
+    },
+    {
+      "id": "S2",
+      "name": "Replace Electric Panel \u2014 Like-for-Like (L4L)",
+      "aliases": [
+        "like-for-like",
+        "L4L",
+        "panel replacement",
+        "same amperage"
+      ],
+      "clearances": {
+        "gas_horizontal_in": 12,
+        "gas_radial_vent_in": 36,
+        "note": "underground L4L (sourced)"
+      },
+      "risks": [
+        "R.MISLABEL",
+        "R.CLEARANCE"
+      ],
+      "file": "scenarios/S2_panel-like-for-like.md"
+    },
+    {
+      "id": "S8",
+      "name": "Relocate Panel / Meter \u2014 Upgrade",
+      "aliases": [
+        "moving the meter",
+        "relocating panel",
+        "remodel meter move"
+      ],
+      "clearances": {
+        "gas_horizontal_in": 36,
+        "note": "relocation clearance is sourced for this scenario"
+      },
+      "risks": [
+        "R.CLEARANCE",
+        "R.MISSING_DOCS"
+      ],
+      "file": "scenarios/S8_relocate-panel-meter.md"
+    },
+    {
+      "id": "S12",
+      "name": "Document Resources (support)",
+      "type": "support",
+      "role": "Document-coaching knowledge source (what/why/contents/who/if-missing).",
+      "file": "scenarios/S12_document-resources.md"
+    }
+  ],
+  "journeys": {
+    "express_connect": {
+      "path": "fast (existing infrastructure sufficient)",
+      "submit_to_approval_days_max": 34,
+      "docs_due_days": 19,
+      "docs_due_scope": "Express Connect journey window (SB1210/EXC source), not a universal requirement; do not surface as a universal 19-day deadline",
+      "gate": "Load Assessment PASS/FAIL"
+    },
+    "new_project": {
+      "path": "full (new infrastructure required)",
+      "submit_to_approval_days_max": 66,
+      "contract_expiry_days": 90
+    }
+  }
+}

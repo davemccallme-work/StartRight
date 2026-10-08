@@ -1,0 +1,225 @@
+{
+  "GLOSSARY": [
+    {
+      "id": "accessory-dwelling-unit",
+      "term": "Accessory Dwelling Unit (ADU)",
+      "definition": "A separate, self-contained living space on the same property as a main home. Sometimes called a granny unit, in-law unit, backyard cottage, or second unit.",
+      "aliases": [
+        "Accessory dwelling unit",
+        "ADU",
+        "Backyard cottage",
+        "Granny unit",
+        "In-law unit"
+      ]
+    },
+    {
+      "id": "address-assignment",
+      "term": "Address assignment",
+      "definition": "The official address assigned by the city or county for a new unit or building.",
+      "aliases": []
+    },
+    {
+      "id": "adu-type",
+      "term": "ADU type",
+      "definition": "Whether the project is a detached ADU, attached ADU, or Junior ADU. The type affects which address, meter, and electrical-service questions need formal review.",
+      "aliases": [
+        "Attached ADU",
+        "Detached ADU",
+        "JADU",
+        "Junior ADU"
+      ]
+    },
+    {
+      "id": "amperage",
+      "term": "Amps (Amperage)",
+      "definition": "A measure of electric current. Panel and main-breaker ratings are often shown in amps, such as 100A or 200A.",
+      "aliases": [
+        "Amp",
+        "Amps",
+        "Amperage",
+        "Amp rating",
+        "amp (amperage)"
+      ]
+    },
+    {
+      "id": "permit-authority",
+      "term": "Authority Having Jurisdiction (AHJ)",
+      "definition": "The city or county office responsible for permits and inspections for the project.",
+      "aliases": [
+        "AHJ",
+        "City or county permit office",
+        "Permit authority"
+      ]
+    },
+    {
+      "id": "clearance",
+      "term": "clearance",
+      "definition": "The required space around equipment so it is safe and accessible. Not meeting clearances can turn a project into a relocation.",
+      "aliases": []
+    },
+    {
+      "id": "electric-meter",
+      "term": "Electric Meter",
+      "definition": "The device that measures how much electricity the property uses. A meter is different from the electrical service connection and the electrical panel.",
+      "aliases": [
+        "Meter",
+        "Electric meter"
+      ]
+    },
+    {
+      "id": "electrical-load",
+      "term": "Electrical load",
+      "definition": "How much electricity the home or project needs when equipment is operating.",
+      "aliases": []
+    },
+    {
+      "id": "electrical-panel",
+      "term": "Electrical Panel",
+      "definition": "The breaker box that distributes electricity to circuits in a home or building. It contains the breakers, including the main breaker.",
+      "aliases": [
+        "Electric Panel",
+        "Breaker Box",
+        "Panel"
+      ]
+    },
+    {
+      "id": "electric-service",
+      "term": "electrical service",
+      "definition": "The connection that brings power from the utility to your property. Adding a meter does not always mean adding a service.",
+      "aliases": []
+    },
+    {
+      "id": "existing-service-capacity",
+      "term": "Existing service capacity",
+      "definition": "How much electrical power the current connection to the property can provide.",
+      "aliases": []
+    },
+    {
+      "id": "exterior-elevation-plan",
+      "term": "exterior elevation plan",
+      "definition": "A scaled drawing of the outside wall of the building with the meter location marked.",
+      "aliases": []
+    },
+    {
+      "id": "formal-review",
+      "term": "formal review",
+      "definition": "The official utility application and review process. Project Navigator is before this step and does not start, submit, or approve anything.",
+      "aliases": []
+    },
+    {
+      "id": "junior-accessory-dwelling-unit",
+      "term": "Junior Accessory Dwelling Unit (JADU)",
+      "definition": "A smaller unit created within the existing home. It is treated like an attached ADU only if it meets the complete-family-living-facilities test.",
+      "aliases": []
+    },
+    {
+      "id": "like-for-like-replacement",
+      "term": "like-for-like replacement",
+      "definition": "Replacing a panel with the same capacity, not increasing it. Going from under 100A to a new 100A is like-for-like, not an upgrade.",
+      "aliases": []
+    },
+    {
+      "id": "load-calculation",
+      "term": "Load calculation",
+      "definition": "A licensed electrician's calculation of how much electrical power the property and planned equipment may need.",
+      "aliases": []
+    },
+    {
+      "id": "load-sheet",
+      "term": "load sheet",
+      "definition": "A form listing your equipment and expected power use, so the added load can be evaluated. Usually completed with a contractor or electrician.",
+      "aliases": []
+    },
+    {
+      "id": "main-breaker",
+      "term": "main breaker",
+      "definition": "The large switch in your panel that controls all power to the home. Its rating in amps tells you your panel size.",
+      "aliases": []
+    },
+    {
+      "id": "overhead-service",
+      "term": "Overhead service",
+      "definition": "An electrical service path where visible wires typically reach the property from a pole.",
+      "aliases": []
+    },
+    {
+      "id": "panel-rating",
+      "term": "Panel capacity",
+      "definition": "The amount of electrical demand a panel is designed to carry. A load calculation and field review help determine whether the existing panel can support planned equipment.",
+      "aliases": []
+    },
+    {
+      "id": "panel-cut-sheet",
+      "term": "panel cut sheet",
+      "definition": "The manufacturer specification sheet or a clear photo of the rating label that shows the panel's maximum rating.",
+      "aliases": []
+    },
+    {
+      "id": "panel-upgrade",
+      "term": "panel upgrade",
+      "definition": "Replacing a panel with a higher-capacity one so your service can carry more electricity.",
+      "aliases": []
+    },
+    {
+      "id": "second-meter-or-service",
+      "term": "Second meter or service",
+      "definition": "Whether the ADU needs its own meter, its own service, or both. A meter is not the same as a service.",
+      "aliases": []
+    },
+    {
+      "id": "service-lateral",
+      "term": "service lateral",
+      "definition": "The wire that carries power from the utility line to your meter or panel.",
+      "aliases": []
+    },
+    {
+      "id": "service-upgrade",
+      "term": "Service upgrade",
+      "definition": "A change to the electrical connection or capacity serving the property. It is not the same as replacing only the electrical panel.",
+      "aliases": []
+    },
+    {
+      "id": "single-line-diagram",
+      "term": "single-line diagram (SLD)",
+      "definition": "A simple diagram showing how power flows from the service to your equipment. Usually prepared by an electrician.",
+      "aliases": []
+    },
+    {
+      "id": "site-plan",
+      "term": "site plan",
+      "definition": "A drawing or aerial view of your property showing where the meter is, with a north arrow and street names.",
+      "aliases": []
+    },
+    {
+      "id": "typical-residential-panel-sizes",
+      "term": "Typical residential panel sizes",
+      "definition": "Common residential main-breaker ratings include 100, 125, 150, and 200 amps. A common size does not determine what a specific project needs.",
+      "aliases": []
+    },
+    {
+      "id": "underground-service",
+      "term": "Underground service",
+      "definition": "An electrical service path that reaches the property below ground rather than through visible overhead wires.",
+      "aliases": []
+    },
+    {
+      "id": "unique-address",
+      "term": "unique address",
+      "definition": "A separate street address assigned by your city or county, sometimes required before a second meter or service can be set.",
+      "aliases": []
+    }
+  ],
+  "helpfulDefinitions": {
+    "termDisclosure": "Show glossary terms contextually when technical jargon appears.",
+    "contextDefinitions": "Display plain-language definitions inline or in a glossary panel when customers need clarification."
+  },
+  "uiReferences": [
+    "termDisclosure()",
+    "contextDefinitions()",
+    "GLOSSARY",
+    "open-glossary",
+    "term-button",
+    "term-definition"
+  ],
+  "schema": "project-navigator-glossary-v2"
+}

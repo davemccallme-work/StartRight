@@ -1,0 +1,379 @@
+/* V45.8.2: one navigation pattern at every screen size — a hamburger button (index.html, beside the
+   Project Navigator brand icon in header.app) opens a slide-in drawer with the full topic +
+   destination tree (components/project-navigation.js's renderDrawerContent()). The old desktop-only
+   horizontal topic row + dropdown mega-menu panel + "Keep this list open" pin are retired entirely
+   (not just hidden — their render functions no longer exist), mirroring the drawer this feature
+   already built for mobile rather than maintaining two different desktop/mobile implementations.
+   Reuses existing design tokens (--card, --line, --line-strong, --pg, --pg-dark, --tint, --ink,
+   --muted, --surface, --shadow-md) rather than introducing new ones.
+
+   nav.topicbar is sticky, pinned under header.app via --project-nav-header-offset, a custom property
+   measured and kept current by components/project-navigation.js's measureHeaderOffset() (never a
+   guessed px value — see that file's comment for why). It now only ever holds the mobile-only sticky
+   Level 2 chip row (below) — on wide screens it is empty and collapses to ~0 height, which is fine. */
+:root {
+  --project-nav-header-offset: 0px;
+}
+
+nav.topicbar {
+  position: sticky;
+  top: var(--project-nav-header-offset);
+  /* 2026-10-06: was z-index:40, exactly equal to header.app's own z-index:40. Equal z-index between
+     sibling stacking contexts resolves by DOM order, and topicbar comes right after header.app in
+     the markup — so topicbar's opaque background painted OVER header.app's entire box whenever the
+     two visually overlapped, including the save-status dot's hover tooltip (components.css,
+     z-index:50 — but that z-index only governs ordering among header.app's OWN descendants, not
+     against this separate sibling). Lowered below header.app's so the header (and anything that
+     drops down out of it, like this tooltip) always wins. */
+  z-index: 30;
+  background: #fff;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  nav.topicbar {
+    scroll-margin-top: var(--project-nav-header-offset);
+  }
+}
+
+.project-nav__destination-list,
+.project-nav__nested-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Stacked, not tiled: a growing list of destinations (the Fast Facts and Your guidance topics can
+   both run well past a dozen items) reads better as rows that wrap their own label across 1-2 lines
+   than as many narrow auto-fit cards squeezing every label down to 1-2 words. */
+.project-nav__destination-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.project-nav__destination {
+  display: block;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.project-nav__destination:hover {
+  border-color: var(--line);
+  background: var(--surface);
+}
+
+.project-nav__destination[aria-current="location"] {
+  border-color: var(--pg);
+  background: var(--tint);
+  box-shadow: inset 3px 0 0 var(--pg);
+}
+
+.project-nav__group {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.project-nav__group-heading {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+}
+
+.project-nav__destination-item--nested .project-nav__destination {
+  padding-inline-start: 18px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+/* ===================== Universal: hamburger button + slide-in drawer, every screen size =====
+   The hamburger lives in index.html, first child of header.app's .hrow, immediately beside the
+   Project Navigator brand icon. Drawer/backdrop mirror core/advisor.js's .pn-drawer/.pn-backdrop
+   mechanics under new class names (see components/project-navigation.js's module header comment) so
+   they never collide with the advisor drawer — anchored left, not right. ===================== */
+.project-nav-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 899;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(15, 23, 42, .45);
+  transition: opacity .22s ease;
+}
+
+.project-nav-drawer-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.project-nav-drawer {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: min(320px, 86vw);
+  z-index: 900;
+  background: var(--card);
+  box-shadow: var(--shadow-md);
+  overflow-y: auto;
+  transform: translateX(-102%);
+  transition: transform .22s ease;
+}
+
+.project-nav-drawer.open {
+  transform: translateX(0);
+}
+
+body.project-nav-drawer-open {
+  overflow: hidden;
+}
+
+.project-nav__drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.project-nav__drawer-head h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.project-nav__drawer-list {
+  margin: 0;
+  padding: 8px 0 28px;
+  list-style: none;
+}
+
+.project-nav__drawer-topic {
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.project-nav__drawer-topic-trigger {
+  display: flex;
+  width: 100%;
+  min-height: 52px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 750;
+  text-align: left;
+  cursor: pointer;
+}
+
+.project-nav__drawer-topic-trigger.is-current {
+  background: var(--tint);
+  box-shadow: inset 4px 0 0 var(--pg);
+}
+
+.project-nav__drawer-topic-trigger:disabled {
+  color: var(--muted);
+  cursor: default;
+}
+
+.project-nav__drawer-topic-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--pg-dark);
+}
+
+.project-nav__drawer-topic-state {
+  margin-inline-start: auto;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.project-nav__drawer-topic .project-nav__destination-list {
+  padding: 4px 16px 14px 48px;
+}
+
+/* ===================== Mobile-only: fixed bottom icon tab bar + always-visible sticky Level 2 bar.
+   Both display:none above the 1023px breakpoint — a bottom tab bar is not a desktop convention, and
+   a wide screen has no reason to also dock a chip row under the header when the drawer already covers
+   the same ground. ===================== */
+:root {
+  --project-nav-bottom-bar-height: calc(60px + env(safe-area-inset-bottom));
+}
+
+.project-nav-bottombar,
+.project-nav__sticky {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  /* Sticky Level 2 bar: mounted inside #stepper by components/project-navigation.js, riding
+     nav.topicbar's existing position:sticky. No open/close state — permanent chrome whenever the
+     current topic has destinations, nothing hidden until explicitly tapped. */
+  .project-nav__sticky {
+    display: block;
+    padding: 8px 0;
+  }
+
+  .project-nav__sticky-list {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin: 0;
+    padding: 0 4px 4px;
+    list-style: none;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .project-nav__sticky-list .project-nav__destination-item {
+    flex: 0 0 auto;
+  }
+
+  .project-nav__sticky-list .project-nav__destination {
+    min-height: 40px;
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    white-space: nowrap;
+  }
+
+  .project-nav__sticky-list .project-nav__destination[aria-current="location"] {
+    border-color: var(--pg);
+    background: var(--tint);
+    box-shadow: none;
+  }
+
+  /* Fixed bottom icon tab bar — the 5 Level 1 topics. */
+  .project-nav-bottombar {
+    display: block;
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 40;
+    background: #fff;
+    border-top: 1px solid var(--line-soft);
+    box-shadow: 0 -2px 10px rgba(15, 23, 42, .06);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .project-nav__bottombar-inner {
+    display: flex;
+    align-items: stretch;
+    height: 60px;
+  }
+
+  .project-nav__bottombar-item {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.68rem;
+    font-weight: 750;
+    padding: 6px 2px;
+    cursor: pointer;
+  }
+
+  .project-nav__bottombar-item.is-current {
+    color: var(--pg-dark);
+  }
+
+  .project-nav__bottombar-item:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
+
+  .project-nav__bottombar-icon svg {
+    display: block;
+  }
+
+  .project-nav__bottombar-label {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Raise other bottom-anchored chrome above the fixed tab bar — see module header comment for the
+     full list this was checked against. */
+  .pn-launch {
+    bottom: calc(var(--project-nav-bottom-bar-height) + 12px) !important;
+  }
+
+  .toast {
+    bottom: calc(var(--project-nav-bottom-bar-height) + 12px) !important;
+  }
+
+  .question-deck__controls {
+    bottom: calc(var(--project-nav-bottom-bar-height) + max(10px, env(safe-area-inset-bottom))) !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .project-nav__drawer-topic-trigger.is-current,
+  .project-nav__destination[aria-current="location"] {
+    border: 2px solid Highlight;
+  }
+
+  .project-nav__bottombar-item.is-current {
+    border: 2px solid Highlight;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-nav *,
+  .project-nav-drawer,
+  .project-nav-drawer-backdrop {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Retire the three screen-level "On this page" left nav panes the mega menu now supersedes
+   (screens/screen-understanding.js's .understanding-nav, screens/screen-summary.js's
+   .summary-section-nav, components/fast-facts-workspace.js's .ff-nav). Their markup- and
+   content-generating functions are left untouched — and still exercised by their own existing
+   tests — only the now-redundant chrome is hidden and its reading pane widened to full width.
+   core/events.js stops mounting each pane's own interactive controller (scrollspy, its own
+   click/keydown handling) alongside this, so no hidden/unreachable controls are left wired up. */
+.understanding-nav,
+.summary-section-nav,
+.summary-section-nav-spacer,
+.ff-nav {
+  display: none !important;
+}
+
+.understanding-workspace-frame,
+.ff-workspace {
+  display: block !important;
+}
+
+.understanding-reading-pane,
+.ff-reading-pane {
+  min-width: 0;
+}
