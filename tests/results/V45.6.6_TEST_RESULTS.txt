@@ -1,0 +1,47 @@
+V45.6.6 shadow governance validation
+
+node build.js --check exit 0
+✓ guardrail check PASS (no output written)
+
+node --test tests/v45.6.6-governance.test.js exit 0
+[32m✔ governed diagnostics are ephemeral, legacy output unchanged, failure isolated [90m(75.47233ms)[39m[39m
+[32m✔ UI, visual rules and export modules have no governed-shadow dependency [90m(1.786523ms)[39m[39m
+[34mℹ tests 12[39m
+[34mℹ suites 0[39m
+[34mℹ pass 12[39m
+[34mℹ fail 0[39m
+[34mℹ cancelled 0[39m
+[34mℹ skipped 0[39m
+[34mℹ todo 0[39m
+[34mℹ duration_ms 367.292267[39m
+
+node --test tests/v45.6.5-canonical-shadow.test.js exit 0
+des shadow conclusions [90m(7.463455ms)[39m[39m
+[32m✔ shadow error does not break legacy recomputation [90m(43.204898ms)[39m[39m
+[32m✔ UI and visual rules do not reference new shadow [90m(2.866217ms)[39m[39m
+[34mℹ tests 12[39m
+[34mℹ suites 0[39m
+[34mℹ pass 12[39m
+[34mℹ fail 0[39m
+[34mℹ cancelled 0[39m
+[34mℹ skipped 0[39m
+[34mℹ todo 0[39m
+[34mℹ duration_ms 314.517114[39m
+
+node --test tests/v45.6.1-post-q1.test.js exit 0
+32m✔ governed diagnostics are ephemeral, legacy output unchanged, failure isolated [90m(35.383093ms)[39m[39m
+[32m✔ UI, visual rules and export modules have no governed-shadow dependency [90m(4.193737ms)[39m[39m
+[34mℹ tests 52[39m
+[34mℹ suites 0[39m
+[34mℹ pass 52[39m
+[34mℹ fail 0[39m
+[34mℹ cancelled 0[39m
+[34mℹ skipped 0[39m
+[34mℹ todo 0[39m
+[34mℹ duration_ms 2206.257619[39m
+
+node build.js --out exit 0
+✓ build OK
+  version : V45.6.6
+  output  : /mnt/data/project-navigator_V45.6.6.html
+  guardrail: PASS (inventory + V44.49.62 canonical glossary)

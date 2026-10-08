@@ -1,0 +1,10 @@
+'use strict';
+const assert=require('assert');
+global.window=global;require('../data/document-guidance-catalog.js');require('../core/document-guidance-engine.js');
+const E=global.DocumentGuidanceEngine;
+let m=E.evaluate('panel',{panelIntent:'Increase the panel capacity',panelServiceMethod:'Overhead service',panelExistingCapacity:'100 amps',panelProposedCapacity:'400 amps or more'});
+assert(m.groups.prepare.some(x=>x.id==='PHOTO-WEATHERHEAD'));assert(m.groups.prepare.some(x=>x.id==='PHOTO-SPAN'));assert(m.groups.conditional.some(x=>x.id==='DOC-CUTSHEET'));assert(m.groups.conditional.some(x=>x.id==='DOC-SLD'));assert(m.groups.conditional.some(x=>x.id==='DOC-ELEVATION'));
+m=E.evaluate('panel',{panelIntent:'Replace the panel at the same capacity',panelServiceMethod:'Underground service',panelExistingCapacity:'100 amps'});assert(!m.groups.prepare.some(x=>x.id==='DOC-LOAD'));assert(!m.groups.prepare.some(x=>x.id==='PHOTO-WEATHERHEAD'));
+m=E.evaluate('panel',{panelIntent:'Increase the panel capacity',panelServiceMethod:'I’m not sure'});assert(m.groups.confirm.some(x=>x.id==='PHOTO-WEATHERHEAD'));
+m=E.evaluate('adu',{aduServiceMethod:'Underground',aduAdjacentService:'Yes, next to existing equipment'});assert(m.groups.prepare.some(x=>x.id==='PHOTO-ADJACENT'));assert(m.groups.conditional.some(x=>x.id==='DOC-CIVIL'));
+console.log('v45.6.9.3 document guidance tests passed');
