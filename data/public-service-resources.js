@@ -1,0 +1,13 @@
+/* V44.49.59 GOVERNED PUBLIC SERVICE RESOURCES
+   Customer-safe public destinations only. Internal SharePoint/AIM links are prohibited. */
+'use strict';
+var PUBLIC_SERVICE_RESOURCES={
+  buildingRenovation:{id:'PGE-PUBLIC-BUILDING-RENOVATION',title:'PG&E Building and Renovation services',url:'https://www.pge.com/en/account/service-requests/building-and-renovation.html',topics:['service planning','building','renovation','added load','formal process'],customerSafe:true,linkOnly:true},
+  residentialResources:{id:'PGE-PUBLIC-RESIDENTIAL-RESOURCES',title:'PG&E Residential Project Resources',url:'https://www.pge.com/en/account/service-requests/building-and-renovation/residential-project-resources.html',topics:['residential projects','adu','panel upgrade','project guides'],customerSafe:true,linkOnly:true},
+  panelRoadmap:{id:'PGE-PUBLIC-PANEL-ROADMAP',title:'PG&E electrical panel upgrade roadmap',url:'https://www.pge.com/assets/pge/docs/clean-energy/building-electrification/pge-electrical-panel-upgrade.pdf',topics:['panel upgrade','load assessment','service change'],customerSafe:true,linkOnly:true},
+  increasedDemand:{id:'PGE-PUBLIC-INCREASED-DEMAND',title:'PG&E guidance for increasing electrical usage',url:'https://help.pge.com/s/article/I-will-be-using-more-power-soon-and-need-to-let-PGE-know-What-are-the-steps-to-do-that-and-how-much-does-it-cost',topics:['added load','electrical demand','licensed electrician'],customerSafe:true,linkOnly:true},
+  greenbook:{id:'PGE-PUBLIC-GREENBOOK',title:'PG&E Greenbook Manual',url:'https://pge.com/assets/pge/docs/account/service-requests/greenbook_manual.pdf',topics:['technical service requirements','electrician','contractor','designer'],customerSafe:true,linkOnly:true,doNotInterpret:true},
+  yourProjects:{id:'PGE-PUBLIC-YOUR-PROJECTS',title:'PG&E Your Projects',url:'https://www.yourprojects-pge.com',topics:['formal application','manage project'],customerSafe:true,linkOnly:true,requiresBoundary:true,boundary:'Opening Your Projects is a separate formal step. Project Navigator answers are not submitted or transferred automatically.'}
+};
+function publicServiceResourcesForTopics(topics){var wanted=(topics||[]).map(function(x){return String(x).toLowerCase();});return Object.keys(PUBLIC_SERVICE_RESOURCES).map(function(k){return PUBLIC_SERVICE_RESOURCES[k];}).filter(function(r){return r.customerSafe&&r.topics.some(function(t){return wanted.some(function(w){return t.indexOf(w)>=0||w.indexOf(t)>=0;});});});}
+if(typeof module!=='undefined'&&module.exports)module.exports={PUBLIC_SERVICE_RESOURCES:PUBLIC_SERVICE_RESOURCES,publicServiceResourcesForTopics:publicServiceResourcesForTopics};

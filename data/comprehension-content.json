@@ -1,0 +1,402 @@
+{
+  "schema": "draft5-comprehension-v2",
+  "placementClasses": [
+    "question_help",
+    "load_context_help",
+    "conditional_document_guidance",
+    "preparation_stage_guidance",
+    "summary_reference",
+    "glossary_only"
+  ],
+  "records": [
+    {
+      "id": "adu-type",
+      "displayTerm": "ADU type",
+      "aliases": [
+        "detached ADU",
+        "attached ADU",
+        "Junior ADU",
+        "JADU"
+      ],
+      "tier": 1,
+      "definition": "ADU type describes whether the unit is detached, attached to the home, or a Junior ADU within the home.",
+      "whyAsked": "The type can affect which address, meter, permitting, and service questions need confirmation.",
+      "findIt": "Review the permit description or ask the city or county planning department or the project contractor.",
+      "placement": "question_help",
+      "applicableQuestionIds": [
+        "aduType"
+      ],
+      "applicableProjectTypes": [
+        "adu"
+      ],
+      "triggerRuleIds": [],
+      "stagePresentation": "always",
+      "customerVisibility": "visible",
+      "relatedTermIds": [
+        "permit-authority",
+        "electric-service"
+      ],
+      "recoveryOptions": [
+        "not-sure",
+        "skip",
+        "ask-permit-authority"
+      ],
+      "sourceClass": "approved-project-guidance",
+      "status": "human-review-required"
+    },
+    {
+      "id": "electric-service",
+      "displayTerm": "Electric service",
+      "aliases": [
+        "electrical service",
+        "service connection"
+      ],
+      "tier": 1,
+      "definition": "Electric service is the connection that delivers electricity from PG&E equipment to the property.",
+      "whyAsked": "The service arrangement can affect which project questions, photos, and documents may be relevant.",
+      "findIt": "Look at whether visible wires reach the property from a pole or whether the route is below ground.",
+      "placement": "question_help",
+      "applicableQuestionIds": [
+        "panelServiceMethod",
+        "aduMeterServiceIntent",
+        "aduServiceMethod",
+        "energy"
+      ],
+      "applicableProjectTypes": [
+        "adu",
+        "panel"
+      ],
+      "triggerRuleIds": [],
+      "stagePresentation": "always",
+      "customerVisibility": "visible",
+      "relatedTermIds": [
+        "overhead-service",
+        "underground-service"
+      ],
+      "recoveryOptions": [
+        "not-sure",
+        "skip"
+      ],
+      "sourceClass": "approved-project-guidance",
+      "status": "human-review-required"
+    },
+    {
+      "id": "electrical-panel",
+      "displayTerm": "Electrical panel",
+      "aliases": [
+        "electric panel",
+        "panel"
+      ],
+      "tier": 1,
+      "definition": "The electrical panel, or breaker box, distributes electricity to circuits in the home and contains the circuit breakers.",
+      "whyAsked": "The planned work may affect the existing panel, but a load calculation and field review are needed before deciding what changes apply.",
+      "findIt": "The panel is commonly located on an exterior wall, in a garage, or in a utility area.",
+      "safetyNote": "Do not remove the panel cover. Ask a licensed electrician for help identifying equipment.",
+      "placement": "question_help",
+      "applicableQuestionIds": [
+        "panelIntent",
+        "panelExistingCapacity",
+        "panelCapacityCompare"
+      ],
+      "applicableProjectTypes": [
+        "panel"
+      ],
+      "triggerRuleIds": [],
+      "stagePresentation": "always",
+      "customerVisibility": "visible",
+      "relatedTermIds": [
+        "main-breaker",
+        "panel-rating",
+        "electric-service"
+      ],
+      "recoveryOptions": [
+        "not-sure",
+        "skip",
+        "ask-electrician"
+      ],
+      "sourceClass": "approved-project-guidance",
+      "status": "human-review-required"
+    },
+    {
+      "id": "load-calculation",
+      "displayTerm": "Load calculation",
+      "aliases": [
+        "electrical load calculation",
+        "code-based load calculation"
+      ],
+      "tier": 1,
+      "definition": "A load calculation is a licensed electrician's calculation of how much electrical power the property and planned equipment may need.",
+      "whyAsked": "The calculation helps a licensed electrician evaluate whether planned equipment may fit the existing panel and service.",
+      "findIt": "A licensed electrician usually prepares the calculation using the property's equipment and planned electrical loads.",
+      "placement": "load_context_help",
+      "applicableQuestionIds": [
+        "panelLoads",
+        "energy"
+      ],
+      "applicableProjectTypes": [
+        "adu",
+        "panel"
+      ],
+      "triggerRuleIds": [],
+      "stagePresentation": "always",
+      "customerVisibility": "visible",
+      "relatedTermIds": [
+        "load-sheet",
+        "panel-rating",
+        "electric-service"
+      ],
+      "recoveryOptions": [
+        "not-sure",
+        "skip",
+        "ask-electrician"
+      ],
+      "sourceClass": "approved-project-guidance",
+      "status": "human-review-required"
+    },
+    {
+      "id": "main-breaker",
+      "displayTerm": "Main breaker",
+      "aliases": [
+        "main breaker rating",
+        "main switch"
+      ],
+      "tier": 1,
+      "definition": "The main breaker is the large switch that controls electricity for the whole home.",
+      "whyAsked": "The breaker rating can help a licensed electrician understand the home's existing capacity and whether more review may be useful.",
+      "findIt": "The rating is often printed on the largest breaker.",
+      "safetyNote": "Do not remove the panel cover. Ask a licensed electrician if the rating is unclear.",
+      "placement": "question_help",
+      "applicableQuestionIds": [
+        "panelExistingCapacity",
+        "panelCapacityCompare"
+      ],
+      "applicableProjectTypes": [
+        "panel"
+      ],
+      "triggerRuleIds": [],
+      "stagePresentation": "always",
+      "customerVisibility": "visible",
+      "relatedTermIds": [
+        "panel-rating",
+        "load-calculation"
+      ],
+      "recoveryOptions": [
+        "not-sure",
+        "skip",
+        "ask-electrician"
+      ],
+      "sourceClass": "approved-project-guidance",
+      "status": "human-review-required"
+    },
+    {
+      "id": "overhead-service",
+      "displayTerm": "Overhead service",
+      "aliases": [
+        "overhead electrical service"
+      ],
+      "tier": 1,
+      "definition": "Overhead service reaches the property through visible wires supported by poles.",
+      "whyAsked": "An overhead route can call for different photos and site information than an underground route.",
+      "findIt": "From a safe location, look for visible wires running from a utility pole toward the building.",
+      "safetyNote": "Do not approach, touch, or work near electrical wires or utility equipment.",
+      "placement": "question_help",
+      "applicableQuestionIds": [
+        "panelServiceMethod",
+        "aduServiceMethod"
+      ],
+      "applicableProjectTypes": [
+        "adu",
+        "panel"
+      ],
+      "triggerRuleIds": [],
+      "stagePresentation": "always",
+      "customerVisibility": "visible",
+      "relatedTermIds": [
+        "electric-service",
+        "underground-service",
+        "service-span"
+      ],
+      "recoveryOptions": [
+        "not-sure",
+        "skip"
+      ],
+      "sourceClass": "approved-project-guidance",
+      "status": "human-review-required"
+    },
+    {
+      "id": "panel-cut-sheet",
+      "displayTerm": "Panel cut sheet",
+      "aliases": [
+        "panel specification sheet",
+        "manufacturer spec sheet"
+      ],
+      "tier": 1,
+      "definition": "A panel cut sheet is the manufacturer's specification sheet showing the panel's ratings and equipment details.",
+      "whyAsked": "The document may help confirm equipment information for higher-amperage or multi-meter layouts.",
+      "findIt": "Ask the equipment supplier or electrician for the manufacturer's specification sheet, or use a clear photo of an allowed rating label when applicable.",
+      "placement": "conditional_document_guidance",
+      "applicableQuestionIds": [],
+      "applicableProjectTypes": [
+        "adu",
+        "panel"
+      ],
+      "triggerRuleIds": [
+        "PANEL-CUT-SHEET-320-OR-MULTIMETER"
+      ],
+      "stagePresentation": {
+        "Just exploring": "awareness",
+        "Talking with a contractor": "question_to_ask",
+        "Working on permits": "preparation_guidance",
+        "Ready to begin soon": "prominent_if_applicable"
+      },
+      "customerVisibility": "conditional",
+      "relatedTermIds": [
+        "panel-rating"
+      ],
+      "recoveryOptions": [
+        "ask-electrician"
+      ],
+      "sourceClass": "approved-project-guidance",
+      "status": "conditional-preparation-guidance"
+    },
+    {
+      "id": "panel-rating",
+      "displayTerm": "Panel rating",
+      "aliases": [
+        "panel capacity",
+        "panel size"
+      ],
+      "tier": 1,
+      "definition": "The panel rating is the maximum electrical capacity shown on the panel's label.",
+      "whyAsked": "The rating provides one input for comparing the existing equipment with the project being considered.",
+      "findIt": "Look for a manufacturer label inside the panel door.",
+      "safetyNote": "Do not remove covers to find the label. Ask a licensed electrician if the label is unclear.",
+      "placement": "question_help",
+      "applicableQuestionIds": [
+        "panelExistingCapacity",
+        "panelCapacityCompare",
+        "panelProposedCapacity"
+      ],
+      "applicableProjectTypes": [
+        "panel"
+      ],
+      "triggerRuleIds": [],
+      "stagePresentation": "always",
+      "customerVisibility": "visible",
+      "relatedTermIds": [
+        "main-breaker",
+        "electrical-panel"
+      ],
+      "recoveryOptions": [
+        "not-sure",
+        "skip",
+        "ask-electrician"
+      ],
+      "sourceClass": "approved-project-guidance",
+      "status": "human-review-required"
+    },
+    {
+      "id": "permit-authority",
+      "displayTerm": "Permit authority",
+      "aliases": [
+        "Authority Having Jurisdiction",
+        "AHJ",
+        "city or county permit office"
+      ],
+      "tier": 1,
+      "definition": "The permit authority is the city or county office responsible for permits and inspections for the project.",
+      "whyAsked": "Local permits, address assignments, and inspection releases can affect which information needs confirmation and when work can proceed.",
+      "findIt": "Check the project's permit documents or contact the city or county building or planning department.",
+      "placement": "question_help",
+      "applicableQuestionIds": [
+        "aduType",
+        "aduAddressStatus"
+      ],
+      "applicableProjectTypes": [
+        "adu"
+      ],
+      "triggerRuleIds": [],
+      "stagePresentation": "always",
+      "customerVisibility": "visible",
+      "relatedTermIds": [],
+      "recoveryOptions": [
+        "not-sure",
+        "skip",
+        "ask-permit-authority"
+      ],
+      "sourceClass": "approved-project-guidance",
+      "status": "human-review-required"
+    },
+    {
+      "id": "single-line-diagram",
+      "displayTerm": "Single-line diagram",
+      "aliases": [
+        "SLD",
+        "one-line diagram"
+      ],
+      "tier": 1,
+      "definition": "A single-line diagram is a simplified drawing showing how major electrical equipment connects.",
+      "whyAsked": "The drawing may be requested for larger services or multi-meter layouts.",
+      "findIt": "A licensed electrician or electrical designer usually prepares it; a hand-drawn version may be acceptable only when the applicable process allows it.",
+      "placement": "conditional_document_guidance",
+      "applicableQuestionIds": [],
+      "applicableProjectTypes": [
+        "adu",
+        "panel"
+      ],
+      "triggerRuleIds": [
+        "PANEL-SLD-400-OR-MULTIMETER"
+      ],
+      "stagePresentation": {
+        "Just exploring": "awareness",
+        "Talking with a contractor": "question_to_ask",
+        "Working on permits": "preparation_guidance",
+        "Ready to begin soon": "prominent_if_applicable"
+      },
+      "customerVisibility": "conditional",
+      "relatedTermIds": [
+        "electric-service",
+        "panel-rating"
+      ],
+      "recoveryOptions": [
+        "ask-electrician"
+      ],
+      "sourceClass": "approved-project-guidance",
+      "status": "conditional-preparation-guidance"
+    },
+    {
+      "id": "underground-service",
+      "displayTerm": "Underground service",
+      "aliases": [
+        "underground electrical service"
+      ],
+      "tier": 1,
+      "definition": "Underground service reaches the property through electrical equipment and wiring below ground.",
+      "whyAsked": "An underground route can call for different site questions than an overhead route.",
+      "findIt": "If no service wires are visible overhead, the service may be underground, but the arrangement may still need confirmation.",
+      "safetyNote": "Do not open utility equipment or dig to locate electrical facilities.",
+      "placement": "question_help",
+      "applicableQuestionIds": [
+        "panelServiceMethod",
+        "aduServiceMethod"
+      ],
+      "applicableProjectTypes": [
+        "adu",
+        "panel"
+      ],
+      "triggerRuleIds": [],
+      "stagePresentation": "always",
+      "customerVisibility": "visible",
+      "relatedTermIds": [
+        "electric-service",
+        "overhead-service"
+      ],
+      "recoveryOptions": [
+        "not-sure",
+        "skip"
+      ],
+      "sourceClass": "approved-project-guidance",
+      "status": "human-review-required"
+    }
+  ]
+}

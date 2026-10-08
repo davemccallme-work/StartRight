@@ -1,0 +1,10 @@
+/* V45.7.4 governed glossary additions. Only publicationStatus=approved-for-prototype is registered
+   at runtime. Utility/Civil Plan remains a candidate until an authoritative definition is approved. */
+(function(root){'use strict';var rows=[
+{id:'accessory-dwelling-unit-v457',term:'Accessory Dwelling Unit (ADU)',definition:'A housing unit recognized under applicable state and local rules and located on a property with a proposed or existing primary residence. “ADU” is a legal and regulatory classification, not simply a description of a backyard structure.',aliases:['ADU','Accessory Dwelling Unit'],sourceRef:'TD-9100P-17-JA01 Rev. 2; applicable state/local ADU authority',reviewStatus:'approved-for-prototype',publicationStatus:'approved-for-prototype'},
+{id:'junior-accessory-dwelling-unit-v457',term:'Junior Accessory Dwelling Unit (JADU)',definition:'A unit no more than 500 square feet and contained entirely within a single-family residence. Under Electric Rule 18, a JADU cannot be separately metered and is not required to have a separate address. This metering rule does not by itself determine whether another service connection is available.',aliases:['JADU','Junior ADU','Junior Accessory Dwelling Unit'],sourceRef:'Electric Rule 18 Sheet 3; TD-9100P-17-JA01 Rev. 2',reviewStatus:'approved-for-prototype',publicationStatus:'approved-for-prototype'},
+{id:'utility-civil-plan-candidate',term:'Utility/Civil Plan',definition:'A plan that may show water, sewer or drainage, irrigation, bioswales, and other site infrastructure not fully shown on a basic site plan.',aliases:['Civil plan','Utility plan','Utility/Civil Plan'],sourceRef:'Prototype review backlog candidate',reviewStatus:'human-review-required',publicationStatus:'candidate-not-published'}
+];
+function published(){return rows.filter(function(x){return x.publicationStatus==='approved-for-prototype'&&x.reviewStatus==='approved-for-prototype';});}
+root.V457_GLOSSARY_ADDITIONS={version:'45.7.4',rows:rows,published:published};if(typeof module!=='undefined'&&module.exports)module.exports=root.V457_GLOSSARY_ADDITIONS;
+})(typeof window!=='undefined'?window:this);

@@ -1,0 +1,6 @@
+/* V45.7.4 governed glossary registration, loaded after the canonical glossary controller.
+   2026-10-03 (P0.1): a same-term match used to be treated as "already covered" and skipped, which
+   silently kept an older, incomplete definition (e.g. JADU with no metering rule) in the rendered
+   glossary list even though these V457 rows are meant to supersede it. Same-term/id matches now
+   replace the existing entry's term/definition/aliases instead of being skipped. */
+(function(root){'use strict';var src=root.V457_GLOSSARY_ADDITIONS;if(!src)return;var rows=src.published(),entries=root.GlossaryController&&root.GlossaryController.entries,map=root.GLOSSARY||(root.GLOSSARY={});rows.forEach(function(x){var existing=Array.isArray(entries)&&entries.find(function(e){return e.id===x.id||String(e.term).toLowerCase()===String(x.term).toLowerCase();});if(existing){existing.term=x.term;existing.definition=x.definition;existing.aliases=(x.aliases||[]).slice();}else if(Array.isArray(entries))entries.push({id:x.id,term:x.term,definition:x.definition,aliases:x.aliases.slice()});map[x.term]=x.definition;(x.aliases||[]).forEach(function(a){map[a]=x.definition;});});})(typeof window!=='undefined'?window:this);
